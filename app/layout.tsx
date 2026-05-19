@@ -1,31 +1,5 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, Inter, JetBrains_Mono, Vazirmatn } from "next/font/google";
 import "./globals.css";
-
-const display = Cormorant_Garamond({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-display",
-  display: "swap",
-});
-
-const sans = Inter({
-  subsets: ["latin"],
-  variable: "--font-sans",
-  display: "swap",
-});
-
-const mono = JetBrains_Mono({
-  subsets: ["latin"],
-  variable: "--font-mono",
-  display: "swap",
-});
-
-const fa = Vazirmatn({
-  subsets: ["arabic"],
-  variable: "--font-fa",
-  display: "swap",
-});
 
 export const metadata: Metadata = {
   title: "Arman Mohebali — Software Solutions Developer",
@@ -46,8 +20,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${display.variable} ${sans.variable} ${mono.variable} ${fa.variable}`}>
-      <body className="bg-onyx text-ivory antialiased overflow-x-hidden">
+    <html lang="en">
+      <body className="bg-onyx text-ivory antialiased overflow-hidden h-screen w-screen">
         {children}
       </body>
     </html>

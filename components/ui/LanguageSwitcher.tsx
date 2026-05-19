@@ -1,6 +1,6 @@
 "use client";
 
-import type { Locale } from "@/data/i18n";
+import type { Locale } from "@/data/cells";
 
 interface Props {
   locale: Locale;

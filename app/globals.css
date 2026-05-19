@@ -2,6 +2,59 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ============================
+   LOCAL FONTS
+   Place files in: public/fonts/
+   ============================ */
+
+/* Persian — Vazirmatn */
+@font-face {
+  font-family: "Vazirmatn";
+  src: url("/fonts/Vazirmatn-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Vazirmatn";
+  src: url("/fonts/Vazirmatn-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Latin display — Cormorant Garamond (TTF) */
+@font-face {
+  font-family: "Cormorant";
+  src: url("/fonts/CormorantGaramond-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Cormorant";
+  src: url("/fonts/CormorantGaramond-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Latin body — Inter (TTF) */
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --gold: #d4af37;
   --gold-light: #f4e4a3;
@@ -10,27 +63,33 @@
   --onyx-light: #1a1a1a;
   --ivory: #f5f1e8;
   --bronze: #cd7f32;
+
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+  --font-display: "Cormorant", "Inter", serif;
+  --font-fa: "Vazirmatn", system-ui, sans-serif;
+  --font-mono: ui-monospace, "SFMono-Regular", "JetBrains Mono", Menlo, monospace;
 }
 
 * {
   -webkit-tap-highlight-color: transparent;
 }
 
-html {
-  scroll-behavior: smooth;
+html, body {
+  height: 100%;
+  overflow: hidden;
 }
 
 body {
-  background: radial-gradient(ellipse at top, #1a1a1a 0%, #0a0a0a 50%, #050505 100%);
-  min-height: 100vh;
+  background: radial-gradient(ellipse at top, #161616 0%, #0a0a0a 55%, #030303 100%);
+  font-family: var(--font-sans);
 }
 
 body[dir="rtl"] {
-  font-family: var(--font-fa), sans-serif;
+  font-family: var(--font-fa);
 }
 
 body[dir="ltr"] {
-  font-family: var(--font-sans), sans-serif;
+  font-family: var(--font-sans);
 }
 
 ::selection {
@@ -64,15 +123,11 @@ body[dir="ltr"] {
 }
 
 @keyframes shimmer {
-  0%, 100% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
 }
 
-/* Premium glass panel */
+/* Glass panels */
 .glass {
   background: rgba(20, 20, 20, 0.6);
   backdrop-filter: blur(20px) saturate(180%);
@@ -93,7 +148,6 @@ body[dir="ltr"] {
     inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
-/* Gold border glow */
 .gold-glow {
   box-shadow:
     0 0 20px rgba(212, 175, 55, 0.2),
@@ -112,7 +166,6 @@ body[dir="ltr"] {
   transform: translateY(-2px);
 }
 
-/* Chess pattern background */
 .chess-bg {
   background-image:
     linear-gradient(45deg, rgba(212, 175, 55, 0.03) 25%, transparent 25%),
@@ -123,73 +176,29 @@ body[dir="ltr"] {
   background-position: 0 0, 0 20px, 20px -20px, -20px 0;
 }
 
-/* Ornamental divider */
-.divider {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 1px;
-  width: 100%;
-  background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.4), transparent);
-}
-.divider::before {
-  content: "♔";
-  position: absolute;
-  background: var(--onyx);
-  padding: 0 1rem;
-  color: var(--gold);
-  font-size: 1rem;
-}
-
-/* Premium card hover */
-.premium-card {
-  position: relative;
-  overflow: hidden;
-  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-}
-.premium-card::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.08), transparent);
-  transition: left 0.7s ease;
-}
-.premium-card:hover::before {
-  left: 100%;
-}
-
-/* RTL flip helper */
 [dir="rtl"] .flip-rtl {
   transform: scaleX(-1);
 }
 
-/* Hide outline by default, show on keyboard focus */
-*:focus {
-  outline: none;
-}
+*:focus { outline: none; }
 *:focus-visible {
   outline: 2px solid var(--gold);
   outline-offset: 2px;
 }
 
-/* Hero text style */
 .hero-title {
-  font-family: var(--font-display), serif;
+  font-family: var(--font-display);
   letter-spacing: -0.02em;
   font-weight: 500;
   line-height: 1;
 }
 
 [dir="rtl"] .hero-title {
-  font-family: var(--font-fa), sans-serif;
+  font-family: var(--font-fa);
   letter-spacing: 0;
+  font-weight: 700;
 }
 
-/* Premium button */
 .btn-gold {
   position: relative;
   display: inline-flex;
@@ -237,41 +246,92 @@ body[dir="ltr"] {
   box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
 }
 
-/* Section heading style */
 .section-heading {
-  font-family: var(--font-display), serif;
-  font-weight: 400;
+  font-family: var(--font-display);
+  font-weight: 500;
   letter-spacing: -0.01em;
   line-height: 1.1;
 }
 [dir="rtl"] .section-heading {
-  font-family: var(--font-fa), sans-serif;
+  font-family: var(--font-fa);
+  font-weight: 700;
 }
 
-/* Animated gold border */
-.gold-border {
+.premium-card {
   position: relative;
+  overflow: hidden;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
-.gold-border::after {
+.premium-card::before {
   content: "";
   position: absolute;
-  inset: 0;
-  padding: 1px;
-  border-radius: inherit;
-  background: linear-gradient(135deg, rgba(212, 175, 55, 0.5), rgba(212, 175, 55, 0.1), rgba(212, 175, 55, 0.5));
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  pointer-events: none;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.08), transparent);
+  transition: left 0.7s ease;
 }
+.premium-card:hover::before { left: 100%; }
 
-/* Loading dots */
 @keyframes loadingDot {
   0%, 80%, 100% { opacity: 0.3; }
   40% { opacity: 1; }
 }
-.loading-dot {
-  animation: loadingDot 1.4s infinite;
-}
+.loading-dot { animation: loadingDot 1.4s infinite; }
 .loading-dot:nth-child(2) { animation-delay: 0.2s; }
 .loading-dot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes pulseGold {
+  0%, 100% { box-shadow: 0 0 20px rgba(212, 175, 55, 0.3); }
+  50% { box-shadow: 0 0 40px rgba(212, 175, 55, 0.6); }
+}
+.animate-pulse-gold { animation: pulseGold 2s ease-in-out infinite; }
+
+/* 3D card frame inside R3F Html overlay */
+.r3f-card {
+  width: 280px;
+  padding: 16px 18px;
+  border-radius: 4px;
+  background: rgba(10, 10, 10, 0.92);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(212, 175, 55, 0.5);
+  box-shadow:
+    0 20px 50px rgba(0, 0, 0, 0.7),
+    0 0 30px rgba(212, 175, 55, 0.25);
+  color: var(--ivory);
+  pointer-events: auto;
+  transform-origin: bottom center;
+}
+.r3f-card .r3f-card-eyebrow {
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 6px;
+  font-family: var(--font-mono);
+}
+.r3f-card .r3f-card-title {
+  font-size: 22px;
+  font-family: var(--font-display);
+  margin-bottom: 6px;
+}
+.r3f-card .r3f-card-desc {
+  font-size: 12px;
+  line-height: 1.55;
+  color: rgba(245, 241, 232, 0.7);
+}
+.r3f-card .r3f-card-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 10px;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  text-decoration: none;
+}
+.r3f-card .r3f-card-cta:hover {
+  color: var(--gold-light);
+}
