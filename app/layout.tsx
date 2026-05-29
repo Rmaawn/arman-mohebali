@@ -21,7 +21,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="bg-onyx text-ivory antialiased overflow-hidden h-screen w-screen">
+      <body className="bg-onyx text-ivory antialiased overflow-x-hidden">
         {children}
       </body>
     </html>

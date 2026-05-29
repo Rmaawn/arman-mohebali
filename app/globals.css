@@ -74,13 +74,13 @@
   -webkit-tap-highlight-color: transparent;
 }
 
-html, body {
-  height: 100%;
-  overflow: hidden;
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   background: radial-gradient(ellipse at top, #161616 0%, #0a0a0a 55%, #030303 100%);
+  min-height: 100vh;
   font-family: var(--font-sans);
 }
 
