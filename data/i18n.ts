@@ -90,4 +90,9 @@ export const ui = {
 } as const;
 
 export type Locale = "en" | "fa";
-export type UIDict = typeof ui.en;
+export type UIDict = {
+  nav: Record<keyof typeof ui.en.nav, string>;
+  sections: Record<keyof typeof ui.en.sections, string>;
+  chess: Record<keyof typeof ui.en.chess, string>;
+  misc: Record<keyof typeof ui.en.misc, string>;
+};
