@@ -12,7 +12,7 @@ interface Props {
 
 export function Experience({ locale, dict }: Props) {
   return (
-    <section id="experience" className="relative py-32 px-6 md:px-16 max-w-7xl mx-auto">
+    <section id="experience" className="relative py-20 md:py-32 px-6 md:px-16 max-w-7xl mx-auto">
       <SectionHeading icon="♕" label={dict.nav.experience} title={dict.sections.experienceTitle} />
 
       <div className="relative">

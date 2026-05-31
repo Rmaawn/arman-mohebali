@@ -17,34 +17,24 @@ export function Scene({ hoverCell, activeCell, onHoverCell, onSelectCell }: Scen
   return (
     <Canvas
       shadows
-      dpr={[1, 2]}
-      camera={{ position: [0, 7, 9.5], fov: 42 }}
+      dpr={[1, 1.5]}
+      camera={{ position: [0, 8, 11], fov: 44 }}
       gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
+      performance={{ min: 0.5 }}
     >
       <Suspense fallback={null}>
-        {/* premium studio lighting */}
-        <ambientLight intensity={0.22} />
-        <hemisphereLight args={["#fff5d6", "#0a0a0a", 0.4]} />
+        <ambientLight intensity={0.3} />
+        <hemisphereLight args={["#fff5d6", "#0a0a0a", 0.5]} />
         <directionalLight
           position={[6, 14, 5]}
-          intensity={1.6}
-          castShadow
-          shadow-mapSize={[2048, 2048]}
-          shadow-bias={-0.0005}
-          color="#fff5d6"
-        />
-        <directionalLight position={[-7, 9, -5]} intensity={0.45} color="#d4af37" />
-        <pointLight position={[0, 4, 4]} intensity={0.9} color="#ffeaa7" distance={22} decay={1.2} />
-        <pointLight position={[-4, 2, -3]} intensity={0.55} color="#d4af37" distance={14} decay={1.5} />
-        <spotLight
-          position={[0, 14, 0]}
           intensity={1.5}
-          angle={0.55}
-          penumbra={0.85}
-          color="#fff5d6"
           castShadow
+          shadow-mapSize={[1024, 1024]}
           shadow-bias={-0.0005}
+          color="#fff5d6"
         />
+        <directionalLight position={[-7, 9, -5]} intensity={0.5} color="#d4af37" />
+        <pointLight position={[0, 5, 4]} intensity={0.9} color="#ffeaa7" distance={22} decay={2} />
 
         <ChessBoard
           hoverCell={hoverCell}
@@ -57,9 +47,9 @@ export function Scene({ hoverCell, activeCell, onHoverCell, onSelectCell }: Scen
 
         <ContactShadows
           position={[0, -0.05, 0]}
-          opacity={0.6}
-          scale={22}
-          blur={2.6}
+          opacity={0.5}
+          scale={16}
+          blur={1.8}
           far={5}
           color="#000"
         />
@@ -68,10 +58,10 @@ export function Scene({ hoverCell, activeCell, onHoverCell, onSelectCell }: Scen
           enablePan={false}
           enableZoom
           zoomSpeed={0.4}
-          minDistance={8}
-          maxDistance={18}
+          minDistance={7}
+          maxDistance={20}
           minPolarAngle={Math.PI / 5}
-          maxPolarAngle={Math.PI / 2.15}
+          maxPolarAngle={Math.PI / 2.1}
         />
       </Suspense>
     </Canvas>

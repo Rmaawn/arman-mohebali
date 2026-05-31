@@ -23,7 +23,7 @@ export function Skills({ locale, dict }: Props) {
   ][];
 
   return (
-    <section id="skills" className="relative py-32 px-6 md:px-16 max-w-7xl mx-auto">
+    <section id="skills" className="relative py-20 md:py-32 px-6 md:px-16 max-w-7xl mx-auto">
       <SectionHeading icon="♘" label={dict.nav.skills} title={dict.sections.skillsTitle} />
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">

@@ -83,7 +83,7 @@ export function Hero({ locale, dict }: Props) {
             <div className="text-xs md:text-sm tracking-[0.4em] uppercase text-gold/80 mb-4 md:mb-6">
               {resume.title[locale]}
             </div>
-            <h1 className="hero-title text-6xl md:text-8xl lg:text-9xl mb-6">
+            <h1 className="hero-title text-5xl sm:text-6xl md:text-8xl lg:text-9xl mb-4 md:mb-6">
               <span className="text-gold-gradient">{resume.name[locale]}</span>
             </h1>
             <div className="text-ivory/50 max-w-xl mx-auto text-sm md:text-base leading-relaxed mt-4">
@@ -98,7 +98,7 @@ export function Hero({ locale, dict }: Props) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 1.1 }}
-            className="mt-10 md:mt-14 flex flex-col items-center gap-3"
+            className="mt-6 md:mt-14 flex flex-col items-center gap-3"
           >
             <Link
               href="/board"

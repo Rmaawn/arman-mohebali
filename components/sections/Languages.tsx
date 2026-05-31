@@ -12,7 +12,7 @@ interface Props {
 
 export function Languages({ locale, dict }: Props) {
   return (
-    <section id="languages" className="relative py-32 px-6 md:px-16 max-w-7xl mx-auto">
+    <section id="languages" className="relative py-20 md:py-32 px-6 md:px-16 max-w-7xl mx-auto">
       <SectionHeading icon="♙" label={dict.nav.languages} title={dict.sections.languagesTitle} />
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl">

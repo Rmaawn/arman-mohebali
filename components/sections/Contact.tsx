@@ -31,7 +31,7 @@ export function Contact({ locale, dict }: Props) {
   ];
 
   return (
-    <section id="contact" className="relative py-32 px-6 md:px-16 max-w-7xl mx-auto">
+    <section id="contact" className="relative py-20 md:py-32 px-6 md:px-16 max-w-7xl mx-auto">
       <SectionHeading icon="♚" label={dict.nav.contact} title={dict.sections.contactTitle} />
 
       <div className="text-center mb-12">

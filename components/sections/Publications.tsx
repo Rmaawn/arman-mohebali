@@ -13,7 +13,7 @@ interface Props {
 
 export function Publications({ locale, dict }: Props) {
   return (
-    <section id="publications" className="relative py-32 px-6 md:px-16 max-w-7xl mx-auto">
+    <section id="publications" className="relative py-20 md:py-32 px-6 md:px-16 max-w-7xl mx-auto">
       <SectionHeading icon="♙" label={dict.nav.publications} title={dict.sections.publicationsTitle} />
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
