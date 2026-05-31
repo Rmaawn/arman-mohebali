@@ -76,6 +76,7 @@
 
 html {
   scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
 }
 
 body {
@@ -119,7 +120,8 @@ body[dir="ltr"] {
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: shimmer 4s ease-in-out infinite;
+  animation: shimmer 6s ease-in-out infinite;
+  will-change: background-position;
 }
 
 @keyframes shimmer {
@@ -129,9 +131,9 @@ body[dir="ltr"] {
 
 /* Glass panels */
 .glass {
-  background: rgba(20, 20, 20, 0.6);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  background: rgba(20, 20, 20, 0.75);
+  backdrop-filter: blur(10px) saturate(140%);
+  -webkit-backdrop-filter: blur(10px) saturate(140%);
   border: 1px solid rgba(212, 175, 55, 0.15);
   box-shadow:
     0 8px 32px rgba(0, 0, 0, 0.4),
@@ -139,9 +141,9 @@ body[dir="ltr"] {
 }
 
 .glass-strong {
-  background: rgba(10, 10, 10, 0.8);
-  backdrop-filter: blur(30px) saturate(200%);
-  -webkit-backdrop-filter: blur(30px) saturate(200%);
+  background: rgba(10, 10, 10, 0.88);
+  backdrop-filter: blur(14px) saturate(160%);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
   border: 1px solid rgba(212, 175, 55, 0.25);
   box-shadow:
     0 20px 60px rgba(0, 0, 0, 0.6),
@@ -156,13 +158,13 @@ body[dir="ltr"] {
 }
 
 .gold-glow-hover {
-  transition: box-shadow 0.4s ease, transform 0.4s ease;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  will-change: transform;
 }
 .gold-glow-hover:hover {
   box-shadow:
-    0 0 30px rgba(212, 175, 55, 0.4),
-    0 0 60px rgba(212, 175, 55, 0.2),
-    inset 0 0 20px rgba(212, 175, 55, 0.08);
+    0 0 24px rgba(212, 175, 55, 0.35),
+    0 0 48px rgba(212, 175, 55, 0.15);
   transform: translateY(-2px);
 }
 
@@ -178,6 +180,11 @@ body[dir="ltr"] {
 
 [dir="rtl"] .flip-rtl {
   transform: scaleX(-1);
+}
+
+/* Section containment — prevents layout reflow from propagating across sections */
+section {
+  contain: layout style;
 }
 
 *:focus { outline: none; }
@@ -260,7 +267,8 @@ body[dir="ltr"] {
 .premium-card {
   position: relative;
   overflow: hidden;
-  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
 }
 .premium-card::before {
   content: "";
@@ -269,8 +277,9 @@ body[dir="ltr"] {
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.08), transparent);
-  transition: left 0.7s ease;
+  background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.07), transparent);
+  transition: left 0.6s ease;
+  pointer-events: none;
 }
 .premium-card:hover::before { left: 100%; }
 
@@ -283,10 +292,13 @@ body[dir="ltr"] {
 .loading-dot:nth-child(3) { animation-delay: 0.4s; }
 
 @keyframes pulseGold {
-  0%, 100% { box-shadow: 0 0 20px rgba(212, 175, 55, 0.3); }
-  50% { box-shadow: 0 0 40px rgba(212, 175, 55, 0.6); }
+  0%, 100% { box-shadow: 0 0 16px rgba(212, 175, 55, 0.3); }
+  50% { box-shadow: 0 0 32px rgba(212, 175, 55, 0.55); }
 }
-.animate-pulse-gold { animation: pulseGold 2s ease-in-out infinite; }
+.animate-pulse-gold {
+  animation: pulseGold 2.5s ease-in-out infinite;
+  will-change: box-shadow;
+}
 
 /* 3D card frame inside R3F Html overlay */
 .r3f-card {

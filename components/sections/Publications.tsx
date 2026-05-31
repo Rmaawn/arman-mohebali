@@ -20,10 +20,10 @@ export function Publications({ locale, dict }: Props) {
         {resume.publications.map((pub, i) => (
           <motion.article
             key={i}
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: i * 0.12 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.45, delay: i * 0.09 }}
             className="glass premium-card rounded-sm p-6 gold-glow-hover group relative"
           >
             <div className="absolute top-4 right-4 text-3xl text-gold/20 group-hover:text-gold/40 transition-colors">

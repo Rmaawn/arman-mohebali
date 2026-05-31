@@ -1,21 +1,13 @@
-# Arman Mohebali — Chess-Board Portfolio
+# Arman Mohebali — Portfolio
 
-A truly single-screen, scroll-free portfolio: the **entire site is a 3D chessboard**.
+A bilingual (EN / FA) portfolio with **two complementary modes**:
 
-The 8 files of the board map to the 8 sections of the resume. The 8 ranks of each file are the items of that section. You move your gold knight onto any glowing square to read that line of the story.
+| Route | Mode | What it is |
+|---|---|---|
+| `/` | **Resume** | Classic scroll-driven portfolio with a 3D chess hero + 8 detailed sections |
+| `/board` | **Interactive chessboard** | Single-screen 3D experience — every column = one resume section, every square = one item. Move the knight to read. |
 
-```
-        A          B          C          D          E          F          G          H
-   Header+Contact  About      Skills     Experience Projects   Education  Publications Languages
-8  ┌─────────┐  ┌─────────┐  …                                                            ┐
-7  │  ♚      │  │  ♔      │
-6  │  bio    │  │  bio    │
-5
-4
-3
-2
-1  └─────────┘                                                                            ┘
-```
+The Hero section on `/` has a **"Care to play on the board?"** CTA that flips the visitor into the interactive `/board` mode. From `/board`, a small **Resume** link in the corner returns to the long-scroll page.
 
 ---
 
@@ -24,30 +16,30 @@ The 8 files of the board map to the 8 sections of the resume. The 8 ranks of eac
 `public/fonts/`:
 
 ```
-Vazirmatn-Regular.woff2          (Persian body)    ← you have it
-Vazirmatn-Bold.woff2             (Persian display) ← you have it
+Vazirmatn-Regular.woff2          (Persian body)         ← you have it
+Vazirmatn-Bold.woff2             (Persian display)      ← you have it
 Inter-Regular.ttf                (Latin body)
 Inter-Medium.ttf                 (Latin body)
 CormorantGaramond-Medium.ttf     (Latin display)
 CormorantGaramond-Bold.ttf       (Latin display)
 ```
 
-Source (both Latin families are free on Google Fonts):
-- <https://fonts.google.com/specimen/Inter> → Download family → use `static/Inter-Regular.ttf` + `static/Inter-Medium.ttf`
-- <https://fonts.google.com/specimen/Cormorant+Garamond> → Download family → use `CormorantGaramond-Medium.ttf` + `CormorantGaramond-Bold.ttf`
+Sources (free, TTF):
+- <https://fonts.google.com/specimen/Inter> → "Download family" → use `static/Inter-Regular.ttf` + `static/Inter-Medium.ttf`
+- <https://fonts.google.com/specimen/Cormorant+Garamond> → "Download family" → use the matching weights
 
 If files are missing, the page falls back to system fonts — nothing breaks.
 
-No remote CDN dependencies anywhere in the project (no Google Fonts loader, no HDRI from drei). 100% offline once installed.
+No remote CDN dependencies anywhere (no Google Fonts loader, no HDRI from drei). Fully offline once installed.
 
 ---
 
 ## Stack
 
-- **Next.js 14** + React 18 + TypeScript
-- **React Three Fiber** + Three.js + Drei
-- **Framer Motion** for the cell-panel transitions
-- **Tailwind CSS** (custom gold / onyx / ivory palette)
+- **Next.js 14** (App Router) + React 18 + TypeScript
+- **React Three Fiber** + Three.js + Drei (3D scene)
+- **Framer Motion** for premium animations
+- **Tailwind CSS** with custom gold / onyx / ivory palette
 - All fonts loaded via local `@font-face`
 
 ---
@@ -60,37 +52,7 @@ npm install
 npm run dev
 ```
 
-http://localhost:3000
-
----
-
-## How the experience works
-
-- **Boot** → camera tilts down to the gold-framed chessboard; the player **knight** glides to cell **A8** (the welcome line).
-- **Look around** → drag to orbit the board, scroll wheel to zoom in/out.
-- **Filled squares glow** (small gold ring). Empty squares stay dim.
-- **Click any glowing square** → knight jumps there with an arc animation, the floating glass panel updates with the content of that cell.
-- **Click a column label** (top of board) → knight jumps to that section's first filled item.
-- **Arrow keys** → step one square at a time. **Enter / Space** → next filled square.
-- **Prev / Next** in the panel → walk through all filled cells in board order.
-- **EN ⇄ FA pill** (top-right) → bilingual instant swap, with RTL mirroring of HUD.
-
----
-
-## Sections (one column each)
-
-| File | Section | Highlights |
-|---|---|---|
-| **A** ♚ | Header + Contact | name · location · email · website · LinkedIn · GitHub · Telegram · WhatsApp |
-| **B** ♔ | About Me | bio · focus · stacks (Python / Flutter / WP) · growing into DS / ML / LLMs |
-| **C** ♘ | Skills | WordPress · Figma · Python+Dart · Flutter+HTML · Linux+Git · SEO · n8n+Docker · GH+Claude+Postman |
-| **D** ♕ | Experience | tadnaco (current) · championsshop1 · pixlweb — with stack/impact/portfolio splits |
-| **E** ♖ | Projects | Nootika Reminder — full breakdown across 8 cells |
-| **F** ♗ | Education + Certs | Shamsipour · grade · PCAP · Forage · Faradars |
-| **G** ♙ | Publications | 3 CIVILICA papers + themes |
-| **H** ♟ | Languages | Persian · English — level cells + growth goal |
-
-Cells with no content for that rank are simply empty squares (no glow, panel shows "Empty square"). You can fill them later in `data/cells.ts`.
+Open <http://localhost:3000> for the resume. Click the **"Care to play on the board?"** button (or visit `/board` directly) for the interactive mode.
 
 ---
 
@@ -99,22 +61,47 @@ Cells with no content for that rank are simply empty squares (no glow, panel sho
 ```
 arman_mohebali/
 ├── app/
-│   ├── layout.tsx              # Root + body lock (no scroll)
-│   ├── page.tsx                # The whole site: state + Scene + HUD + Panel
-│   └── globals.css             # @font-face (TTF latin + woff2 Persian) + theme
+│   ├── layout.tsx                # Root layout + metadata
+│   ├── page.tsx                  # /  → Resume (Hero + 8 sections)
+│   ├── globals.css               # @font-face + theme tokens
+│   └── board/
+│       └── page.tsx              # /board → Interactive chessboard
+│
 ├── components/
 │   ├── 3d/
-│   │   ├── Scene.tsx           # R3F canvas, lights, orbit/zoom
-│   │   ├── ChessBoard.tsx      # 64 interactive squares + gold frame + indicators
-│   │   └── PlayerKnight.tsx    # Animated gold knight (arc-jump to target cell)
+│   │   ├── HeroScene.tsx         # Decorative scene used by the resume Hero
+│   │   ├── ChessBoardDecorative.tsx  # Static 8×8 board (no props)
+│   │   ├── ChessPiece.tsx        # Procedural pieces (Lathe geometry)
+│   │   ├── Scene.tsx             # Interactive scene for /board
+│   │   ├── ChessBoard.tsx        # 64 clickable squares + indicators
+│   │   └── PlayerKnight.tsx      # Player's gold knight (arc-jump animation)
+│   │
+│   ├── sections/                 # Long-scroll resume sections
+│   │   ├── Hero.tsx              # ⭐ Hero with 3D scene + CTA → /board
+│   │   ├── About.tsx
+│   │   ├── Skills.tsx
+│   │   ├── Experience.tsx
+│   │   ├── Projects.tsx
+│   │   ├── Education.tsx
+│   │   ├── Publications.tsx
+│   │   ├── Languages.tsx
+│   │   └── Contact.tsx
+│   │
 │   └── ui/
-│       ├── BoardHud.tsx        # Top brand + column tabs + rank labels + hint
-│       ├── CellPanel.tsx       # Floating glass panel with current cell content
-│       └── LanguageSwitcher.tsx
+│       ├── LanguageSwitcher.tsx  # EN/FA pill (top-right on / and /board)
+│       ├── Navigation.tsx        # Side rail with chess glyphs (on /)
+│       ├── SectionHeading.tsx    # Reusable ornate heading (on /)
+│       ├── BoardHud.tsx          # Column tabs + rank labels (on /board)
+│       └── CellPanel.tsx         # Floating cell-content panel (on /board)
+│
 ├── data/
-│   └── cells.ts                # ⭐ Content map: 8 columns × 8 cells, bilingual
+│   ├── resume.ts                 # Bilingual resume content (used by /)
+│   ├── i18n.ts                   # UI strings (used by /)
+│   └── cells.ts                  # 8×8 cell content map (used by /board)
+│
 ├── public/
-│   └── fonts/                  # ⬅ drop your .ttf / .woff2 files here
+│   └── fonts/                    # ⬅ drop your font files here
+│
 ├── tailwind.config.ts
 ├── next.config.mjs
 └── package.json
@@ -122,21 +109,34 @@ arman_mohebali/
 
 ---
 
-## Customising
+## The two modes side by side
 
-Edit `data/cells.ts`:
+### `/` — Resume mode (scroll)
 
-```ts
-{
-  eyebrow: t("Cert · F4", "گواهی · F۴"),
-  title: t("PCAP — Python Programming", "PCAP — برنامه‌نویسی پایتون"),
-  subtitle: t("Everest IT Academy", "آکادمی Everest IT"),
-  icon: "🐍",
-}
-```
+1. **Hero** — 3D chessboard with floating pieces, your name + title, and the **CTA button** that says *"Care to play on the board?"* (or *"بیا روی صفحه شطرنج بازی کنیم"* in Persian).
+2. **About** — bio + 4 stat cards + contact card
+3. **Skills** — 3 categories, each marked by a chess piece glyph
+4. **Experience** — vertical timeline with all 3 roles
+5. **Projects** — project cards (Nootika Reminder)
+6. **Education + Certifications**
+7. **Publications + Seminars** — 3 CIVILICA papers
+8. **Languages** — pawn-bar proficiency
+9. **Contact** — 6 channels + email CTA + footer
 
-- Add new items by replacing `null` slots with a cell object.
-- Reorder by moving objects within the `cells` array (index 0 = rank 8 back row, index 7 = rank 1 front row).
-- Rename a section by editing `label` on the column.
+### `/board` — Interactive mode (single screen)
 
-That's the whole content surface. The 3D world reacts automatically: indicators appear on filled squares, column tabs reflect the new label, the knight can land there.
+- Full-viewport 3D chessboard, no scroll.
+- 8 files = 8 sections; 8 ranks of each file = items of that section.
+- Filled squares glow gold. Click any → your knight arc-jumps there, the glass panel updates with that item's content.
+- Top tabs let you jump to a column (= section).
+- Arrow keys / Enter / Prev / Next walk through filled cells.
+- A small "Resume" link in the top corner returns to `/`.
+
+---
+
+## Customising content
+
+- **Resume sections** → edit `data/resume.ts` + UI strings in `data/i18n.ts`.
+- **Interactive board** → edit `data/cells.ts` (one file with all 8 columns × 8 cells, bilingual).
+
+Both data files are independent; you can update them separately.

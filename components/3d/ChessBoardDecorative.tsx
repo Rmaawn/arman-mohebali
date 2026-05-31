@@ -19,36 +19,32 @@ export function ChessBoardDecorative() {
 
   const lightMaterial = useMemo(
     () =>
-      new THREE.MeshPhysicalMaterial({
+      new THREE.MeshStandardMaterial({
         color: "#1a1a1a",
-        metalness: 0.4,
+        metalness: 0.5,
         roughness: 0.3,
-        clearcoat: 0.6,
-        clearcoatRoughness: 0.2,
       }),
     []
   );
 
   const darkMaterial = useMemo(
     () =>
-      new THREE.MeshPhysicalMaterial({
+      new THREE.MeshStandardMaterial({
         color: "#050505",
-        metalness: 0.5,
-        roughness: 0.2,
-        clearcoat: 0.8,
-        clearcoatRoughness: 0.15,
-        emissive: "#0a0a0a",
+        metalness: 0.6,
+        roughness: 0.25,
       }),
     []
   );
 
   const frameMaterial = useMemo(
     () =>
-      new THREE.MeshPhysicalMaterial({
+      new THREE.MeshStandardMaterial({
         color: "#d4af37",
-        metalness: 1,
-        roughness: 0.25,
-        clearcoat: 1,
+        metalness: 0.95,
+        roughness: 0.2,
+        emissive: "#3a2a00",
+        emissiveIntensity: 0.15,
       }),
     []
   );

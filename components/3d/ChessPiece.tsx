@@ -128,23 +128,18 @@ export function ChessPiece({
 
   const material = useMemo(() => {
     if (color === "gold") {
-      return new THREE.MeshPhysicalMaterial({
+      return new THREE.MeshStandardMaterial({
         color: "#d4af37",
-        metalness: 0.95,
-        roughness: 0.15,
-        clearcoat: 1,
-        clearcoatRoughness: 0.1,
+        metalness: 0.9,
+        roughness: 0.2,
         emissive: "#3a2a05",
-        emissiveIntensity: 0.2,
+        emissiveIntensity: 0.25,
       });
     }
-    return new THREE.MeshPhysicalMaterial({
+    return new THREE.MeshStandardMaterial({
       color: "#0d0d0d",
-      metalness: 0.6,
-      roughness: 0.2,
-      clearcoat: 1,
-      clearcoatRoughness: 0.05,
-      emissive: "#000000",
+      metalness: 0.7,
+      roughness: 0.25,
     });
   }, [color]);
 
@@ -180,7 +175,7 @@ export function ChessPiece({
       }}
     >
       <mesh castShadow receiveShadow material={material}>
-        <latheGeometry args={[profile, 48]} />
+        <latheGeometry args={[profile, 20]} />
       </mesh>
 
       {/* Knight head as a simple block on top */}
@@ -214,7 +209,7 @@ export function ChessPiece({
       {type === "queen" && (
         <group position={[0, 1.36, 0]}>
           <mesh material={material} castShadow>
-            <sphereGeometry args={[0.07, 16, 16]} />
+            <sphereGeometry args={[0.07, 8, 8]} />
           </mesh>
         </group>
       )}
@@ -222,7 +217,7 @@ export function ChessPiece({
       {/* Top ball on pawn */}
       {type === "pawn" && (
         <mesh position={[0, 0.78, 0]} material={material} castShadow>
-          <sphereGeometry args={[0.18, 24, 24]} />
+          <sphereGeometry args={[0.18, 12, 12]} />
         </mesh>
       )}
 
@@ -230,7 +225,7 @@ export function ChessPiece({
       {type === "bishop" && (
         <>
           <mesh position={[0, 1.26, 0]} material={material} castShadow>
-            <sphereGeometry args={[0.06, 16, 16]} />
+            <sphereGeometry args={[0.06, 8, 8]} />
           </mesh>
         </>
       )}

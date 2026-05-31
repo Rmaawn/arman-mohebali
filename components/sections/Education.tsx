@@ -21,8 +21,8 @@ export function Education({ locale, dict }: Props) {
         <motion.div
           initial={{ opacity: 0, x: -30 }}
           whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.55 }}
           className="lg:col-span-2 glass premium-card rounded-sm p-8 gold-glow-hover"
         >
           <div className="flex items-center gap-3 mb-6">
@@ -54,8 +54,8 @@ export function Education({ locale, dict }: Props) {
         <motion.div
           initial={{ opacity: 0, x: 30 }}
           whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7, delay: 0.15 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.55, delay: 0.1 }}
           className="lg:col-span-3"
         >
           <div className="flex items-center gap-3 mb-6">
@@ -69,10 +69,10 @@ export function Education({ locale, dict }: Props) {
             {resume.certificates.map((cert, i) => (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{ duration: 0.4, delay: i * 0.07 }}
                 className="glass premium-card rounded-sm p-5 flex items-start gap-4 group hover:border-gold/40 transition-all"
               >
                 <span className="text-3xl text-gold/60 group-hover:text-gold transition-colors">♗</span>

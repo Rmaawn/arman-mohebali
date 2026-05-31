@@ -23,10 +23,10 @@ export function Experience({ locale, dict }: Props) {
           {resume.experience.map((exp, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.7, delay: i * 0.1 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.5, delay: i * 0.08 }}
               className={`relative ${locale === "fa" ? "md:pr-20" : "md:pl-20"}`}
             >
               {/* Timeline dot */}

@@ -23,10 +23,10 @@ export function Projects({ locale, dict }: Props) {
             href={p.link}
             target="_blank"
             rel="noopener noreferrer"
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7, delay: i * 0.1 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.5, delay: i * 0.08 }}
             className="block group glass premium-card rounded-sm overflow-hidden gold-glow-hover"
           >
             {/* Visual top section with chess piece motif */}

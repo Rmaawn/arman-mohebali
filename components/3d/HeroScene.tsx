@@ -1,7 +1,7 @@
 "use client";
 
 import { Canvas } from "@react-three/fiber";
-import { OrbitControls, ContactShadows, Float } from "@react-three/drei";
+import { OrbitControls, ContactShadows } from "@react-three/drei";
 import { Suspense } from "react";
 import { ChessBoardDecorative } from "./ChessBoardDecorative";
 import { ChessPiece } from "./ChessPiece";
@@ -41,55 +41,45 @@ export function HeroScene({ activeSection, onPieceClick, interactive = true }: H
   return (
     <Canvas
       shadows
-      dpr={[1, 2]}
+      dpr={[1, 1.5]}
       camera={{ position: [0, 6, 9], fov: 45 }}
       gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
+      performance={{ min: 0.5 }}
     >
       <Suspense fallback={null}>
-        <ambientLight intensity={0.22} />
-        <hemisphereLight args={["#fff5d6", "#0a0a0a", 0.4]} />
+        <ambientLight intensity={0.3} />
+        <hemisphereLight args={["#fff5d6", "#0a0a0a", 0.5]} />
         <directionalLight
           position={[6, 12, 5]}
           intensity={1.5}
           castShadow
-          shadow-mapSize={[2048, 2048]}
+          shadow-mapSize={[1024, 1024]}
           shadow-bias={-0.0005}
           color="#fff5d6"
         />
-        <directionalLight position={[-6, 8, -4]} intensity={0.45} color="#d4af37" />
-        <pointLight position={[-5, 4, -5]} intensity={0.6} color="#d4af37" distance={20} decay={1.3} />
-        <pointLight position={[5, 4, 5]} intensity={0.45} color="#ffeaa7" distance={20} decay={1.3} />
-        <spotLight
-          position={[0, 12, 0]}
-          intensity={1.4}
-          angle={0.6}
-          penumbra={0.85}
-          color="#fff5d6"
-          castShadow
-          shadow-bias={-0.0005}
-        />
+        <directionalLight position={[-6, 8, -4]} intensity={0.5} color="#d4af37" />
+        <pointLight position={[0, 6, 0]} intensity={0.8} color="#fff5d6" distance={20} decay={2} />
 
         <ChessBoardDecorative />
 
         {PIECES.map((piece, i) => (
-          <Float key={i} speed={1.5} rotationIntensity={0} floatIntensity={0.15}>
-            <ChessPiece
-              type={piece.type}
-              position={piece.pos}
-              color={piece.color}
-              scale={0.55}
-              active={activeSection === piece.section}
-              onClick={() => piece.section && onPieceClick?.(piece.section)}
-              floatDelay={i * 0.5}
-            />
-          </Float>
+          <ChessPiece
+            key={i}
+            type={piece.type}
+            position={piece.pos}
+            color={piece.color}
+            scale={0.55}
+            active={activeSection === piece.section}
+            onClick={() => piece.section && onPieceClick?.(piece.section)}
+            floatDelay={i * 0.5}
+          />
         ))}
 
         <ContactShadows
           position={[0, -0.05, 0]}
-          opacity={0.6}
-          scale={20}
-          blur={2.5}
+          opacity={0.5}
+          scale={14}
+          blur={1.5}
           far={4}
           color="#000"
         />

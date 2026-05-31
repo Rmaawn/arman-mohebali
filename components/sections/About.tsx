@@ -19,8 +19,8 @@ export function About({ locale, dict }: Props) {
         <motion.div
           initial={{ opacity: 0, x: -30 }}
           whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.6 }}
           className="lg:col-span-2"
         >
           <p className="text-xl md:text-2xl leading-relaxed text-ivory/80 font-light">
@@ -38,8 +38,8 @@ export function About({ locale, dict }: Props) {
                 key={i}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{ duration: 0.4, delay: i * 0.08 }}
                 className="text-center glass rounded-sm p-4 gold-glow-hover"
               >
                 <div className="text-3xl md:text-4xl font-display text-gold-gradient">
@@ -56,8 +56,8 @@ export function About({ locale, dict }: Props) {
         <motion.div
           initial={{ opacity: 0, x: 30 }}
           whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.2 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.6, delay: 0.15 }}
           className="glass rounded-sm p-8 gold-glow"
         >
           <div className="text-xs tracking-[0.3em] uppercase text-gold/70 mb-6">

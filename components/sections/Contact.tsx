@@ -64,10 +64,10 @@ export function Contact({ locale, dict }: Props) {
             href={c.href}
             target={c.label === "Email" ? undefined : "_blank"}
             rel="noopener noreferrer"
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: i * 0.08 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.4, delay: i * 0.06 }}
             className="glass premium-card rounded-sm p-5 flex items-center gap-4 group gold-glow-hover"
           >
             <span className="w-12 h-12 flex items-center justify-center rounded-full bg-gold/10 border border-gold/30 text-gold group-hover:bg-gold group-hover:text-onyx transition-all">

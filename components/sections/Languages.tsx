@@ -19,10 +19,10 @@ export function Languages({ locale, dict }: Props) {
         {resume.languages.map((lang, i) => (
           <motion.div
             key={i}
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: i * 0.15 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.5, delay: i * 0.1 }}
             className="glass rounded-sm p-6 gold-glow-hover"
           >
             <div className="flex items-end justify-between mb-4">
@@ -37,18 +37,14 @@ export function Languages({ locale, dict }: Props) {
               {Array.from({ length: 8 }).map((_, idx) => {
                 const filled = lang.value / 100 >= (idx + 1) / 8;
                 return (
-                  <motion.span
+                  <span
                     key={idx}
-                    initial={{ opacity: 0, y: 10 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.3, delay: i * 0.15 + idx * 0.05 }}
-                    className={`flex-1 h-10 flex items-center justify-center text-2xl transition-all ${
+                    className={`flex-1 h-10 flex items-center justify-center text-2xl transition-colors duration-300 ${
                       filled ? "text-gold" : "text-ivory/15"
                     }`}
                   >
                     ♟
-                  </motion.span>
+                  </span>
                 );
               })}
             </div>

@@ -30,10 +30,10 @@ export function Skills({ locale, dict }: Props) {
         {categories.map(([key, cat], idx) => (
           <motion.div
             key={key}
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: idx * 0.15 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.5, delay: idx * 0.1 }}
             className="glass premium-card rounded-sm p-8 group"
           >
             <div className="flex items-center gap-4 mb-8">
@@ -44,17 +44,13 @@ export function Skills({ locale, dict }: Props) {
             </div>
 
             <div className="flex flex-wrap gap-2">
-              {cat.items.map((item, i) => (
-                <motion.span
+              {cat.items.map((item) => (
+                <span
                   key={item}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: idx * 0.15 + i * 0.05 }}
-                  className="px-3 py-1.5 text-sm border border-gold/20 text-ivory/80 hover:border-gold hover:text-gold hover:bg-gold/5 transition-all cursor-default rounded-sm"
+                  className="px-3 py-1.5 text-sm border border-gold/20 text-ivory/80 hover:border-gold hover:text-gold hover:bg-gold/5 transition-colors duration-200 cursor-default rounded-sm"
                 >
                   {item}
-                </motion.span>
+                </span>
               ))}
             </div>
           </motion.div>
