@@ -9,88 +9,85 @@ interface Props {
   activeCell: { col: number; row: number };
   onHoverCell: (cell: { col: number; row: number } | null) => void;
   onSelectCell: (col: number, row: number) => void;
+  isDark?: boolean;
 }
 
-/**
- * 8x8 board with each square individually interactive.
- * Filled cells (data exists) glow softly. Active cell glows strongly.
- */
-export function ChessBoard({ hoverCell, activeCell, onHoverCell, onSelectCell }: Props) {
+export function ChessBoard({ hoverCell, activeCell, onHoverCell, onSelectCell, isDark = true }: Props) {
   const lightMat = useMemo(
     () =>
-      new THREE.MeshPhysicalMaterial({
-        color: "#1f1f1f",
-        metalness: 0.45,
-        roughness: 0.28,
-        clearcoat: 0.7,
-        clearcoatRoughness: 0.18,
+      new THREE.MeshStandardMaterial({
+        color: isDark ? "#1f1f1f" : "#c8b896",
+        metalness: isDark ? 0.45 : 0.1,
+        roughness: isDark ? 0.28 : 0.55,
       }),
-    []
+    [isDark]
   );
 
   const darkMat = useMemo(
     () =>
-      new THREE.MeshPhysicalMaterial({
-        color: "#060606",
-        metalness: 0.55,
-        roughness: 0.18,
-        clearcoat: 0.85,
-        clearcoatRoughness: 0.12,
-        emissive: "#0a0a0a",
+      new THREE.MeshStandardMaterial({
+        color: isDark ? "#060606" : "#7a5c3a",
+        metalness: isDark ? 0.55 : 0.15,
+        roughness: isDark ? 0.18 : 0.6,
       }),
-    []
+    [isDark]
   );
 
   const frameMat = useMemo(
     () =>
-      new THREE.MeshPhysicalMaterial({
+      new THREE.MeshStandardMaterial({
         color: "#d4af37",
-        metalness: 1,
-        roughness: 0.22,
-        clearcoat: 1,
-        emissive: "#3a2a05",
-        emissiveIntensity: 0.5,
+        metalness: 0.95,
+        roughness: 0.2,
+        emissive: isDark ? "#3a2a05" : "#5a3f00",
+        emissiveIntensity: isDark ? 0.4 : 0.2,
       }),
-    []
+    [isDark]
   );
 
   const filledRingMat = useMemo(
     () =>
       new THREE.MeshBasicMaterial({
-        color: "#d4af37",
+        color: isDark ? "#d4af37" : "#986e0a",
         transparent: true,
         opacity: 0.65,
         side: THREE.DoubleSide,
       }),
-    []
+    [isDark]
   );
 
   const hoverDiscMat = useMemo(
     () =>
       new THREE.MeshBasicMaterial({
-        color: "#f4e4a3",
+        color: isDark ? "#f4e4a3" : "#c9a030",
         transparent: true,
-        opacity: 0.18,
+        opacity: isDark ? 0.18 : 0.22,
         side: THREE.DoubleSide,
       }),
-    []
+    [isDark]
   );
 
   const activeDiscMat = useMemo(
     () =>
       new THREE.MeshBasicMaterial({
-        color: "#d4af37",
+        color: isDark ? "#d4af37" : "#986e0a",
         transparent: true,
-        opacity: 0.35,
+        opacity: isDark ? 0.35 : 0.4,
         side: THREE.DoubleSide,
       }),
-    []
+    [isDark]
   );
 
-  /**
-   * col 0..7  → world X from -3.5 to 3.5 (file A..H, left→right)
-   * row 0..7  → world Z from -3.5 to 3.5 (rank 8..1, back→front)
-   */
+  const floorMat = useMemo(
+    () =>
+      new THREE.MeshStandardMaterial({
+        color: isDark ? "#080808" : "#d0c4a8",
+        roughness: isDark ? 0.45 : 0.7,
+        metalness: isDark ? 0.65 : 0.05,
+      }),
+    [isDark]
+  );
+
   const squares = useMemo(() => {
     const arr: {
       key: string;
@@ -106,14 +103,7 @@ export function ChessBoard({ hoverCell, activeCell, onHoverCell, onSelectCell }:
         const z = row - 3.5;
         const isLight = (col + row) % 2 === 0;
         const filled = COLUMNS[col].cells[row] !== null;
-        arr.push({
-          key: `${col}-${row}`,
-          pos: [x, 0, z],
-          light: isLight,
-          col,
-          row,
-          filled,
-        });
+        arr.push({ key: `${col}-${row}`, pos: [x, 0, z], light: isLight, col, row, filled });
       }
     }
     return arr;
@@ -122,45 +112,30 @@ export function ChessBoard({ hoverCell, activeCell, onHoverCell, onSelectCell }:
   return (
     <group>
       {squares.map((sq) => {
-        const isHover = hoverCell?.col === sq.col && hoverCell?.row === sq.row;
-        const isActive = activeCell.col === sq.col && activeCell.row === sq.row;
+        const isHover  = hoverCell?.col  === sq.col && hoverCell?.row  === sq.row;
+        const isActive = activeCell.col  === sq.col && activeCell.row  === sq.row;
         return (
           <group key={sq.key} position={sq.pos}>
             <mesh
               material={sq.light ? lightMat : darkMat}
               receiveShadow
-              onPointerOver={(e) => {
-                e.stopPropagation();
-                onHoverCell({ col: sq.col, row: sq.row });
-                document.body.style.cursor = "pointer";
-              }}
-              onPointerOut={() => {
-                onHoverCell(null);
-                document.body.style.cursor = "default";
-              }}
-              onClick={(e) => {
-                e.stopPropagation();
-                if (sq.filled) onSelectCell(sq.col, sq.row);
-              }}
+              onPointerOver={(e) => { e.stopPropagation(); onHoverCell({ col: sq.col, row: sq.row }); document.body.style.cursor = "pointer"; }}
+              onPointerOut={() => { onHoverCell(null); document.body.style.cursor = "default"; }}
+              onClick={(e) => { e.stopPropagation(); if (sq.filled) onSelectCell(sq.col, sq.row); }}
             >
               <boxGeometry args={[0.98, 0.1, 0.98]} />
             </mesh>
 
-            {/* hover halo (any square) */}
             {isHover && (
               <mesh position={[0, 0.06, 0]} rotation={[-Math.PI / 2, 0, 0]} material={hoverDiscMat}>
                 <planeGeometry args={[0.95, 0.95]} />
               </mesh>
             )}
-
-            {/* active halo (selected cell) */}
             {isActive && (
               <mesh position={[0, 0.07, 0]} rotation={[-Math.PI / 2, 0, 0]} material={activeDiscMat}>
                 <circleGeometry args={[0.45, 32]} />
               </mesh>
             )}
-
-            {/* indicator dot for filled cells */}
             {sq.filled && !isActive && (
               <mesh position={[0, 0.07, 0]} rotation={[-Math.PI / 2, 0, 0]} material={filledRingMat}>
                 <ringGeometry args={[0.07, 0.1, 24]} />
@@ -170,34 +145,26 @@ export function ChessBoard({ hoverCell, activeCell, onHoverCell, onSelectCell }:
         );
       })}
 
-      {/* Gold ornate frame */}
+      {/* Gold frame */}
       {[
-        { pos: [0, 0.05, -4.2] as [number, number, number], size: [8.8, 0.18, 0.4] as [number, number, number] },
-        { pos: [0, 0.05, 4.2] as [number, number, number], size: [8.8, 0.18, 0.4] as [number, number, number] },
-        { pos: [-4.2, 0.05, 0] as [number, number, number], size: [0.4, 0.18, 8] as [number, number, number] },
-        { pos: [4.2, 0.05, 0] as [number, number, number], size: [0.4, 0.18, 8] as [number, number, number] },
+        { pos: [0, 0.05, -4.2] as [number,number,number], size: [8.8, 0.18, 0.4] as [number,number,number] },
+        { pos: [0, 0.05,  4.2] as [number,number,number], size: [8.8, 0.18, 0.4] as [number,number,number] },
+        { pos: [-4.2, 0.05, 0] as [number,number,number], size: [0.4, 0.18, 8]   as [number,number,number] },
+        { pos: [ 4.2, 0.05, 0] as [number,number,number], size: [0.4, 0.18, 8]   as [number,number,number] },
       ].map((f, i) => (
         <mesh key={i} position={f.pos} material={frameMat} castShadow receiveShadow>
           <boxGeometry args={f.size} />
         </mesh>
       ))}
 
-      {/* corner ornaments */}
-      {[
-        [-4.2, -4.2],
-        [4.2, -4.2],
-        [-4.2, 4.2],
-        [4.2, 4.2],
-      ].map(([x, z], i) => (
+      {[[-4.2,-4.2],[4.2,-4.2],[-4.2,4.2],[4.2,4.2]].map(([x,z],i) => (
         <mesh key={i} position={[x, 0.12, z]} material={frameMat} castShadow>
-          <sphereGeometry args={[0.22, 16, 16]} />
+          <sphereGeometry args={[0.22, 12, 12]} />
         </mesh>
       ))}
 
-      {/* reflective floor */}
-      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.5, 0]} receiveShadow>
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.5, 0]} receiveShadow material={floorMat}>
         <planeGeometry args={[60, 60]} />
-        <meshStandardMaterial color="#080808" roughness={0.45} metalness={0.65} />
       </mesh>
     </group>
   );

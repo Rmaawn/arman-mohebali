@@ -14,6 +14,7 @@ interface ChessPieceProps {
   active?: boolean;
   onClick?: () => void;
   floatDelay?: number;
+  isDark?: boolean;
 }
 
 // Build piece silhouettes via Lathe geometry profiles
@@ -120,6 +121,7 @@ export function ChessPiece({
   active = false,
   onClick,
   floatDelay = 0,
+  isDark = true,
 }: ChessPieceProps) {
   const groupRef = useRef<THREE.Group>(null);
   const hoverRef = useRef(false);
@@ -131,17 +133,18 @@ export function ChessPiece({
       return new THREE.MeshStandardMaterial({
         color: "#d4af37",
         metalness: 0.9,
-        roughness: 0.2,
-        emissive: "#3a2a05",
-        emissiveIntensity: 0.25,
+        roughness: isDark ? 0.2 : 0.28,
+        emissive: isDark ? "#3a2a05" : "#5a3f00",
+        emissiveIntensity: isDark ? 0.25 : 0.1,
       });
     }
     return new THREE.MeshStandardMaterial({
-      color: "#0d0d0d",
-      metalness: 0.7,
-      roughness: 0.25,
+      /* In light mode: dark walnut instead of pure black */
+      color: isDark ? "#0d0d0d" : "#2a1a08",
+      metalness: isDark ? 0.7 : 0.3,
+      roughness: isDark ? 0.25 : 0.45,
     });
-  }, [color]);
+  }, [color, isDark]);
 
   useFrame((state) => {
     if (!groupRef.current) return;
