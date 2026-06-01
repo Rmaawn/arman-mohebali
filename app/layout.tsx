@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { ThemeProvider } from "next-themes";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -36,6 +37,7 @@ export default function RootLayout({
         >
           {children}
           <ThemeToggle />
+          <Analytics />
         </ThemeProvider>
       </body>
     </html>
