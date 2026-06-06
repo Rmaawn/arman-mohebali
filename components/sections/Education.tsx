@@ -141,7 +141,7 @@ export function Education({ locale, dict }: Props) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
-            className="fixed inset-0 z-[60] flex items-center justify-center p-6 bg-black/80 backdrop-blur-md"
+            className="fixed inset-0 z-[60] flex items-center justify-center p-8 bg-black/90 backdrop-blur-md cursor-zoom-out"
             onClick={close}
           >
             <motion.div
@@ -150,48 +150,39 @@ export function Education({ locale, dict }: Props) {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.92, y: 12 }}
               transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
-              className="relative w-full max-w-2xl glass-strong rounded-sm overflow-hidden"
-              style={{
-                boxShadow: "0 0 0 1px rgba(212,175,55,0.35), 0 32px 80px rgba(0,0,0,0.7), 0 0 40px rgba(212,175,55,0.12)",
-              }}
+              className="relative cursor-default"
               onClick={(e) => e.stopPropagation()}
             >
-              {/* Header strip */}
-              <div className="flex items-start justify-between gap-4 px-6 pt-5 pb-4 border-b border-gold/10">
+              {/* Info bar above the image */}
+              <div className="flex items-center justify-between gap-6 mb-2 px-1">
                 <div>
-                  <div className="text-[10px] tracking-[0.35em] uppercase text-gold/60 font-mono mb-1">
+                  <span className="text-[10px] tracking-[0.35em] uppercase text-gold/60 font-mono">
                     {typeof cert.issuer === "string" ? cert.issuer : cert.issuer[locale]}
-                  </div>
-                  <h3 className="section-heading text-lg md:text-xl text-ivory leading-tight">
-                    {cert.title[locale]}
-                  </h3>
+                  </span>
+                  <span className="text-ivory/40 mx-2">·</span>
+                  <span className="text-[11px] text-ivory/60">{cert.title[locale]}</span>
                 </div>
                 <button
                   onClick={close}
                   aria-label="Close"
-                  className="mt-0.5 flex-shrink-0 text-ivory/30 hover:text-gold transition-colors"
+                  className="flex-shrink-0 text-ivory/40 hover:text-gold transition-colors"
                 >
                   <X className="w-5 h-5" />
                 </button>
               </div>
 
-              {/* Certificate image frame */}
-              <div className="p-4 md:p-6">
-                <div
-                  className="rounded-sm flex items-center justify-center"
+              {/* Certificate image — no background, just the image */}
+              {cert.image && (
+                <img
+                  src={cert.image}
+                  alt={cert.title.en}
+                  className="block max-h-[84vh] max-w-[88vw] w-auto h-auto rounded-sm"
                   style={{
-                    border: "1px solid rgba(212,175,55,0.25)",
+                    border: "1px solid rgba(212,175,55,0.3)",
+                    boxShadow: "0 0 80px rgba(0,0,0,0.9)",
                   }}
-                >
-                  {cert.image && (
-                    <img
-                      src={cert.image}
-                      alt={cert.title.en}
-                      className="block max-h-[70vh] max-w-full w-auto h-auto"
-                    />
-                  )}
-                </div>
-              </div>
+                />
+              )}
             </motion.div>
           </motion.div>
         )}

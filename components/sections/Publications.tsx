@@ -131,7 +131,7 @@ export function Publications({ locale, dict }: Props) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.22 }}
-            className="fixed inset-0 z-[60] flex items-center justify-center p-6 bg-black/85 backdrop-blur-md"
+            className="fixed inset-0 z-[60] flex items-center justify-center p-8 bg-black/90 backdrop-blur-md cursor-zoom-out"
             onClick={close}
           >
             <motion.div
@@ -140,29 +140,26 @@ export function Publications({ locale, dict }: Props) {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.9 }}
               transition={{ duration: 0.28, ease: [0.4, 0, 0.2, 1] }}
-              className="relative max-w-4xl w-full"
+              className="relative cursor-default"
               onClick={(e) => e.stopPropagation()}
             >
+              <img
+                src={lightbox}
+                alt="Seminar"
+                className="block max-h-[88vh] max-w-[88vw] w-auto h-auto rounded-sm"
+                style={{
+                  border: "1px solid rgba(212,175,55,0.35)",
+                  boxShadow: "0 0 80px rgba(0,0,0,0.9), 0 0 0 1px rgba(212,175,55,0.1)",
+                }}
+              />
               <button
                 onClick={close}
                 aria-label="Close"
-                className="absolute -top-10 right-0 text-ivory/40 hover:text-gold transition-colors"
+                className="absolute top-3 right-3 w-8 h-8 rounded-full flex items-center justify-center text-white/70 hover:text-gold transition-all"
+                style={{ background: "rgba(0,0,0,0.6)", backdropFilter: "blur(4px)" }}
               >
-                <X className="w-5 h-5" />
+                <X className="w-4 h-4" />
               </button>
-              <div
-                className="rounded-sm flex items-center justify-center"
-                style={{
-                  border: "1px solid rgba(212,175,55,0.3)",
-                  boxShadow: "0 0 0 1px rgba(212,175,55,0.1), 0 40px 100px rgba(0,0,0,0.8)",
-                }}
-              >
-                <img
-                  src={lightbox}
-                  alt="Seminar"
-                  className="block max-h-[85vh] max-w-full w-auto h-auto"
-                />
-              </div>
             </motion.div>
           </motion.div>
         )}
