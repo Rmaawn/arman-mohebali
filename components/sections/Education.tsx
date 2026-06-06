@@ -1,11 +1,12 @@
 "use client";
 
 import { useState, useCallback } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Award, GraduationCap, X, Expand } from "lucide-react";
+import { motion } from "framer-motion";
+import { Award, GraduationCap, Expand } from "lucide-react";
 import { resume } from "@/data/resume";
 import type { Locale, UIDict } from "@/data/i18n";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { Lightbox } from "@/components/ui/Lightbox";
 
 interface Props {
   locale: Locale;
@@ -30,7 +31,12 @@ export function Education({ locale, dict }: Props) {
 
   const close = useCallback(() => setSelected(null), []);
 
-  const cert = selected !== null ? resume.certificates[selected] : null;
+  // Certificates that have an image, with their original index + caption.
+  const certShots = resume.certificates.flatMap((c, i) => {
+    if (!c.image) return [];
+    const issuer = typeof c.issuer === "string" ? c.issuer : c.issuer[locale];
+    return [{ fullIndex: i, src: c.image, caption: `${issuer} · ${c.title[locale]}` }];
+  });
 
   return (
     <section id="education" className="relative py-20 md:py-32 px-6 md:px-16 max-w-7xl mx-auto">
@@ -97,7 +103,10 @@ export function Education({ locale, dict }: Props) {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-60px" }}
                   transition={{ duration: 0.4, delay: i * 0.07 }}
-                  onClick={() => hasImage && setSelected(i)}
+                  onClick={() => {
+                    if (!hasImage) return;
+                    setSelected(certShots.findIndex((s) => s.fullIndex === i));
+                  }}
                   className={[
                     "glass premium-card rounded-sm p-5 flex items-center gap-4 group",
                     "hover:border-gold/40 transition-all",
@@ -133,60 +142,12 @@ export function Education({ locale, dict }: Props) {
       </div>
 
       {/* Lightbox */}
-      <AnimatePresence>
-        {selected !== null && cert && (
-          <motion.div
-            key="overlay"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.25 }}
-            className="fixed inset-0 z-[60] flex items-center justify-center p-8 bg-black/90 backdrop-blur-md cursor-zoom-out"
-            onClick={close}
-          >
-            <motion.div
-              key="panel"
-              initial={{ opacity: 0, scale: 0.92, y: 12 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.92, y: 12 }}
-              transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
-              className="relative cursor-default"
-              onClick={(e) => e.stopPropagation()}
-            >
-              {/* Info bar above the image */}
-              <div className="flex items-center justify-between gap-6 mb-2 px-1">
-                <div>
-                  <span className="text-[10px] tracking-[0.35em] uppercase text-gold/60 font-mono">
-                    {typeof cert.issuer === "string" ? cert.issuer : cert.issuer[locale]}
-                  </span>
-                  <span className="text-ivory/40 mx-2">·</span>
-                  <span className="text-[11px] text-ivory/60">{cert.title[locale]}</span>
-                </div>
-                <button
-                  onClick={close}
-                  aria-label="Close"
-                  className="flex-shrink-0 text-ivory/40 hover:text-gold transition-colors"
-                >
-                  <X className="w-5 h-5" />
-                </button>
-              </div>
-
-              {/* Certificate image — no background, just the image */}
-              {cert.image && (
-                <img
-                  src={cert.image}
-                  alt={cert.title.en}
-                  className="block max-h-[84vh] max-w-[88vw] w-auto h-auto rounded-sm"
-                  style={{
-                    border: "1px solid rgba(212,175,55,0.3)",
-                    boxShadow: "0 0 80px rgba(0,0,0,0.9)",
-                  }}
-                />
-              )}
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <Lightbox
+        images={certShots.map((s) => s.src)}
+        captions={certShots.map((s) => s.caption)}
+        startIndex={selected}
+        onClose={close}
+      />
     </section>
   );
 }
