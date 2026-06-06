@@ -140,6 +140,8 @@ export const resume = {
       en: "Presented two research papers on smart city challenges and open-source business models. The event brought together engineers, urban planners, and researchers to explore digital transformation in Iranian cities.",
       fa: "ارائه دو مقاله پژوهشی درباره چالش‌های شهر هوشمند و مدل‌های کسب‌وکار در نرم‌افزار آزاد. این رویداد مهندسان، برنامه‌ریزان شهری و پژوهشگران را برای بررسی تحول دیجیتال در شهرهای ایران گرد هم آورد.",
     },
+    // 👉 لینک خبر دانشگاه را اینجا بگذار (مثلاً "https://uni.ac.ir/news/...")
+    link: "",
     images: [
       "/seminar/01.jpg",
       "/seminar/02.jpg",
@@ -147,6 +149,7 @@ export const resume = {
       "/seminar/04.jpg",
     ],
   },
+  // 👉 لینک هر مقاله را در فیلد url همان مقاله بگذار (مثلاً "https://civilica.com/doc/...")
   publications: [
     {
       publisher: "CIVILICA",
@@ -154,6 +157,7 @@ export const resume = {
         en: "Challenges and Transformations in Smart Cities",
         fa: "چالش‌ها و تحولات در شهرهای هوشمند",
       },
+      url: "",
     },
     {
       publisher: "CIVILICA",
@@ -161,6 +165,7 @@ export const resume = {
         en: "Monetizing Freedom: Business Models in Free Software",
         fa: "کسب درآمد از آزادی: مدل‌های کسب‌وکار در نرم‌افزار آزاد",
       },
+      url: "",
     },
     {
       publisher: "CIVILICA",
@@ -168,6 +173,7 @@ export const resume = {
         en: "User Privacy in Large Language Models",
         fa: "حریم خصوصی کاربر در مدل‌های زبانی بزرگ",
       },
+      url: "",
     },
   ],
   languages: [
