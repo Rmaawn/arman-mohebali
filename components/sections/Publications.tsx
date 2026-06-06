@@ -54,32 +54,33 @@ export function Publications({ locale, dict }: Props) {
         transition={{ duration: 0.55 }}
         className="glass premium-card rounded-sm p-7 md:p-9 mb-6 gold-glow-hover"
       >
-        {/* Label */}
-        <div className="flex items-center gap-3 mb-5">
-          <Presentation className="w-5 h-5 text-gold/70" />
-          <span className="text-xs tracking-[0.3em] uppercase text-gold/70 font-mono">
-            {locale === "fa" ? "سمینار" : "Seminar"}
-          </span>
+        {/* Label + university link */}
+        <div className="flex items-center justify-between gap-3 mb-5">
+          <div className="flex items-center gap-3">
+            <Presentation className="w-5 h-5 text-gold/70" />
+            <span className="text-xs tracking-[0.3em] uppercase text-gold/70 font-mono">
+              {locale === "fa" ? "سمینار" : "Seminar"}
+            </span>
+          </div>
+
+          <a
+            href={seminar.link || "#"}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 text-xs tracking-[0.15em] uppercase font-mono text-gold/80 hover:text-gold border border-gold/30 hover:border-gold/60 rounded-full px-4 py-2 transition-colors"
+          >
+            <ExternalLink className="w-3.5 h-3.5" />
+            {locale === "fa" ? "سایت دانشگاه" : "University website"}
+          </a>
         </div>
 
         {/* Title + description */}
         <h3 className="section-heading text-2xl md:text-3xl text-ivory mb-3">
           {seminar.title[locale]}
         </h3>
-        <p className="text-ivory/60 text-sm leading-relaxed max-w-2xl mb-5">
+        <p className="text-ivory/60 text-sm leading-relaxed max-w-2xl mb-7">
           {seminar.description[locale]}
         </p>
-
-        {/* University coverage link */}
-        <a
-          href={seminar.link || "#"}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 mb-7 text-xs tracking-[0.15em] uppercase font-mono text-gold/80 hover:text-gold border border-gold/30 hover:border-gold/60 rounded-full px-4 py-2 transition-colors"
-        >
-          <ExternalLink className="w-3.5 h-3.5" />
-          {locale === "fa" ? "خبر این رویداد در سایت دانشگاه" : "University coverage of this event"}
-        </a>
 
         {/* Photo grid */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">

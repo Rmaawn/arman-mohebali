@@ -102,7 +102,7 @@ export function Lightbox({ images, startIndex, onClose, captions }: LightboxProp
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.25, ease: [0.4, 0, 0.2, 1] }}
             onClick={(e) => e.stopPropagation()}
-            className="max-h-[92vh] max-w-[94vw] w-auto h-auto object-contain rounded-md cursor-default select-none"
+            className="max-h-[78vh] max-w-[82vw] md:max-w-[70vw] w-auto h-auto object-contain rounded-md cursor-default select-none"
             style={{
               border: "1px solid rgba(212,175,55,0.35)",
               boxShadow: "0 16px 50px rgba(0,0,0,0.5)",
