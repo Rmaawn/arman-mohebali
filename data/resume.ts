@@ -3,7 +3,8 @@ export type Locale = "en" | "fa";
 export const resume = {
   name: {
     en: "Arman Mohebali",
-    fa: "آرمان محب‌علی",
+    fa: "آرمان محبعلی",
+    // fa: "آرمان محب‌علی",
   },
   title: {
     en: "Software Solutions Developer",
@@ -108,6 +109,7 @@ export const resume = {
         en: "PCAP — Python Certified Associate in Programming",
         fa: "PCAP — گواهی برنامه‌نویسی پایتون",
       },
+      image: "/certificates/pcap.jpg",
     },
     {
       issuer: "Forage",
@@ -115,6 +117,7 @@ export const resume = {
         en: "Software Engineering Job Simulation",
         fa: "شبیه‌سازی شغلی مهندسی نرم‌افزار",
       },
+      image: "/certificates/forage-se.jpg",
     },
     {
       issuer: { en: "Faradars", fa: "فرادرس" },
@@ -122,6 +125,7 @@ export const resume = {
         en: "Git, GitHub and GitLab Training",
         fa: "آموزش Git، GitHub و GitLab",
       },
+      image: "/certificates/faradars-git.jpg",
     },
   ],
   publications: [
@@ -149,7 +153,7 @@ export const resume = {
   ],
   languages: [
     { language: { en: "Persian", fa: "فارسی" }, level: { en: "Native", fa: "زبان مادری" }, value: 100 },
-    { language: { en: "English", fa: "انگلیسی" }, level: { en: "Intermediate", fa: "متوسط" }, value: 60 },
+    { language: { en: "English", fa: "انگلیسی" }, level: { en: "Intermediate", fa: "متوسط" }, value: 50 },
   ],
 } as const;
 
