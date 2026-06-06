@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { ArrowUpRight } from "lucide-react";
 import { resume } from "@/data/resume";
 import type { Locale, UIDict } from "@/data/i18n";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -47,9 +48,24 @@ export function Experience({ locale, dict }: Props) {
                     <h3 className="text-2xl md:text-3xl font-display text-ivory mb-1">
                       {exp.role[locale]}
                     </h3>
-                    <div className="text-gold font-mono text-sm tracking-wider">
-                      {exp.company}
-                    </div>
+                    {(() => {
+                      const url = (exp as { url?: string }).url;
+                      return url ? (
+                        <a
+                          href={url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1 font-mono text-sm font-bold tracking-wider text-gold hover:text-gold-50 transition-colors group/link"
+                        >
+                          {exp.company}
+                          <ArrowUpRight className="w-3.5 h-3.5 opacity-50 group-hover/link:opacity-100 transition-opacity" />
+                        </a>
+                      ) : (
+                        <div className="font-mono text-sm font-bold tracking-wider text-gold">
+                          {exp.company}
+                        </div>
+                      );
+                    })()}
                   </div>
                 </div>
 

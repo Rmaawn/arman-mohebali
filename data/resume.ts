@@ -43,6 +43,7 @@ export const resume = {
   experience: [
     {
       company: "tadnaco.com",
+      url: "https://tadnaco.com",
       role: { en: "Automation Engineer", fa: "مهندس اتوماسیون" },
       location: { en: "Dubai", fa: "دبی" },
       period: { en: "Feb 2026 — Present", fa: "بهمن ۱۴۰۴ — اکنون" },
@@ -53,6 +54,7 @@ export const resume = {
     },
     {
       company: "championsshop1.ir",
+      url: "https://championsshop1.ir",
       role: { en: "E-Commerce Specialist", fa: "متخصص فروشگاه آنلاین" },
       location: { en: "Tehran", fa: "تهران" },
       period: { en: "Mar 2024 — Jan 2026", fa: "اسفند ۱۴۰۲ — دی ۱۴۰۴" },
@@ -63,6 +65,7 @@ export const resume = {
     },
     {
       company: "Pixlweb.ir",
+      url: "https://pixlweb.ir",
       role: { en: "Web Designer & Admin", fa: "طراح و مدیر وب" },
       location: { en: "Karaj", fa: "کرج" },
       period: { en: "Apr 2023 — Sep 2024", fa: "فروردین ۱۴۰۲ — مهر ۱۴۰۳" },
