@@ -70,7 +70,7 @@ export function Publications({ locale, dict }: Props) {
         </p>
 
         {/* Photo grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           {seminar.images.map((src, i) => (
             <motion.div
               key={i}
@@ -151,7 +151,7 @@ export function Publications({ locale, dict }: Props) {
                 <X className="w-5 h-5" />
               </button>
               <div
-                className="overflow-hidden rounded-sm"
+                className="rounded-sm flex items-center justify-center"
                 style={{
                   border: "1px solid rgba(212,175,55,0.3)",
                   boxShadow: "0 0 0 1px rgba(212,175,55,0.1), 0 40px 100px rgba(0,0,0,0.8)",
@@ -160,7 +160,7 @@ export function Publications({ locale, dict }: Props) {
                 <img
                   src={lightbox}
                   alt="Seminar"
-                  className="w-full h-auto block max-h-[80vh] object-contain bg-onyx"
+                  className="block max-h-[85vh] max-w-full w-auto h-auto"
                 />
               </div>
             </motion.div>

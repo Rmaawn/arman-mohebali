@@ -118,10 +118,10 @@ export function Education({ locale, dict }: Props) {
                   </div>
 
                   {hasImage && (
-                    <div className="relative w-[72px] h-[52px] flex-shrink-0 rounded overflow-hidden border border-gold/20 group-hover:border-gold/50 transition-colors">
+                    <div className="relative w-28 h-20 flex-shrink-0 rounded-sm overflow-hidden border border-gold/25 group-hover:border-gold/60 transition-colors">
                       <CertThumbnail src={c.image!} alt={c.title.en} />
-                      <div className="absolute inset-0 bg-onyx/70 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                        <Expand className="w-3.5 h-3.5 text-gold" />
+                      <div className="absolute inset-0 bg-onyx/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        <Expand className="w-4 h-4 text-gold" />
                       </div>
                     </div>
                   )}
@@ -178,18 +178,16 @@ export function Education({ locale, dict }: Props) {
               {/* Certificate image frame */}
               <div className="p-4 md:p-6">
                 <div
-                  className="relative w-full overflow-hidden rounded-sm"
+                  className="rounded-sm flex items-center justify-center"
                   style={{
                     border: "1px solid rgba(212,175,55,0.25)",
-                    boxShadow: "inset 0 0 20px rgba(0,0,0,0.3)",
                   }}
                 >
                   {cert.image && (
                     <img
                       src={cert.image}
                       alt={cert.title.en}
-                      className="w-full h-auto block"
-                      style={{ display: "block" }}
+                      className="block max-h-[70vh] max-w-full w-auto h-auto"
                     />
                   )}
                 </div>

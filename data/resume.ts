@@ -144,6 +144,7 @@ export const resume = {
       "/seminar/01.jpg",
       "/seminar/02.jpg",
       "/seminar/03.jpg",
+      "/seminar/04.jpg",
     ],
   },
   publications: [
