@@ -67,9 +67,6 @@ export function Hero({ locale, dict }: Props) {
               {isFa ? "آرمان محب‌علی" : "A. Mohebali"}
             </span>
           </div>
-          <div className="hidden md:block font-mono text-xs tracking-[0.3em] uppercase text-ivory/40">
-            {isFa ? "نمونه‌کار ۲۰۲۶" : "Portfolio · 2026"}
-          </div>
         </motion.div>
 
         {/* Center content */}
