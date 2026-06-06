@@ -128,6 +128,21 @@ export const resume = {
       image: "/certificates/faradars-git.jpg",
     },
   ],
+  seminar: {
+    title: {
+      en: "National Conference on Smart City & IoT",
+      fa: "کنفرانس ملی شهر هوشمند و اینترنت اشیا",
+    },
+    description: {
+      en: "Presented two research papers on smart city challenges and open-source business models. The event brought together engineers, urban planners, and researchers to explore digital transformation in Iranian cities.",
+      fa: "ارائه دو مقاله پژوهشی درباره چالش‌های شهر هوشمند و مدل‌های کسب‌وکار در نرم‌افزار آزاد. این رویداد مهندسان، برنامه‌ریزان شهری و پژوهشگران را برای بررسی تحول دیجیتال در شهرهای ایران گرد هم آورد.",
+    },
+    images: [
+      "/seminar/01.jpg",
+      "/seminar/02.jpg",
+      "/seminar/03.jpg",
+    ],
+  },
   publications: [
     {
       publisher: "CIVILICA",
