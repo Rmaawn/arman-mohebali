@@ -47,6 +47,8 @@ export const resume = {
       role: { en: "Automation Engineer", fa: "مهندس اتوماسیون" },
       location: { en: "Dubai", fa: "دبی" },
       period: { en: "Feb 2026 — Present", fa: "بهمن ۱۴۰۴ — اکنون" },
+      start: "2026-02",
+      end: null,
       description: {
         en: "Designed and developed real-world automation systems using Python and n8n, focusing on scalable, modular, and production-ready architectures. Built automated workflows for data processing, AI-powered content generation, and multi-platform publishing — maintained as open-source on GitHub. Implemented scheduling, retry mechanisms, logging, API integrations, and content deduplication.",
         fa: "طراحی و توسعه سیستم‌های اتوماسیون واقعی با Python و n8n، با تمرکز بر معماری‌های مقیاس‌پذیر، ماژولار و آماده تولید. ساخت ورک‌فلوهای خودکار برای پردازش داده، تولید محتوای هوشمند و انتشار چندپلتفرمی. پیاده‌سازی scheduling، retry، logging، یکپارچه‌سازی API و حذف محتوای تکراری.",
@@ -58,6 +60,8 @@ export const resume = {
       role: { en: "E-Commerce Specialist", fa: "متخصص فروشگاه آنلاین" },
       location: { en: "Tehran", fa: "تهران" },
       period: { en: "Mar 2024 — Jan 2026", fa: "اسفند ۱۴۰۲ — دی ۱۴۰۴" },
+      start: "2024-03",
+      end: "2026-01",
       description: {
         en: "Launched an online store from scratch — solo. WordPress + WooCommerce design, technical SEO, SEO-optimized articles, sales strategy, order management, and accurate listing of 847 products in 241 categories. Within a year: 434K+ Google impressions, 20K+ clicks, 250+ active customers, and 500M Tomans in annual sales.",
         fa: "راه‌اندازی یک فروشگاه آنلاین از صفر — به‌تنهایی. طراحی با WordPress و WooCommerce، سئو تکنیکال، تولید مقالات سئو، استراتژی فروش، مدیریت سفارش‌ها و لیست‌سازی دقیق ۸۴۷ محصول در ۲۴۱ دسته‌بندی. در طول یک سال: بیش از ۴۳۴ هزار ایمپرشن از گوگل، ۲۰ هزار کلیک، ۲۵۰+ مشتری فعال و ۵۰۰ میلیون تومان فروش سالانه.",
@@ -69,6 +73,8 @@ export const resume = {
       role: { en: "Web Designer & Admin", fa: "طراح و مدیر وب" },
       location: { en: "Karaj", fa: "کرج" },
       period: { en: "Apr 2023 — Sep 2024", fa: "فروردین ۱۴۰۲ — مهر ۱۴۰۳" },
+      start: "2023-04",
+      end: "2024-09",
       description: {
         en: "Comprehensive WordPress website design and management — domain acquisition, hosting setup, theme/plugin customization with Elementor. Managed content, product listing, technical support, and page design across e-commerce and content websites.",
         fa: "طراحی و مدیریت جامع سایت‌های WordPress — تهیه دامنه، راه‌اندازی هاست، شخصی‌سازی قالب و افزونه با Elementor. مدیریت محتوا، لیست محصولات، پشتیبانی فنی و طراحی صفحات در سایت‌های فروشگاهی و محتوایی.",
