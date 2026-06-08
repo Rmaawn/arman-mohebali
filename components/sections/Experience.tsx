@@ -42,6 +42,12 @@ function formatDuration(months: number, locale: Locale): string {
   return parts.join(" ") || `${months} mos`;
 }
 
+/** First 4-digit run of the localized period — the start year for the timeline milestone. */
+function startYear(period: string): string {
+  const match = period.match(/[\d۰-۹]{4}/);
+  return match ? match[0] : "";
+}
+
 export function Experience({ locale, dict }: Props) {
   const isFa = locale === "fa";
 
@@ -50,14 +56,14 @@ export function Experience({ locale, dict }: Props) {
       <SectionHeading icon="♕" label={dict.nav.experience} title={dict.sections.experienceTitle} />
 
       <div className="relative">
-        {/* Vertical timeline */}
-        <div className={`absolute top-0 bottom-0 w-px bg-gradient-to-b from-gold/40 via-gold/20 to-transparent ${isFa ? "right-6" : "left-6"} hidden md:block`} />
+        {/* Vertical timeline spine */}
+        <div className={`absolute top-0 bottom-0 w-px bg-gradient-to-b from-gold/50 via-gold/25 to-transparent ${isFa ? "right-[3.25rem]" : "left-[3.25rem]"} hidden md:block`} />
 
         <div className="space-y-12">
           {resume.experience.map((exp, i) => {
             const isCurrent = exp.end === null;
-            const months = monthsBetween(exp.start, exp.end);
-            const duration = formatDuration(months, locale);
+            const duration = formatDuration(monthsBetween(exp.start, exp.end), locale);
+            const year = startYear(exp.period[locale]);
 
             return (
               <motion.div
@@ -66,74 +72,87 @@ export function Experience({ locale, dict }: Props) {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-80px" }}
                 transition={{ duration: 0.5, delay: i * 0.08 }}
-                className={`relative ${isFa ? "md:pr-20" : "md:pl-20"}`}
+                className={`relative ${isFa ? "md:pr-28" : "md:pl-28"}`}
               >
-                {/* Timeline node */}
-                <div className={`absolute top-2 hidden md:block ${isFa ? "right-3" : "left-3"}`}>
-                  <div className="relative w-6 h-6">
+                {/* Year milestone — straddles the timeline spine */}
+                <div
+                  className={`absolute top-3 z-10 hidden md:block ${
+                    isFa ? "right-[3.25rem] translate-x-1/2" : "left-[3.25rem] -translate-x-1/2"
+                  }`}
+                >
+                  <div className="relative flex items-center justify-center">
                     {isCurrent && (
-                      <span className="absolute inset-0 rounded-full bg-gold/40 animate-ping" />
+                      <span className="absolute inset-0 rounded-full bg-gold/30 blur-md animate-pulse-gold" />
                     )}
-                    <div className="relative w-6 h-6 rounded-full bg-onyx border-2 border-gold flex items-center justify-center">
-                      <div className={`w-2 h-2 rounded-full bg-gold ${isCurrent ? "animate-pulse-gold" : ""}`} />
-                    </div>
+                    <span
+                      className={`relative px-2.5 py-1 rounded-full font-mono text-[11px] tracking-[0.15em] tabular-nums bg-onyx ${
+                        isCurrent
+                          ? "border border-gold text-gold shadow-[0_0_18px_rgba(212,175,55,0.35)]"
+                          : "border border-gold/45 text-gold/85"
+                      }`}
+                    >
+                      {year}
+                    </span>
                   </div>
                 </div>
 
                 <div className="glass premium-card rounded-sm p-6 md:p-8 gold-glow-hover">
-                  {/* Meta chips — duration leads, period & location support */}
-                  <div className="flex flex-wrap items-center gap-2 mb-5">
-                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-sm bg-gradient-to-r from-gold/20 to-gold/5 border border-gold/40 text-gold font-mono text-xs tracking-wider">
-                      <Clock3 className="w-3.5 h-3.5" />
+                  {/* Role + ongoing indicator */}
+                  <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
+                    <h3 className="text-2xl md:text-3xl font-display text-ivory leading-tight">
+                      {exp.role[locale]}
+                    </h3>
+                    {isCurrent && (
+                      <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-400/10 border border-emerald-400/30 text-emerald-300 text-[10px] font-mono tracking-[0.18em] uppercase">
+                        <span className="relative flex w-1.5 h-1.5">
+                          <span className="absolute inline-flex w-full h-full rounded-full bg-emerald-400 opacity-75 animate-ping" />
+                          <span className="relative inline-flex w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                        </span>
+                        {dict.misc.current}
+                      </span>
+                    )}
+                  </div>
+
+                  {/* Identity line — company · tenure */}
+                  <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1">
+                    {(() => {
+                      const url = (exp as { url?: string }).url;
+                      return url ? (
+                        <a
+                          href={url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1 font-mono text-sm font-bold tracking-wider text-gold hover:text-gold-50 transition-colors group/link"
+                        >
+                          {exp.company}
+                          <ArrowUpRight className="w-3.5 h-3.5 opacity-50 group-hover/link:opacity-100 transition-opacity" />
+                        </a>
+                      ) : (
+                        <span className="font-mono text-sm font-bold tracking-wider text-gold">
+                          {exp.company}
+                        </span>
+                      );
+                    })()}
+                    <span className="text-ivory/25">·</span>
+                    <span className="inline-flex items-center gap-1.5 text-ivory/60 font-mono text-xs tracking-wider">
+                      <Clock3 className="w-3.5 h-3.5 text-gold/70" />
                       {duration}
                     </span>
-                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-sm border border-ivory/15 text-ivory/55 font-mono text-xs tracking-wider">
+                  </div>
+
+                  {/* Secondary meta — period & location */}
+                  <div className="mt-3 flex flex-wrap items-center gap-2">
+                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-sm border border-ivory/12 text-ivory/50 font-mono text-[11px] tracking-wider">
                       <CalendarDays className="w-3.5 h-3.5 opacity-70" />
                       {exp.period[locale]}
                     </span>
-                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-sm border border-ivory/15 text-ivory/55 font-mono text-xs tracking-wider">
+                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-sm border border-ivory/12 text-ivory/50 font-mono text-[11px] tracking-wider">
                       <MapPin className="w-3.5 h-3.5 opacity-70" />
                       {exp.location[locale]}
                     </span>
                   </div>
 
-                  {/* Role + live badge */}
-                  <div className="flex flex-wrap items-center gap-x-3 gap-y-2 mb-1">
-                    <h3 className="text-2xl md:text-3xl font-display text-ivory">
-                      {exp.role[locale]}
-                    </h3>
-                    {isCurrent && (
-                      <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-400/10 border border-emerald-400/30 text-emerald-300 text-[10px] font-mono tracking-[0.2em] uppercase">
-                        <span className="relative flex w-1.5 h-1.5">
-                          <span className="absolute inline-flex w-full h-full rounded-full bg-emerald-400 opacity-75 animate-ping" />
-                          <span className="relative inline-flex w-1.5 h-1.5 rounded-full bg-emerald-400" />
-                        </span>
-                        {dict.misc.live}
-                      </span>
-                    )}
-                  </div>
-
-                  {/* Company */}
-                  {(() => {
-                    const url = (exp as { url?: string }).url;
-                    return url ? (
-                      <a
-                        href={url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 font-mono text-sm font-bold tracking-wider text-gold hover:text-gold-50 transition-colors group/link"
-                      >
-                        {exp.company}
-                        <ArrowUpRight className="w-3.5 h-3.5 opacity-50 group-hover/link:opacity-100 transition-opacity" />
-                      </a>
-                    ) : (
-                      <div className="font-mono text-sm font-bold tracking-wider text-gold">
-                        {exp.company}
-                      </div>
-                    );
-                  })()}
-
-                  <p className="mt-4 text-ivory/70 leading-relaxed text-sm md:text-base">
+                  <p className="mt-5 text-ivory/70 leading-relaxed text-sm md:text-base">
                     {exp.description[locale]}
                   </p>
 

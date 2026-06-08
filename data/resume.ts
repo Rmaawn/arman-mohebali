@@ -45,7 +45,7 @@ export const resume = {
       company: "tadnaco.com",
       url: "https://tadnaco.com",
       role: { en: "Automation Engineer", fa: "مهندس اتوماسیون" },
-      location: { en: "Dubai", fa: "دبی" },
+      location: { en: "Dubai & Tehran", fa: "دبی و تهران" },
       period: { en: "Feb 2026 — Present", fa: "بهمن ۱۴۰۴ — اکنون" },
       start: "2026-02",
       end: null,
