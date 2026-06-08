@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 
@@ -15,14 +16,23 @@ interface LightboxProps {
 
 /**
  * Minimal, full-bleed image lightbox.
- * The image fills the viewport (no chunky black margins), with a crisp
- * gold edge instead of a fuzzy black halo. Supports keyboard (Esc / ← / →),
- * click-to-close on the backdrop, and prev/next when given multiple images.
+ *
+ * Rendered through a portal on `document.body` so it is always positioned
+ * against the viewport — ancestors with `transform` / `will-change`
+ * (e.g. `.premium-card`, animated `motion.div`s) would otherwise capture the
+ * `position: fixed` overlay and make it open at the scroll offset.
+ *
+ * The image fills most of the viewport (minimal margins) with a crisp gold
+ * edge. Supports keyboard (Esc / ← / →), click-to-close on the backdrop, and
+ * prev/next when given multiple images.
  */
 export function Lightbox({ images, startIndex, onClose, captions }: LightboxProps) {
   const [index, setIndex] = useState(0);
+  const [mounted, setMounted] = useState(false);
   const open = startIndex !== null;
   const hasMany = images.length > 1;
+
+  useEffect(() => setMounted(true), []);
 
   useEffect(() => {
     if (startIndex !== null) setIndex(startIndex);
@@ -53,10 +63,14 @@ export function Lightbox({ images, startIndex, onClose, captions }: LightboxProp
     };
   }, [open, next, prev, onClose]);
 
+  if (!mounted) return null;
+
   const caption = captions?.[index];
 
   return (
-    <AnimatePresence>
+    <>
+      {createPortal(
+        <AnimatePresence>
       {open && (
         <motion.div
           key="lb-overlay"
@@ -65,14 +79,15 @@ export function Lightbox({ images, startIndex, onClose, captions }: LightboxProp
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.2 }}
-          className="fixed inset-0 z-[80] flex items-center justify-center bg-onyx/95 backdrop-blur-sm cursor-zoom-out"
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-onyx/95 backdrop-blur-sm cursor-zoom-out"
+          style={{ touchAction: "manipulation" }}
           onClick={onClose}
         >
           {/* Close */}
           <button
             onClick={onClose}
             aria-label="Close"
-            className="absolute top-5 right-5 z-10 w-10 h-10 rounded-full flex items-center justify-center text-ivory/70 hover:text-gold transition-colors"
+            className="absolute top-4 right-4 md:top-5 md:right-5 z-20 w-11 h-11 rounded-full flex items-center justify-center text-ivory/70 hover:text-gold transition-colors"
             style={{ background: "rgba(0,0,0,0.45)", backdropFilter: "blur(6px)" }}
           >
             <X className="w-5 h-5" />
@@ -86,7 +101,7 @@ export function Lightbox({ images, startIndex, onClose, captions }: LightboxProp
                 prev();
               }}
               aria-label="Previous"
-              className="absolute left-3 md:left-6 z-10 w-11 h-11 rounded-full flex items-center justify-center text-ivory/70 hover:text-gold transition-colors"
+              className="absolute left-2 md:left-5 z-20 w-11 h-11 rounded-full flex items-center justify-center text-ivory/70 hover:text-gold transition-colors"
               style={{ background: "rgba(0,0,0,0.45)", backdropFilter: "blur(6px)" }}
             >
               <ChevronLeft className="w-6 h-6" />
@@ -98,11 +113,11 @@ export function Lightbox({ images, startIndex, onClose, captions }: LightboxProp
             key={images[index]}
             src={images[index]}
             alt={caption ?? ""}
-            initial={{ opacity: 0, scale: 0.97 }}
+            initial={{ opacity: 0, scale: 0.98 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.25, ease: [0.4, 0, 0.2, 1] }}
             onClick={(e) => e.stopPropagation()}
-            className="max-h-[78vh] max-w-[82vw] md:max-w-[70vw] w-auto h-auto object-contain rounded-md cursor-default select-none"
+            className="w-auto h-auto max-h-[88dvh] max-w-[92vw] md:max-h-[90dvh] md:max-w-[84vw] object-contain rounded-md cursor-default select-none"
             style={{
               border: "1px solid rgba(212,175,55,0.35)",
               boxShadow: "0 16px 50px rgba(0,0,0,0.5)",
@@ -117,7 +132,7 @@ export function Lightbox({ images, startIndex, onClose, captions }: LightboxProp
                 next();
               }}
               aria-label="Next"
-              className="absolute right-3 md:right-6 z-10 w-11 h-11 rounded-full flex items-center justify-center text-ivory/70 hover:text-gold transition-colors"
+              className="absolute right-2 md:right-5 z-20 w-11 h-11 rounded-full flex items-center justify-center text-ivory/70 hover:text-gold transition-colors"
               style={{ background: "rgba(0,0,0,0.45)", backdropFilter: "blur(6px)" }}
             >
               <ChevronRight className="w-6 h-6" />
@@ -126,7 +141,7 @@ export function Lightbox({ images, startIndex, onClose, captions }: LightboxProp
 
           {/* Caption */}
           {caption && (
-            <div className="absolute bottom-5 left-1/2 -translate-x-1/2 px-4 py-1.5 rounded-full text-xs tracking-wide text-ivory/80 font-mono pointer-events-none"
+            <div className="absolute bottom-4 md:bottom-5 left-1/2 -translate-x-1/2 px-4 py-1.5 rounded-full text-xs tracking-wide text-ivory/80 font-mono pointer-events-none whitespace-nowrap"
               style={{ background: "rgba(0,0,0,0.45)", backdropFilter: "blur(6px)" }}
             >
               {caption}
@@ -134,6 +149,9 @@ export function Lightbox({ images, startIndex, onClose, captions }: LightboxProp
           )}
         </motion.div>
       )}
-    </AnimatePresence>
+        </AnimatePresence>,
+        document.body
+      )}
+    </>
   );
 }
