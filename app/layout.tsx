@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { ThemeProvider } from "next-themes";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 
 const SITE_URL = "https://armanmohebali.ir";
@@ -145,6 +146,7 @@ export default function RootLayout({
           {children}
           <ThemeToggle />
           <Analytics />
+          <SpeedInsights />
         </ThemeProvider>
       </body>
     </html>
