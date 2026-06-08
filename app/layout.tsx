@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/profile.jpg",
+        url: "/armanmohebali.webp",
         width: 1200,
         height: 1600,
         alt: "آرمان محبعلی — Arman Mohebali",
@@ -54,7 +54,7 @@ export const metadata: Metadata = {
     title: "آرمان محبعلی | Arman Mohebali — Software Solutions Developer",
     description:
       "وب‌سایت رسمی آرمان محبعلی — مهندس و توسعه‌دهنده نرم‌افزار.",
-    images: ["/profile.jpg"],
+    images: ["/armanmohebali.webp"],
   },
   robots: {
     index: true,
@@ -77,7 +77,7 @@ const personJsonLd = {
   name: "Arman Mohebali",
   alternateName: ["آرمان محبعلی", "آرمان محب‌علی", "Arman Mohebali"],
   url: SITE_URL,
-  image: `${SITE_URL}/profile.jpg`,
+  image: `${SITE_URL}/armanmohebali.webp`,
   jobTitle: "Software Solutions Developer",
   description:
     "Software Engineer building reliable automation systems with Python, Flutter and WordPress.",

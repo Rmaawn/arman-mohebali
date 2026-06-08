@@ -114,7 +114,7 @@ function ProfilePhoto({ locale }: { locale: Locale }) {
         <div className="absolute inset-0 z-0">
           {!imgError ? (
             <Image
-              src="/profile.jpg"
+              src="/armanmohebali.webp"
               alt="آرمان محبعلی — Arman Mohebali, Software Solutions Developer"
               fill
               sizes="(max-width: 768px) 220px, 240px"
@@ -123,7 +123,7 @@ function ProfilePhoto({ locale }: { locale: Locale }) {
               priority
             />
           ) : (
-            /* Elegant placeholder until the user drops in profile.jpg */
+            /* Elegant placeholder until the user drops in armanmohebali.webp */
             <div className="w-full h-full flex flex-col items-center justify-center gap-4 bg-gradient-to-b from-onyx-light/60 to-onyx">
               <span className="text-[90px] leading-none text-gold/20">♔</span>
               <span className="font-mono text-xs tracking-[0.4em] uppercase text-ivory/25">A · M</span>

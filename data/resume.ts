@@ -112,7 +112,7 @@ export const resume = {
         en: "PCAP — Python Certified Associate in Programming",
         fa: "PCAP — گواهی برنامه‌نویسی پایتون",
       },
-      image: "/certificates/pcap.jpg",
+      image: "/certificates/pcap.webp",
     },
     {
       issuer: "Forage",
@@ -120,7 +120,7 @@ export const resume = {
         en: "Software Engineering Job Simulation",
         fa: "شبیه‌سازی شغلی مهندسی نرم‌افزار",
       },
-      image: "/certificates/forage-se.jpg",
+      image: "/certificates/forage-se.webp",
     },
     {
       issuer: { en: "Faradars", fa: "فرادرس" },
@@ -128,7 +128,7 @@ export const resume = {
         en: "Git, GitHub and GitLab Training",
         fa: "آموزش Git، GitHub و GitLab",
       },
-      image: "/certificates/faradars-git.jpg",
+      image: "/certificates/faradars-git.webp",
     },
   ],
   seminar: {
@@ -143,10 +143,10 @@ export const resume = {
     // 👉 لینک خبر دانشگاه را اینجا بگذار (مثلاً "https://uni.ac.ir/news/...")
     link: "",
     images: [
-      "/seminar/01.jpg",
-      "/seminar/02.jpg",
-      "/seminar/03.jpg",
-      "/seminar/04.jpg",
+      "/seminar/01.webp",
+      "/seminar/02.webp",
+      "/seminar/03.webp",
+      "/seminar/04.webp",
     ],
   },
   // 👉 لینک هر مقاله را در فیلد url همان مقاله بگذار (مثلاً "https://civilica.com/doc/...")
