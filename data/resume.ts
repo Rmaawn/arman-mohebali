@@ -15,7 +15,7 @@ export const resume = {
     fa: "کرج، البرز — ایران",
   },
   contact: {
-    website: "arman-mohebali.ir",
+    website: "armanmohebali.ir",
     linkedin: "linkedin.com/in/rmaawn",
     github: "github.com/rmaawn",
     telegram: "t.me/arman_mohebali",
