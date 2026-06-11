@@ -26,24 +26,100 @@ export const resume = {
     en: "Software Engineer building reliable automation systems for real-world workflows — combining Python, Flutter, WordPress, and digital product experience, while growing deeper into Data Science, Machine Learning, and LLMs.",
     fa: "مهندس نرم‌افزار با تمرکز بر ساخت سیستم‌های اتوماسیون قابل اتکا برای جریان‌های کاری واقعی — ترکیبی از Python، Flutter، WordPress و تجربه محصول دیجیتال، در حال عمیق‌تر شدن در علم داده، یادگیری ماشین و LLMها.",
   },
-  skills: {
-    design: {
-      label: { en: "Design", fa: "طراحی" },
-      items: ["WordPress", "Figma"],
+  // ════════════════════════════════════════════════════════════════
+  // SKILLS  —  ویرایش از همین‌جا
+  //   • هر گروه یک { label, items } است.
+  //   • هر مهارت: { name, level } که level درصد تسلط (۰ تا ۱۰۰) است.
+  //   • برای افزودن مهارت کافیست یک { name, level } به items اضافه کنی.
+  //   • برای حذف، خط مربوطه را پاک کن. برای ادیت، name یا level را تغییر بده.
+  //   • آیکون هر مهارت خودکار از روی name انتخاب می‌شود (در Skills.tsx).
+  // ════════════════════════════════════════════════════════════════
+  skills: [
+    {
+      label: { en: "Core Technologies", fa: "فناوری‌های اصلی" },
+      items: [
+        { name: "Python", level: 92 },
+        { name: "Dart", level: 82 },
+        { name: "Flutter", level: 85 },
+      ],
     },
-    coding: {
-      label: { en: "Coding & Technologies", fa: "کدنویسی و تکنولوژی" },
-      items: ["Linux", "Git", "Python", "Dart", "Flutter", "HTML5", "SEO & Content"],
+    {
+      label: { en: "Software Engineering", fa: "مهندسی نرم‌افزار" },
+      items: [
+        { name: "Data Structures", level: 85 },
+        { name: "Algorithms", level: 80 },
+        { name: "OOP", level: 90 },
+        { name: "Design Patterns", level: 78 },
+        { name: "SOLID Principles", level: 80 },
+        { name: "REST APIs", level: 88 },
+      ],
     },
-    devtools: {
-      label: { en: "Development & Productivity", fa: "ابزارهای توسعه و بهره‌وری" },
-      items: ["n8n", "Docker", "GitHub", "Claude", "Postman"],
+    {
+      label: { en: "Backend & Data", fa: "بک‌اند و داده" },
+      items: [
+        { name: "FastAPI", level: 85 },
+        { name: "PostgreSQL", level: 80 },
+        { name: "SQLite", level: 88 },
+        { name: "Hive", level: 82 },
+      ],
     },
-  },
+    {
+      label: { en: "System Design", fa: "طراحی سیستم" },
+      items: [
+        { name: "System Design", level: 72 },
+        { name: "Caching", level: 75 },
+        { name: "Concurrency", level: 70 },
+        { name: "Networking", level: 76 },
+        { name: "HTTP Internals", level: 80 },
+      ],
+    },
+    {
+      label: { en: "Automation & AI", fa: "اتوماسیون و هوش مصنوعی" },
+      items: [
+        { name: "Workflow Automation", level: 92 },
+        { name: "n8n", level: 92 },
+        { name: "LLM Integration", level: 85 },
+        { name: "RAG", level: 80 },
+        { name: "LangGraph", level: 72 },
+        { name: "Vector Databases", level: 75 },
+      ],
+    },
+    {
+      label: { en: "DevOps & Cloud", fa: "دواپس و کلاد" },
+      items: [
+        { name: "Linux", level: 85 },
+        { name: "Docker", level: 82 },
+        { name: "Git", level: 90 },
+        { name: "GitHub Actions", level: 80 },
+        { name: "CI/CD", level: 78 },
+        { name: "AWS", level: 68 },
+      ],
+    },
+    {
+      label: { en: "Web & CMS", fa: "وب و مدیریت محتوا" },
+      items: [
+        { name: "WordPress", level: 92 },
+        { name: "WooCommerce", level: 90 },
+        { name: "Technical SEO", level: 85 },
+        { name: "HTML/CSS", level: 88 },
+      ],
+    },
+    {
+      label: { en: "Tools & Platforms", fa: "ابزارها و پلتفرم‌ها" },
+      items: [
+        { name: "GitHub", level: 92 },
+        { name: "Postman", level: 85 },
+        { name: "Figma", level: 80 },
+        { name: "Claude", level: 90 },
+        { name: "OpenAI APIs", level: 85 },
+      ],
+    },
+  ],
   experience: [
     {
       company: "tadnaco.com",
       url: "https://tadnaco.com",
+      logo: "/logos/tadnaco.webp",
       role: { en: "Automation Engineer", fa: "مهندس اتوماسیون" },
       location: { en: "Dubai & Tehran", fa: "دبی و تهران" },
       period: { en: "Feb 2026 — Present", fa: "بهمن ۱۴۰۴ — اکنون" },
@@ -57,6 +133,7 @@ export const resume = {
     {
       company: "championsshop1.ir",
       url: "https://championsshop1.ir",
+      logo: "/logos/championsshop1.webp",
       role: { en: "E-Commerce Specialist", fa: "متخصص فروشگاه آنلاین" },
       location: { en: "Tehran", fa: "تهران" },
       period: { en: "Mar 2024 — Jan 2026", fa: "اسفند ۱۴۰۲ — دی ۱۴۰۴" },
@@ -70,6 +147,7 @@ export const resume = {
     {
       company: "Pixlweb.ir",
       url: "https://pixlweb.ir",
+      logo: "/logos/pixlweb.webp",
       role: { en: "Web Designer & Admin", fa: "طراح و مدیر وب" },
       location: { en: "Karaj", fa: "کرج" },
       period: { en: "Apr 2023 — Sep 2024", fa: "فروردین ۱۴۰۲ — مهر ۱۴۰۳" },
@@ -89,6 +167,7 @@ export const resume = {
       year: "2024",
       status: "LIVE",
       link: "https://cafebazaar.ir/app/com.rmaan.nootika",
+      image: "/projects/nootika.webp",
       description: {
         en: "A simple and elegant reminder & task management app — Flutter, Hive local DB, BLoC state management, and clean architecture.",
         fa: "یک اپلیکیشن ساده و خوش‌سلیقه برای یادآوری و مدیریت کارها — Flutter، دیتابیس Hive، مدیریت state با BLoC و معماری تمیز.",
