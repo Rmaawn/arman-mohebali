@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowUpRight, CalendarDays, Clock3, MapPin } from "lucide-react";
 import { resume } from "@/data/resume";
@@ -9,6 +10,30 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 interface Props {
   locale: Locale;
   dict: UIDict;
+}
+
+/** Small framed company logo with a graceful initial-letter fallback. */
+function CompanyLogo({ src, name }: { src?: string; name: string }) {
+  const [error, setError] = useState(!src);
+
+  return (
+    <div className="shrink-0 w-12 h-12 md:w-14 md:h-14 rounded-md border border-gold/25 bg-onyx-50/50 flex items-center justify-center overflow-hidden">
+      {!error ? (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          src={src}
+          alt={`${name} logo`}
+          loading="lazy"
+          onError={() => setError(true)}
+          className="w-full h-full object-contain p-1.5"
+        />
+      ) : (
+        <span className="font-display text-gold/45 text-xl select-none">
+          {name.charAt(0).toUpperCase()}
+        </span>
+      )}
+    </div>
+  );
 }
 
 const FA_DIGITS = ["۰", "۱", "۲", "۳", "۴", "۵", "۶", "۷", "۸", "۹"];
@@ -97,47 +122,54 @@ export function Experience({ locale, dict }: Props) {
                 </div>
 
                 <div className="glass premium-card rounded-sm p-6 md:p-8 gold-glow-hover">
-                  {/* Role + ongoing indicator */}
-                  <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
-                    <h3 className="text-2xl md:text-3xl font-display text-ivory leading-tight">
-                      {exp.role[locale]}
-                    </h3>
-                    {isCurrent && (
-                      <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-400/10 border border-emerald-400/30 text-emerald-300 text-[10px] font-mono tracking-[0.18em] uppercase">
-                        <span className="relative flex w-1.5 h-1.5">
-                          <span className="absolute inline-flex w-full h-full rounded-full bg-emerald-400 opacity-75 animate-ping" />
-                          <span className="relative inline-flex w-1.5 h-1.5 rounded-full bg-emerald-400" />
-                        </span>
-                        {dict.misc.current}
-                      </span>
-                    )}
-                  </div>
+                  {/* Header — logo + identity */}
+                  <div className="flex items-start gap-4">
+                    <CompanyLogo src={(exp as { logo?: string }).logo} name={exp.company} />
 
-                  {/* Identity line — company · tenure */}
-                  <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1">
-                    {(() => {
-                      const url = (exp as { url?: string }).url;
-                      return url ? (
-                        <a
-                          href={url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1 font-mono text-sm font-bold tracking-wider text-gold hover:text-gold-50 transition-colors group/link"
-                        >
-                          {exp.company}
-                          <ArrowUpRight className="w-3.5 h-3.5 opacity-50 group-hover/link:opacity-100 transition-opacity" />
-                        </a>
-                      ) : (
-                        <span className="font-mono text-sm font-bold tracking-wider text-gold">
-                          {exp.company}
+                    <div className="min-w-0 flex-1">
+                      {/* Role + ongoing indicator */}
+                      <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
+                        <h3 className="text-2xl md:text-3xl font-display text-ivory leading-tight">
+                          {exp.role[locale]}
+                        </h3>
+                        {isCurrent && (
+                          <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-400/10 border border-emerald-400/30 text-emerald-300 text-[10px] font-mono tracking-[0.18em] uppercase">
+                            <span className="relative flex w-1.5 h-1.5">
+                              <span className="absolute inline-flex w-full h-full rounded-full bg-emerald-400 opacity-75 animate-ping" />
+                              <span className="relative inline-flex w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                            </span>
+                            {dict.misc.current}
+                          </span>
+                        )}
+                      </div>
+
+                      {/* Identity line — company · tenure */}
+                      <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1">
+                        {(() => {
+                          const url = (exp as { url?: string }).url;
+                          return url ? (
+                            <a
+                              href={url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-1 font-mono text-sm font-bold tracking-wider text-gold hover:text-gold-50 transition-colors group/link"
+                            >
+                              {exp.company}
+                              <ArrowUpRight className="w-3.5 h-3.5 opacity-50 group-hover/link:opacity-100 transition-opacity" />
+                            </a>
+                          ) : (
+                            <span className="font-mono text-sm font-bold tracking-wider text-gold">
+                              {exp.company}
+                            </span>
+                          );
+                        })()}
+                        <span className="text-ivory/25">·</span>
+                        <span className="inline-flex items-center gap-1.5 text-ivory/60 font-mono text-xs tracking-wider">
+                          <Clock3 className="w-3.5 h-3.5 text-gold/70" />
+                          {duration}
                         </span>
-                      );
-                    })()}
-                    <span className="text-ivory/25">·</span>
-                    <span className="inline-flex items-center gap-1.5 text-ivory/60 font-mono text-xs tracking-wider">
-                      <Clock3 className="w-3.5 h-3.5 text-gold/70" />
-                      {duration}
-                    </span>
+                      </div>
+                    </div>
                   </div>
 
                   {/* Secondary meta — period & location */}

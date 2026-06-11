@@ -56,10 +56,11 @@ export function Hero({ locale, dict }: Props) {
       <div className="relative z-10 h-full flex flex-col">
         {/* Top bar */}
         <motion.div
+          dir="ltr"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="px-8 md:px-16 pt-8 flex items-center justify-between"
+          className="px-8 md:px-16 pt-8 flex items-center justify-start"
         >
           <div className="flex items-center gap-3">
             <span className="text-gold text-2xl">♛</span>
