@@ -44,13 +44,7 @@ export function Hero({ locale, dict }: Props) {
 
       {/* Vignette */}
       <div className="absolute inset-0 pointer-events-none bg-gradient-to-b from-onyx/40 via-transparent to-onyx" />
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background:
-            "radial-gradient(ellipse at center, transparent 0%, transparent 45%, rgba(10,10,10,0.75) 100%)",
-        }}
-      />
+      <div className="absolute inset-0 pointer-events-none hero-vignette" />
 
       {/* Foreground content */}
       <div className="relative z-10 h-full flex flex-col">
@@ -64,7 +58,7 @@ export function Hero({ locale, dict }: Props) {
         >
           <div className="flex items-center gap-3">
             <span className="text-gold text-2xl">♛</span>
-            <span className="font-mono text-xs tracking-[0.3em] uppercase text-ivory/60">
+            <span className="font-mono text-xs tracking-[0.3em] uppercase hero-name">
               {isFa ? "آرمان محب‌علی" : "A. Mohebali"}
             </span>
           </div>
@@ -84,7 +78,7 @@ export function Hero({ locale, dict }: Props) {
             <h1 className="hero-title text-5xl sm:text-6xl md:text-8xl lg:text-9xl mb-4 md:mb-6">
               <span className="text-gold-gradient">{resume.name[locale]}</span>
             </h1>
-            <div className="text-ivory/50 max-w-xl mx-auto text-sm md:text-base leading-relaxed mt-4">
+            <div className="hero-lede max-w-xl mx-auto text-sm md:text-base leading-relaxed mt-4">
               {isFa
                 ? "هر مهره یک بخش از من است — کلیک کن، حرکت کن، بازی را تماشا کن."
                 : "Each piece is a part of me — click, move, watch the game unfold."}
@@ -135,7 +129,7 @@ export function Hero({ locale, dict }: Props) {
               />
             </Link>
 
-            <span className="font-mono text-[10px] tracking-[0.3em] uppercase text-ivory/35">
+            <span className="font-mono text-[10px] tracking-[0.3em] uppercase hero-hint">
               {isFa
                 ? "یا رزومه را پایین اسکرول کن"
                 : "or scroll down to read the resume"}
@@ -151,7 +145,7 @@ export function Hero({ locale, dict }: Props) {
           className="pb-8 flex flex-col items-center gap-2 pointer-events-none"
         >
           <ChevronsDown className="w-4 h-4 text-gold/60 animate-bounce" />
-          <div className="text-[10px] tracking-[0.3em] uppercase text-ivory/40">
+          <div className="text-[10px] tracking-[0.3em] uppercase hero-hint">
             {dict.misc.scrollHint}
           </div>
         </motion.div>

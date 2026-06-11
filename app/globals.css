@@ -267,6 +267,23 @@ section {
   font-weight: 700;
 }
 
+/* ── Hero foreground text ──
+   Tuned for the dark 3D scene by default; the .light overrides further
+   down raise contrast against the light beige backdrop. */
+.hero-name { color: rgb(var(--color-ivory) / 0.6); }
+.hero-lede { color: rgb(var(--color-ivory) / 0.55); }
+.hero-hint { color: rgb(var(--color-ivory) / 0.4); }
+
+/* Radial vignette that frames the centered content */
+.hero-vignette {
+  background: radial-gradient(
+    ellipse at center,
+    transparent 0%,
+    transparent 45%,
+    rgba(10, 10, 10, 0.75) 100%
+  );
+}
+
 .btn-gold {
   position: relative;
   display: inline-flex;
@@ -477,6 +494,22 @@ section {
 /* Premium card shine */
 .light .premium-card::before {
   background: linear-gradient(90deg, transparent, rgba(152, 112, 10, 0.06), transparent);
+}
+
+/* Hero text — translucent ivory turns near-black in light mode, so the
+   low opacities used for the dark scene read as faint gray. Raise them. */
+.light .hero-name { color: rgb(var(--color-ivory) / 0.82); }
+.light .hero-lede { color: rgb(var(--color-ivory) / 0.78); }
+.light .hero-hint { color: rgb(var(--color-ivory) / 0.62); }
+
+/* Warm, light vignette instead of the dark scrim that muddies the corners */
+.light .hero-vignette {
+  background: radial-gradient(
+    ellipse at center,
+    transparent 0%,
+    transparent 58%,
+    rgba(150, 120, 60, 0.22) 100%
+  );
 }
 
 /* Pulse animation */
