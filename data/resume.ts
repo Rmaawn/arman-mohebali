@@ -49,7 +49,7 @@ export const resume = {
         { name: "Data Structures", level: 85 },
         { name: "Algorithms", level: 80 },
         { name: "OOP", level: 90 },
-        { name: "Design Patterns", level: 78 },
+        // { name: "Design Patterns", level: 78 },
         { name: "SOLID Principles", level: 80 },
         { name: "REST APIs", level: 88 },
       ],
@@ -63,27 +63,27 @@ export const resume = {
         { name: "Hive", level: 82 },
       ],
     },
-    {
-      label: { en: "System Design", fa: "طراحی سیستم" },
-      items: [
-        { name: "System Design", level: 72 },
-        { name: "Caching", level: 75 },
-        { name: "Concurrency", level: 70 },
-        { name: "Networking", level: 76 },
-        { name: "HTTP Internals", level: 80 },
-      ],
-    },
-    {
-      label: { en: "Automation & AI", fa: "اتوماسیون و هوش مصنوعی" },
-      items: [
-        { name: "Workflow Automation", level: 92 },
-        { name: "n8n", level: 92 },
-        { name: "LLM Integration", level: 85 },
-        { name: "RAG", level: 80 },
-        { name: "LangGraph", level: 72 },
-        { name: "Vector Databases", level: 75 },
-      ],
-    },
+    // {
+    //   label: { en: "System Design", fa: "طراحی سیستم" },
+    //   items: [
+    //     { name: "System Design", level: 72 },
+    //     { name: "Caching", level: 75 },
+    //     { name: "Concurrency", level: 70 },
+    //     { name: "Networking", level: 76 },
+    //     { name: "HTTP Internals", level: 80 },
+    //   ],
+    // },
+    // {
+    //   label: { en: "Automation & AI", fa: "اتوماسیون و هوش مصنوعی" },
+    //   items: [
+    //     { name: "Workflow Automation", level: 92 },
+    //     { name: "n8n", level: 92 },
+    //     { name: "LLM Integration", level: 85 },
+    //     { name: "RAG", level: 80 },
+    //     { name: "LangGraph", level: 72 },
+    //     { name: "Vector Databases", level: 75 },
+    //   ],
+    // },
     {
       label: { en: "DevOps & Cloud", fa: "دواپس و کلاد" },
       items: [
@@ -92,7 +92,7 @@ export const resume = {
         { name: "Git", level: 90 },
         { name: "GitHub Actions", level: 80 },
         { name: "CI/CD", level: 78 },
-        { name: "AWS", level: 68 },
+        // { name: "AWS", level: 68 },
       ],
     },
     {
@@ -199,12 +199,24 @@ export const resume = {
       },
     },
   ],
+  // ════════════════════════════════════════════════════════════════
+  // CERTIFICATES  —  ویرایش از همین‌جا
+  //   • هر مدرک یک بلوک { issuer, title, description, image } است.
+  //   • برای افزودن مدرک جدید، کل یک بلوک {...} را کپی کن و زیرش بگذار.
+  //   • برای حذف، کل بلوک {...} مربوطه را پاک کن.
+  //   • description اختیاری است؛ نخواستی کل خط را پاک کن.
+  //   • image: فایل را در public/certificates/ بگذار و مسیرش را اینجا بنویس.
+  // ════════════════════════════════════════════════════════════════
   certificates: [
     {
       issuer: "Everest IT Academy",
       title: {
         en: "PCAP — Python Certified Associate in Programming",
         fa: "PCAP — گواهی برنامه‌نویسی پایتون",
+      },
+      description: {
+        en: "This course marked the beginning of my journey in software development. At the age of 16, I gained a solid understanding of programming fundamentals, algorithmic thinking, and problem-solving, which motivated me to pursue software engineering more seriously.",
+        fa: "این دوره نقطه آغاز مسیر حرفه‌ای من در برنامه‌نویسی بود. در سن ۱۶ سالگی با شرکت در این دوره حضوری، با مفاهیم بنیادین برنامه‌نویسی، تفکر الگوریتمی و حل مسئله آشنا شدم و علاقه‌ام به توسعه نرم‌افزار را به‌صورت جدی دنبال کردم.",
       },
       image: "/certificates/pcap.webp",
     },
@@ -214,6 +226,10 @@ export const resume = {
         en: "Software Engineering Job Simulation",
         fa: "شبیه‌سازی شغلی مهندسی نرم‌افزار",
       },
+      description: {
+        en: "This job simulation provided hands-on exposure to workflows commonly found in professional software engineering environments. It helped me better understand industry practices, team collaboration, and the professional mindset required for building software at scale.",
+        fa: "این دوره در قالب یک شبیه‌سازی نزدیک به محیط‌های کاری واقعی، بخشی از مسئولیت‌ها و فرآیندهای روزمره مهندسان نرم‌افزار در شرکت‌های حرفه‌ای را بازسازی می‌کرد. تجربه آن دید بهتری نسبت به استانداردهای کاری، همکاری تیمی و رویکرد حرفه‌ای در توسعه نرم‌افزار به من داد.",
+      },
       image: "/certificates/forage-se.webp",
     },
     {
@@ -222,7 +238,39 @@ export const resume = {
         en: "Git, GitHub and GitLab Training",
         fa: "آموزش Git، GitHub و GitLab",
       },
+      description: {
+        en: "This course introduced me to version control best practices using Git. It enabled me to manage projects more professionally, track code changes efficiently, and leverage GitHub and GitLab for collaboration, deployment, and code maintenance.",
+        fa: "در این دوره با اصول کنترل نسخه و گردش‌کار حرفه‌ای Git آشنا شدم. پس از آن توانستم پروژه‌هایم را با ساختاری استاندارد مدیریت کرده، تغییرات را به‌صورت مؤثر ردیابی کنم و از GitHub و GitLab برای همکاری، استقرار و نگهداری کد استفاده کنم.",
+      },
       image: "/certificates/faradars-git.webp",
+    },
+    {
+      // 👉 issuer را با نام صادرکننده‌ی واقعی جایگزین کن (مثلاً "Anthropic")
+      issuer: "Anthropic",
+      title: {
+        en: "Claude Code 101",
+        fa: "Claude Code 101",
+      },
+      description: {
+        en: "This course introduced me to Claude Code and practical AI-assisted software development workflows. Since completing it, I have applied these skills across real-world projects to improve development speed, code quality, and problem-solving efficiency.",
+        fa: "این دوره من را با اصول کار با Claude Code و استفاده عملی از ابزارهای هوش مصنوعی در فرایند توسعه نرم‌افزار آشنا کرد. پس از گذراندن آن، توانستم از این ابزار در پروژه‌های واقعی برای افزایش سرعت توسعه، بهبود کیفیت کد و تسهیل فرایند حل مسئله استفاده کنم.",
+      },
+      // 👉 فایل تصویر را در public/certificates/ با همین نام بگذار
+      image: "/certificates/claude-code-101.webp",
+    },
+    {
+      // 👉 issuer را با نام صادرکننده‌ی واقعی جایگزین کن (مثلاً "Kaggle")
+      issuer: "Kaggle",
+      title: {
+        en: "Introduction to SQL",
+        fa: "مقدمه‌ای بر SQL",
+      },
+      description: {
+        en: "This course provided a solid foundation in database concepts and SQL. It strengthened my ability to write practical queries, work with structured data, and understand the fundamentals of modern database systems.",
+        fa: "این دوره پایه‌ای مستحکم برای درک مفاهیم پایگاه داده و زبان SQL در اختیارم قرار داد. علاوه بر آشنایی با ساختار و طراحی داده‌ها، مهارت من در نوشتن کوئری‌های کاربردی و کار با داده‌های واقعی را نیز تقویت کرد.",
+      },
+      // 👉 فایل تصویر را در public/certificates/ با همین نام بگذار
+      image: "/certificates/sql-intro.webp",
     },
   ],
   // ════════════════════════════════════════════════════════════════
@@ -234,6 +282,24 @@ export const resume = {
   //   • images: مسیر عکس‌ها؛ هرچند تا خواستی کم/زیاد کن.
   // ════════════════════════════════════════════════════════════════
   seminars: [
+    {
+      title: {
+        en: "National Conference on Smart City & IoT",
+        fa: "کنفرانس ملی شهر هوشمند و اینترنت اشیا",
+      },
+      description: {
+        en: "Presented two research papers on smart city challenges and open-source business models. The event brought together engineers, urban planners, and researchers to explore digital transformation in Iranian cities.",
+        fa: "ارائه دو مقاله پژوهشی درباره چالش‌های شهر هوشمند و مدل‌های کسب‌وکار در نرم‌افزار آزاد. این رویداد مهندسان، برنامه‌ریزان شهری و پژوهشگران را برای بررسی تحول دیجیتال در شهرهای ایران گرد هم آورد.",
+      },
+      // 👉 لینک خبر دانشگاه را اینجا بگذار (مثلاً "https://uni.ac.ir/news/...")
+      link: "",
+      images: [
+        "/seminar/01.webp",
+        "/seminar/02.webp",
+        "/seminar/03.webp",
+        "/seminar/04.webp",
+      ],
+    },
     {
       title: {
         en: "National Conference on Smart City & IoT",

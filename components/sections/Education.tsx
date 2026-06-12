@@ -130,6 +130,11 @@ export function Education({ locale, dict }: Props) {
                     <div className="text-xs tracking-widest uppercase text-gold/70 font-mono">
                       {issuerLabel}
                     </div>
+                    {"description" in c && c.description && (
+                      <p className="text-ivory/55 text-xs leading-relaxed mt-2">
+                        {c.description[locale]}
+                      </p>
+                    )}
                   </div>
 
                   {hasImage && (
