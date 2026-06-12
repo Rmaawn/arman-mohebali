@@ -43,37 +43,43 @@ export function Education({ locale, dict }: Props) {
       <SectionHeading icon="♗" label={dict.nav.education} title={dict.sections.educationTitle} />
 
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
-        {/* Education card */}
+        {/* Education cards */}
         <motion.div
           initial={{ opacity: 0, x: -30 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.55 }}
-          className="lg:col-span-2 glass premium-card rounded-sm p-8 gold-glow-hover"
+          className="lg:col-span-2 space-y-6"
         >
-          <div className="flex items-center gap-3 mb-6">
-            <GraduationCap className="w-6 h-6 text-gold" />
-            <span className="text-xs tracking-[0.3em] uppercase text-gold/70">
-              {locale === "fa" ? "تحصیلات" : "Education"}
-            </span>
-          </div>
+          {resume.education.map((edu, i) => (
+            <div key={i} className="glass premium-card rounded-sm p-8 gold-glow-hover">
+              <div className="flex items-center gap-3 mb-6">
+                <GraduationCap className="w-6 h-6 text-gold" />
+                <span className="text-xs tracking-[0.3em] uppercase text-gold/70">
+                  {locale === "fa" ? "تحصیلات" : "Education"}
+                </span>
+              </div>
 
-          <div className="text-xs font-mono tracking-widest text-ivory/40 mb-3">
-            {resume.education.period}
-          </div>
-          <h3 className="text-2xl font-display text-ivory mb-2">
-            {resume.education.degree[locale]}
-          </h3>
-          <p className="text-ivory/70 text-sm mb-6">{resume.education.institution[locale]}</p>
+              <div className="text-xs font-mono tracking-widest text-ivory/40 mb-3">
+                {edu.period}
+              </div>
+              <h3 className="text-2xl font-display text-ivory mb-2">
+                {edu.degree[locale]}
+              </h3>
+              <p className="text-ivory/70 text-sm mb-6">{edu.institution[locale]}</p>
 
-          <div className="flex items-center gap-3 pt-6 border-t border-ivory/10">
-            <span className="text-xs tracking-widest uppercase text-ivory/40">
-              {dict.misc.grade}
-            </span>
-            <span className="text-2xl font-display text-gold-gradient">
-              {resume.education.grade}
-            </span>
-          </div>
+              {edu.grade && (
+                <div className="flex items-center gap-3 pt-6 border-t border-ivory/10">
+                  <span className="text-xs tracking-widest uppercase text-ivory/40">
+                    {dict.misc.grade}
+                  </span>
+                  <span className="text-2xl font-display text-gold-gradient">
+                    {edu.grade}
+                  </span>
+                </div>
+              )}
+            </div>
+          ))}
         </motion.div>
 
         {/* Certifications */}

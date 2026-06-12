@@ -178,18 +178,27 @@ export const resume = {
       },
     },
   ],
-  education: {
-    period: "2024 — 2028",
-    grade: "17.5 / 20",
-    degree: {
-      en: "Associate Degree in Software Engineering",
-      fa: "کاردانی مهندسی نرم‌افزار",
+  // ════════════════════════════════════════════════════════════════
+  // EDUCATION  —  ویرایش از همین‌جا
+  //   • هر مقطع تحصیلی یک بلوک { period, grade, degree, institution } است.
+  //   • برای افزودن مقطع جدید، کل یک بلوک {...} را کپی کن و زیرش بگذار.
+  //   • برای حذف، کل بلوک {...} مربوطه را پاک کن.
+  //   • grade اختیاری است؛ اگر نخواستی نمایش داده شود، مقدارش را "" بگذار.
+  // ════════════════════════════════════════════════════════════════
+  education: [
+    {
+      period: "2024 — 2028",
+      grade: "17.5 / 20",
+      degree: {
+        en: "Associate Degree in Software Engineering",
+        fa: "کاردانی مهندسی نرم‌افزار",
+      },
+      institution: {
+        en: "Shamsipour Technical & Vocational College",
+        fa: "دانشکده فنی و حرفه‌ای شمسی‌پور",
+      },
     },
-    institution: {
-      en: "Shamsipour Technical & Vocational College",
-      fa: "دانشکده فنی و حرفه‌ای شمسی‌پور",
-    },
-  },
+  ],
   certificates: [
     {
       issuer: "Everest IT Academy",
@@ -216,24 +225,34 @@ export const resume = {
       image: "/certificates/faradars-git.webp",
     },
   ],
-  seminar: {
-    title: {
-      en: "National Conference on Smart City & IoT",
-      fa: "کنفرانس ملی شهر هوشمند و اینترنت اشیا",
+  // ════════════════════════════════════════════════════════════════
+  // SEMINARS  —  ویرایش از همین‌جا
+  //   • هر سمینار یک بلوک { title, description, link, images } است.
+  //   • برای افزودن سمینار جدید، کل یک بلوک {...} را کپی کن و زیرش بگذار.
+  //   • برای حذف، کل بلوک {...} مربوطه را پاک کن.
+  //   • link: لینک خبر دانشگاه (خالی بگذاری دکمه‌اش غیرفعال می‌شود).
+  //   • images: مسیر عکس‌ها؛ هرچند تا خواستی کم/زیاد کن.
+  // ════════════════════════════════════════════════════════════════
+  seminars: [
+    {
+      title: {
+        en: "National Conference on Smart City & IoT",
+        fa: "کنفرانس ملی شهر هوشمند و اینترنت اشیا",
+      },
+      description: {
+        en: "Presented two research papers on smart city challenges and open-source business models. The event brought together engineers, urban planners, and researchers to explore digital transformation in Iranian cities.",
+        fa: "ارائه دو مقاله پژوهشی درباره چالش‌های شهر هوشمند و مدل‌های کسب‌وکار در نرم‌افزار آزاد. این رویداد مهندسان، برنامه‌ریزان شهری و پژوهشگران را برای بررسی تحول دیجیتال در شهرهای ایران گرد هم آورد.",
+      },
+      // 👉 لینک خبر دانشگاه را اینجا بگذار (مثلاً "https://uni.ac.ir/news/...")
+      link: "",
+      images: [
+        "/seminar/01.webp",
+        "/seminar/02.webp",
+        "/seminar/03.webp",
+        "/seminar/04.webp",
+      ],
     },
-    description: {
-      en: "Presented two research papers on smart city challenges and open-source business models. The event brought together engineers, urban planners, and researchers to explore digital transformation in Iranian cities.",
-      fa: "ارائه دو مقاله پژوهشی درباره چالش‌های شهر هوشمند و مدل‌های کسب‌وکار در نرم‌افزار آزاد. این رویداد مهندسان، برنامه‌ریزان شهری و پژوهشگران را برای بررسی تحول دیجیتال در شهرهای ایران گرد هم آورد.",
-    },
-    // 👉 لینک خبر دانشگاه را اینجا بگذار (مثلاً "https://uni.ac.ir/news/...")
-    link: "",
-    images: [
-      "/seminar/01.webp",
-      "/seminar/02.webp",
-      "/seminar/03.webp",
-      "/seminar/04.webp",
-    ],
-  },
+  ],
   // 👉 لینک هر مقاله را در فیلد url همان مقاله بگذار (مثلاً "https://civilica.com/doc/...")
   publications: [
     {

@@ -38,69 +38,76 @@ function SeminarPhoto({ src, alt, onClick }: { src: string; alt: string; onClick
 }
 
 export function Publications({ locale, dict }: Props) {
-  const [lightbox, setLightbox] = useState<number | null>(null);
+  // lightbox: کدام سمینار (s) و کدام عکس (i) باز است.
+  const [lightbox, setLightbox] = useState<{ s: number; i: number } | null>(null);
   const close = useCallback(() => setLightbox(null), []);
-  const { seminar } = resume;
+  const { seminars } = resume;
+  const activeImages = lightbox !== null ? seminars[lightbox.s].images : [];
 
   return (
     <section id="publications" className="relative py-20 md:py-32 px-6 md:px-16 max-w-7xl mx-auto">
       <SectionHeading icon="♙" label={dict.nav.publications} title={dict.sections.publicationsTitle} />
 
-      {/* ── Seminar block ── */}
-      <motion.div
-        initial={{ opacity: 0, y: 24 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-80px" }}
-        transition={{ duration: 0.55 }}
-        className="glass premium-card rounded-sm p-7 md:p-9 mb-6 gold-glow-hover"
-      >
-        {/* Label + university link */}
-        <div className="flex items-center justify-between gap-3 mb-5">
-          <div className="flex items-center gap-3">
-            <Presentation className="w-5 h-5 text-gold/70" />
-            <span className="text-xs tracking-[0.3em] uppercase text-gold/70 font-mono">
-              {locale === "fa" ? "سمینار" : "Seminar"}
-            </span>
+      {/* ── Seminar blocks ── */}
+      {seminars.map((seminar, s) => (
+        <motion.div
+          key={s}
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.55 }}
+          className="glass premium-card rounded-sm p-7 md:p-9 mb-6 gold-glow-hover"
+        >
+          {/* Label + university link */}
+          <div className="flex items-center justify-between gap-3 mb-5">
+            <div className="flex items-center gap-3">
+              <Presentation className="w-5 h-5 text-gold/70" />
+              <span className="text-xs tracking-[0.3em] uppercase text-gold/70 font-mono">
+                {locale === "fa" ? "سمینار" : "Seminar"}
+              </span>
+            </div>
+
+            {seminar.link && (
+              <a
+                href={seminar.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-xs tracking-[0.15em] uppercase font-mono text-gold/80 hover:text-gold border border-gold/30 hover:border-gold/60 rounded-full px-4 py-2 transition-colors"
+              >
+                <ExternalLink className="w-3.5 h-3.5" />
+                {locale === "fa" ? "سایت دانشگاه" : "University website"}
+              </a>
+            )}
           </div>
 
-          <a
-            href={seminar.link || "#"}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 text-xs tracking-[0.15em] uppercase font-mono text-gold/80 hover:text-gold border border-gold/30 hover:border-gold/60 rounded-full px-4 py-2 transition-colors"
-          >
-            <ExternalLink className="w-3.5 h-3.5" />
-            {locale === "fa" ? "سایت دانشگاه" : "University website"}
-          </a>
-        </div>
+          {/* Title + description */}
+          <h3 className="section-heading text-2xl md:text-3xl text-ivory mb-3">
+            {seminar.title[locale]}
+          </h3>
+          <p className="text-ivory/60 text-sm leading-relaxed max-w-2xl mb-7">
+            {seminar.description[locale]}
+          </p>
 
-        {/* Title + description */}
-        <h3 className="section-heading text-2xl md:text-3xl text-ivory mb-3">
-          {seminar.title[locale]}
-        </h3>
-        <p className="text-ivory/60 text-sm leading-relaxed max-w-2xl mb-7">
-          {seminar.description[locale]}
-        </p>
-
-        {/* Photo grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-          {seminar.images.map((src, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, scale: 0.97 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.4, delay: i * 0.08 }}
-            >
-              <SeminarPhoto
-                src={src}
-                alt={locale === "fa" ? `تصویر ${i + 1}` : `Photo ${i + 1}`}
-                onClick={() => setLightbox(i)}
-              />
-            </motion.div>
-          ))}
-        </div>
-      </motion.div>
+          {/* Photo grid */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            {seminar.images.map((src, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, scale: 0.97 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{ duration: 0.4, delay: i * 0.08 }}
+              >
+                <SeminarPhoto
+                  src={src}
+                  alt={locale === "fa" ? `تصویر ${i + 1}` : `Photo ${i + 1}`}
+                  onClick={() => setLightbox({ s, i })}
+                />
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+      ))}
 
       {/* ── Publications grid ── */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -143,11 +150,11 @@ export function Publications({ locale, dict }: Props) {
 
       {/* ── Lightbox ── */}
       <Lightbox
-        images={seminar.images}
-        captions={seminar.images.map((_, i) =>
-          locale === "fa" ? `تصویر ${i + 1} از ${seminar.images.length}` : `Photo ${i + 1} of ${seminar.images.length}`
+        images={activeImages}
+        captions={activeImages.map((_, i) =>
+          locale === "fa" ? `تصویر ${i + 1} از ${activeImages.length}` : `Photo ${i + 1} of ${activeImages.length}`
         )}
-        startIndex={lightbox}
+        startIndex={lightbox !== null ? lightbox.i : null}
         onClose={close}
       />
     </section>
