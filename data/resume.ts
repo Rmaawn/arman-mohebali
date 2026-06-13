@@ -177,6 +177,54 @@ export const resume = {
         fa: "تجربه کار با پکیج‌های Flutter: lottie، permission_handler، native_splash، alarm و share_plus.",
       },
     },
+    {
+      brand: "Nootika",
+      name: "Reminder",
+      year: "2024",
+      status: "LIVE",
+      link: "https://cafebazaar.ir/app/com.rmaan.nootika",
+      image: "/projects/nootika.webp",
+      description: {
+        en: "A simple and elegant reminder & task management app — Flutter, Hive local DB, BLoC state management, and clean architecture.",
+        fa: "یک اپلیکیشن ساده و خوش‌سلیقه برای یادآوری و مدیریت کارها — Flutter، دیتابیس Hive، مدیریت state با BLoC و معماری تمیز.",
+      },
+      details: {
+        en: "Experience with Flutter packages: lottie, permission_handler, native_splash, alarm, share_plus.",
+        fa: "تجربه کار با پکیج‌های Flutter: lottie، permission_handler، native_splash، alarm و share_plus.",
+      },
+    },
+    {
+      brand: "Nootika",
+      name: "Reminder",
+      year: "2024",
+      status: "LIVE",
+      link: "https://cafebazaar.ir/app/com.rmaan.nootika",
+      image: "/projects/nootika.webp",
+      description: {
+        en: "A simple and elegant reminder & task management app — Flutter, Hive local DB, BLoC state management, and clean architecture.",
+        fa: "یک اپلیکیشن ساده و خوش‌سلیقه برای یادآوری و مدیریت کارها — Flutter، دیتابیس Hive، مدیریت state با BLoC و معماری تمیز.",
+      },
+      details: {
+        en: "Experience with Flutter packages: lottie, permission_handler, native_splash, alarm, share_plus.",
+        fa: "تجربه کار با پکیج‌های Flutter: lottie، permission_handler، native_splash، alarm و share_plus.",
+      },
+    },
+    {
+      brand: "Nootika",
+      name: "Reminder",
+      year: "2024",
+      status: "LIVE",
+      link: "https://cafebazaar.ir/app/com.rmaan.nootika",
+      image: "/projects/nootika.webp",
+      description: {
+        en: "A simple and elegant reminder & task management app — Flutter, Hive local DB, BLoC state management, and clean architecture.",
+        fa: "یک اپلیکیشن ساده و خوش‌سلیقه برای یادآوری و مدیریت کارها — Flutter، دیتابیس Hive، مدیریت state با BLoC و معماری تمیز.",
+      },
+      details: {
+        en: "Experience with Flutter packages: lottie, permission_handler, native_splash, alarm, share_plus.",
+        fa: "تجربه کار با پکیج‌های Flutter: lottie، permission_handler، native_splash، alarm و share_plus.",
+      },
+    },
   ],
   // ════════════════════════════════════════════════════════════════
   // EDUCATION  —  ویرایش از همین‌جا
@@ -209,7 +257,7 @@ export const resume = {
   // ════════════════════════════════════════════════════════════════
   certificates: [
     {
-      issuer: "Everest IT Academy",
+      issuer: { en: "Everest IT Academy", fa: "کالج اورست" },
       title: {
         en: "PCAP — Python Certified Associate in Programming",
         fa: "PCAP — گواهی برنامه‌نویسی پایتون",
@@ -221,7 +269,7 @@ export const resume = {
       image: "/certificates/pcap.webp",
     },
     {
-      issuer: "Forage",
+      issuer: { en: "Forage", fa: "فوریج" },
       title: {
         en: "Software Engineering Job Simulation",
         fa: "شبیه‌سازی شغلی مهندسی نرم‌افزار",
@@ -246,7 +294,7 @@ export const resume = {
     },
     {
       // 👉 issuer را با نام صادرکننده‌ی واقعی جایگزین کن (مثلاً "Anthropic")
-      issuer: "Anthropic",
+      issuer: { en: "Anthropic", fa: "انتروپیک" },
       title: {
         en: "Claude Code 101",
         fa: "Claude Code 101",
@@ -260,7 +308,7 @@ export const resume = {
     },
     {
       // 👉 issuer را با نام صادرکننده‌ی واقعی جایگزین کن (مثلاً "Kaggle")
-      issuer: "Kaggle",
+      issuer: { en: "DataCamp", fa: "دیتاکمپ" },
       title: {
         en: "Introduction to SQL",
         fa: "مقدمه‌ای بر SQL",
@@ -284,15 +332,36 @@ export const resume = {
   seminars: [
     {
       title: {
-        en: "National Conference on Smart City & IoT",
-        fa: "کنفرانس ملی شهر هوشمند و اینترنت اشیا",
+        en: "Prompt Engineering: The Art of Communicating with AI",
+        fa: "مهندسی پرامپت؛ هنر گفتگو با هوش مصنوعی",
+      },
+      // زیرعنوان (نقش/محل) — کنار عنوان نمایش داده می‌شود.
+      subtitle: {
+        en: "Speaker & Workshop Organizer — Shahid Shamsipour Technical and Vocational College",
+        fa: "سخنران و برگزارکننده کارگاه تخصصی — دانشکده فنی و حرفه‌ای شهید شمسی‌پور",
+      },
+      // 📅 تاریخ — در یک باکس جدا کنار عنوان می‌آید.
+      date: {
+        en: "December 2025",
+        fa: "آذر ۱۴۰۴",
       },
       description: {
-        en: "Presented two research papers on smart city challenges and open-source business models. The event brought together engineers, urban planners, and researchers to explore digital transformation in Iranian cities.",
-        fa: "ارائه دو مقاله پژوهشی درباره چالش‌های شهر هوشمند و مدل‌های کسب‌وکار در نرم‌افزار آزاد. این رویداد مهندسان، برنامه‌ریزان شهری و پژوهشگران را برای بررسی تحول دیجیتال در شهرهای ایران گرد هم آورد.",
+        en: "I co-organized and presented a technical workshop on Prompt Engineering and effective interaction with Large Language Models (LLMs) at Shahid Shamsipour Technical and Vocational College. The workshop focused on practical techniques for designing high-quality prompts, improving AI-generated outputs, and building structured communication strategies with modern AI systems — covering prompt decomposition, step-by-step reasoning, prompt patterns, self-refinement workflows, system prompts, reverse prompting, and creating reusable master prompts. The event was organized in collaboration with the Computer Science Student Association and the Research & Technology Department, attracting students and technology enthusiasts interested in artificial intelligence and emerging technologies. This seminar marked my first public technical speaking experience and provided an opportunity to share practical AI knowledge while helping participants develop more effective workflows for learning, content creation, problem-solving, and software development using AI tools.",
+        fa: "در این رویداد تخصصی، به عنوان سخنران و برگزارکننده کارگاه «مهندسی پرامپت؛ هنر گفتگو با هوش مصنوعی» در دانشکده فنی و حرفه‌ای شهید شمسی‌پور حضور داشتم. هدف این کارگاه آموزش اصول و تکنیک‌های کاربردی برای برقراری ارتباط مؤثر با مدل‌های هوش مصنوعی و طراحی پرامپت‌های حرفه‌ای بود؛ موضوعاتی مانند جزئی‌سازی درخواست‌ها، تفکر مرحله‌ای، استفاده از الگوهای پرامپت، طراحی System Prompt، تکنیک Reverse Prompting، چرخه بهبود پرامپت‌ها و ساخت Master Prompt شخصی در آن بررسی شد. این رویداد با همکاری انجمن علمی کامپیوتر و معاونت پژوهش و فناوری برگزار شد و میزبان دانشجویان و علاقه‌مندان حوزه هوش مصنوعی و فناوری اطلاعات بود. این سمینار نخستین تجربه رسمی من در حوزه سخنرانی فنی و آموزشی بود و فرصتی ارزشمند فراهم کرد تا دانش و تجربیاتم را در زمینه هوش مصنوعی با دیگران به اشتراک بگذارم و به علاقه‌مندان کمک کنم از ابزارهای هوش مصنوعی در یادگیری، تولید محتوا، برنامه‌نویسی و حل مسئله بهره‌وری بیشتری داشته باشند.",
       },
+      // سرفصل‌ها — به‌صورت تگ نمایش داده می‌شوند (می‌توانی کم/زیاد کنی).
+      topics: [
+        { en: "Fundamentals of Prompt Engineering", fa: "مبانی مهندسی پرامپت" },
+        { en: "Prompt Patterns & Templates", fa: "الگوها و قالب‌های پرامپت‌نویسی" },
+        { en: "Chain-of-Thought Reasoning", fa: "تفکر گام‌به‌گام (Chain of Thought)" },
+        { en: "System Prompt Design", fa: "طراحی System Prompt" },
+        { en: "Reverse Prompting Techniques", fa: "تکنیک Reverse Prompting" },
+        { en: "Self-Improving Prompt Workflows", fa: "ساخت چرخه بهبود پرامپت" },
+        { en: "Master Prompt Creation", fa: "طراحی Master Prompt شخصی" },
+        { en: "Practical AI Applications for Developers & Students", fa: "کاربردهای عملی هوش مصنوعی برای دانشجویان و توسعه‌دهندگان" },
+      ],
       // 👉 لینک خبر دانشگاه را اینجا بگذار (مثلاً "https://uni.ac.ir/news/...")
-      link: "",
+      link: "https://shamsipour.tvu.ac.ir/fa/713548/",
       images: [
         "/seminar/01.webp",
         "/seminar/02.webp",
@@ -302,20 +371,37 @@ export const resume = {
     },
     {
       title: {
-        en: "National Conference on Smart City & IoT",
-        fa: "کنفرانس ملی شهر هوشمند و اینترنت اشیا",
+        en: "IoT Summit 2025 – Industry & Innovation Forum",
+        fa: "نخستین همایش تخصصی اینترنت اشیاء (IoT Summit)",
+      },
+      subtitle: {
+        en: "Invited Participant & Computer Science Student Association Representative",
+        fa: "شرکت‌کننده دعوت‌شده و نماینده انجمن علمی کامپیوتر دانشکده شهید شمسی‌پور",
+      },
+      date: {
+        en: "Feb 16, 2026",
+        fa: "۲۷ بهمن ۱۴۰۴",
       },
       description: {
-        en: "Presented two research papers on smart city challenges and open-source business models. The event brought together engineers, urban planners, and researchers to explore digital transformation in Iranian cities.",
-        fa: "ارائه دو مقاله پژوهشی درباره چالش‌های شهر هوشمند و مدل‌های کسب‌وکار در نرم‌افزار آزاد. این رویداد مهندسان، برنامه‌ریزان شهری و پژوهشگران را برای بررسی تحول دیجیتال در شهرهای ایران گرد هم آورد.",
+        en: "I was invited to attend the first IoT Summit — held at Sharif University of Technology — as a representative of the Computer Science Student Association of Shahid Shamsipour Technical and Vocational College. The event brought together industry leaders, startup founders, technology executives, and IoT specialists to discuss emerging trends, real-world applications, and future opportunities in the Internet of Things ecosystem. Throughout the summit, I gained valuable insights into industrial IoT solutions, smart transportation systems, connected devices, startup innovation, and the evolving role of IoT in digital transformation — and engaged with professionals from leading technology companies to explore potential collaborations between academia and industry. Being selected for this invitation-only event was a valuable experience that strengthened my understanding of how modern IoT technologies are applied in real-world business and engineering environments.",
+        fa: "به عنوان نماینده انجمن علمی کامپیوتر دانشکده ملی مهارت شهید شمسی‌پور، به دعوت شرکت نیراسیستم در نخستین همایش تخصصی اینترنت اشیاء (IoT Summit) که در دانشگاه صنعتی شریف برگزار شد، حضور پیدا کردم. این رویداد با حضور مدیران ارشد، بنیان‌گذاران استارتاپ‌ها، متخصصان صنعت و فعالان حوزه فناوری برگزار شد و به بررسی آخرین دستاوردها، کاربردهای عملی و روندهای آینده اینترنت اشیاء در صنایع مختلف پرداخت. در طول این همایش با نمونه‌های واقعی استفاده از فناوری‌های IoT در حوزه‌هایی مانند حمل‌ونقل هوشمند، مدیریت ناوگان، سخت‌افزارهای متصل، استارتاپ‌های فناوری و تحول دیجیتال آشنا شدم و فرصت ارزشمندی برای تعامل با متخصصان صنعت و آشنایی نزدیک‌تر با نیازها و چالش‌های واقعی کسب‌وکارها فراهم شد. حضور در این رویداد تخصصی و دعوت‌محور، تجربه‌ای ارزشمند در مسیر توسعه حرفه‌ای من بود و دید عمیق‌تری نسبت به نقش اینترنت اشیاء در آینده محصولات و سامانه‌های هوشمند ایجاد کرد.",
       },
+      topics: [
+        { en: "Industrial Internet of Things (IIoT)", fa: "اینترنت اشیاء صنعتی (IIoT)" },
+        { en: "Smart Mobility & Fleet Management", fa: "مدیریت ناوگان و حمل‌ونقل هوشمند" },
+        { en: "IoT Startup Ecosystems", fa: "اکوسیستم استارتاپ‌های IoT" },
+        { en: "Connected Hardware & Embedded Systems", fa: "سخت‌افزارهای متصل و سیستم‌های Embedded" },
+        { en: "Smart Transportation Technologies", fa: "خدمات و زیرساخت‌های هوشمند" },
+        { en: "Industry-Academia Collaboration", fa: "ارتباط صنعت و دانشگاه" },
+        { en: "Future Trends in IoT & Digital Transformation", fa: "روندهای آینده اینترنت اشیاء و تحول دیجیتال" },
+      ],
       // 👉 لینک خبر دانشگاه را اینجا بگذار (مثلاً "https://uni.ac.ir/news/...")
-      link: "",
+      link: "https://shamsipour.tvu.ac.ir/fa/715530/",
       images: [
-        "/seminar/01.webp",
-        "/seminar/02.webp",
-        "/seminar/03.webp",
-        "/seminar/04.webp",
+        "/seminar/05.webp",
+        "/seminar/06.webp",
+        "/seminar/07.webp",
+        "/seminar/08.webp",
       ],
     },
   ],
@@ -327,7 +413,7 @@ export const resume = {
         en: "Challenges and Transformations in Smart Cities",
         fa: "چالش‌ها و تحولات در شهرهای هوشمند",
       },
-      url: "",
+      url: "https://civilica.com/doc/2505441/",
     },
     {
       publisher: "CIVILICA",
@@ -335,7 +421,7 @@ export const resume = {
         en: "Monetizing Freedom: Business Models in Free Software",
         fa: "کسب درآمد از آزادی: مدل‌های کسب‌وکار در نرم‌افزار آزاد",
       },
-      url: "",
+      url: "https://civilica.com/doc/2541596/",
     },
     {
       publisher: "CIVILICA",
@@ -343,7 +429,7 @@ export const resume = {
         en: "User Privacy in Large Language Models",
         fa: "حریم خصوصی کاربر در مدل‌های زبانی بزرگ",
       },
-      url: "",
+      url: "https://civilica.com/doc/2541605/",
     },
   ],
   languages: [

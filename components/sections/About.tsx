@@ -43,10 +43,10 @@ export function About({ locale, dict }: Props) {
 
           <div className="mt-10 grid grid-cols-2 xl:grid-cols-4 gap-4">
             {[
-              { num: "2+", label: locale === "fa" ? "سال تجربه" : "Years Exp." },
-              { num: "847", label: locale === "fa" ? "محصول" : "Products" },
-              { num: "500M", label: locale === "fa" ? "فروش (تومان)" : "Sales (T)" },
-              { num: "3",   label: locale === "fa" ? "انتشار" : "Papers" },
+              { num: "3+",  label: locale === "fa" ? "سال تجربه" : "Years Exp." },
+              { num: "10+", label: locale === "fa" ? "پروژه ساخته‌شده" : "Projects Built" },
+              { num: "2",   label: locale === "fa" ? "سمینار و سخنرانی" : "Seminars & Talks" },
+              { num: "3",   label: locale === "fa" ? "مقاله پژوهشی" : "Research Papers" },
             ].map((stat, i) => (
               <motion.div
                 key={i}

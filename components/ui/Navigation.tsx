@@ -23,20 +23,31 @@ export function Navigation({ locale, dict }: Props) {
   const [active, setActive] = useState<string>("hero");
   const [show, setShow] = useState(false);
 
+  // Active-section tracking via IntersectionObserver — no per-scroll layout
+  // reads. A section becomes active while it crosses a band near the top third
+  // of the viewport.
   useEffect(() => {
-    const handler = () => {
-      setShow(window.scrollY > 200);
-      const sections = ["hero", ...SECTIONS.map((s) => s.id)];
-      for (const id of sections) {
-        const el = document.getElementById(id);
-        if (!el) continue;
-        const rect = el.getBoundingClientRect();
-        if (rect.top <= 200 && rect.bottom >= 200) {
-          setActive(id);
-          break;
+    const ids = ["hero", ...SECTIONS.map((s) => s.id)];
+    const els = ids
+      .map((id) => document.getElementById(id))
+      .filter((el): el is HTMLElement => el !== null);
+    if (els.length === 0) return;
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) setActive(entry.target.id);
         }
-      }
-    };
+      },
+      { rootMargin: "-35% 0px -60% 0px", threshold: 0 }
+    );
+    els.forEach((el) => io.observe(el));
+    return () => io.disconnect();
+  }, []);
+
+  // Show/hide is a cheap scrollY compare (no forced layout).
+  useEffect(() => {
+    const handler = () => setShow(window.scrollY > 200);
     window.addEventListener("scroll", handler, { passive: true });
     handler();
     return () => window.removeEventListener("scroll", handler);

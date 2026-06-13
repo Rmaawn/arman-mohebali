@@ -2,7 +2,7 @@
 
 import { useState, useCallback } from "react";
 import { motion } from "framer-motion";
-import { BookOpen, Presentation, ExternalLink, ArrowUpRight } from "lucide-react";
+import { BookOpen, Presentation, ExternalLink, ArrowUpRight, CalendarDays } from "lucide-react";
 import { resume } from "@/data/resume";
 import type { Locale, UIDict } from "@/data/i18n";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -58,35 +58,86 @@ export function Publications({ locale, dict }: Props) {
           transition={{ duration: 0.55 }}
           className="glass premium-card rounded-sm p-7 md:p-9 mb-6 gold-glow-hover"
         >
-          {/* Label + university link */}
-          <div className="flex items-center justify-between gap-3 mb-5">
-            <div className="flex items-center gap-3">
-              <Presentation className="w-5 h-5 text-gold/70" />
-              <span className="text-xs tracking-[0.3em] uppercase text-gold/70 font-mono">
-                {locale === "fa" ? "سمینار" : "Seminar"}
-              </span>
+          {/* Header: (label + date box) on the start  ·  university-news button on the top-right */}
+          <div className="flex items-start justify-between gap-3 mb-5">
+            <div className="flex flex-wrap items-center gap-3">
+              <div className="flex items-center gap-3">
+                <Presentation className="w-5 h-5 text-gold/70" />
+                <span className="text-xs tracking-[0.3em] uppercase text-gold/70 font-mono">
+                  {locale === "fa" ? "سمینار" : "Seminar"}
+                </span>
+              </div>
+
+              {/* Separate date box, beside the label */}
+              {seminar.date?.[locale] && (
+                <div
+                  className="flex items-center gap-2.5 rounded-sm px-3.5 py-2 bg-gold/[0.06]"
+                  style={{ border: "1px solid rgba(212,175,55,0.22)" }}
+                >
+                  <CalendarDays className="w-4 h-4 text-gold/70 shrink-0" />
+                  <div className="leading-tight">
+                    <div className="text-[10px] tracking-[0.25em] uppercase text-gold/50 font-mono">
+                      {locale === "fa" ? "تاریخ" : "Date"}
+                    </div>
+                    <div className="text-sm text-ivory/90 font-mono whitespace-nowrap">
+                      {seminar.date[locale]}
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
 
-            {seminar.link && (
+            {/* University-news button, top-right */}
+            {seminar.link ? (
               <a
                 href={seminar.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-xs tracking-[0.15em] uppercase font-mono text-gold/80 hover:text-gold border border-gold/30 hover:border-gold/60 rounded-full px-4 py-2 transition-colors"
+                className="shrink-0 inline-flex items-center gap-2 text-xs tracking-[0.15em] uppercase font-mono text-gold/80 hover:text-gold border border-gold/30 hover:border-gold/60 rounded-full px-4 py-2 transition-colors"
               >
                 <ExternalLink className="w-3.5 h-3.5" />
-                {locale === "fa" ? "سایت دانشگاه" : "University website"}
+                {locale === "fa" ? "خبر در سایت دانشگاه" : "Read on university site"}
               </a>
+            ) : (
+              <span
+                className="shrink-0 inline-flex items-center gap-2 text-xs tracking-[0.15em] uppercase font-mono text-gold/40 border border-gold/15 rounded-full px-4 py-2 cursor-default select-none"
+                title={locale === "fa" ? "لینک خبر هنوز ثبت نشده" : "Link not set yet"}
+              >
+                <ExternalLink className="w-3.5 h-3.5" />
+                {locale === "fa" ? "خبر در سایت دانشگاه" : "Read on university site"}
+              </span>
             )}
           </div>
 
-          {/* Title + description */}
-          <h3 className="section-heading text-2xl md:text-3xl text-ivory mb-3">
+          {/* Title + subtitle */}
+          <h3 className="section-heading text-2xl md:text-3xl text-ivory mb-2">
             {seminar.title[locale]}
           </h3>
-          <p className="text-ivory/60 text-sm leading-relaxed max-w-2xl mb-7">
+          {seminar.subtitle?.[locale] && (
+            <p className="text-gold/70 text-sm font-mono leading-relaxed mb-4">
+              {seminar.subtitle[locale]}
+            </p>
+          )}
+
+          {/* Description */}
+          <p className="text-ivory/60 text-sm leading-relaxed max-w-2xl mb-5">
             {seminar.description[locale]}
           </p>
+
+          {/* Topics */}
+          {seminar.topics && seminar.topics.length > 0 && (
+            <div className="flex flex-wrap gap-2 mb-7">
+              {seminar.topics.map((t, ti) => (
+                <span
+                  key={ti}
+                  className="text-xs text-ivory/70 rounded-full px-3 py-1.5 bg-ivory/[0.04]"
+                  style={{ border: "1px solid rgba(212,175,55,0.18)" }}
+                >
+                  {t[locale]}
+                </span>
+              ))}
+            </div>
+          )}
 
           {/* Photo grid */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
@@ -108,6 +159,15 @@ export function Publications({ locale, dict }: Props) {
           </div>
         </motion.div>
       ))}
+
+      {/* ── Articles sub-heading ── */}
+      <div className="flex items-center gap-3 mt-12 mb-6">
+        <BookOpen className="w-5 h-5 text-gold/70" />
+        <span className="text-xs tracking-[0.3em] uppercase text-gold/70 font-mono">
+          {locale === "fa" ? "مقالات" : "Articles"}
+        </span>
+        <div className="flex-1 h-px bg-gold/15" />
+      </div>
 
       {/* ── Publications grid ── */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">

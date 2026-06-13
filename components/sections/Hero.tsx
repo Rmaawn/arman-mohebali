@@ -1,27 +1,10 @@
 "use client";
 
-import dynamic from "next/dynamic";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight, ChevronsDown } from "lucide-react";
 import { resume } from "@/data/resume";
 import type { Locale, UIDict } from "@/data/i18n";
-
-const HeroScene = dynamic(
-  () => import("@/components/3d/HeroScene").then((m) => m.HeroScene),
-  {
-    ssr: false,
-    loading: () => (
-      <div className="absolute inset-0 flex items-center justify-center">
-        <div className="flex gap-2">
-          <span className="loading-dot w-2 h-2 rounded-full bg-gold" />
-          <span className="loading-dot w-2 h-2 rounded-full bg-gold" />
-          <span className="loading-dot w-2 h-2 rounded-full bg-gold" />
-        </div>
-      </div>
-    ),
-  }
-);
 
 interface Props {
   locale: Locale;
@@ -29,22 +12,30 @@ interface Props {
 }
 
 export function Hero({ locale, dict }: Props) {
-  const handlePieceClick = (section: string) => {
-    document.getElementById(section)?.scrollIntoView({ behavior: "smooth" });
-  };
-
   const isFa = locale === "fa";
 
   return (
     <section id="hero" className="relative w-full h-screen overflow-hidden">
-      {/* 3D Scene */}
-      <div className="absolute inset-0">
-        <HeroScene onPieceClick={handlePieceClick} />
+      {/* ── Lightweight chess backdrop (CSS only, no WebGL) ── */}
+      <div className="hero-stage" aria-hidden="true">
+        {/* Perspective chessboard receding to a glowing horizon */}
+        <div className="hero-floor" />
+        <div className="hero-horizon" />
+        {/* Ambient gold light that breathes behind the title */}
+        <div className="hero-aura" />
       </div>
 
-      {/* Vignette */}
-      <div className="absolute inset-0 pointer-events-none bg-gradient-to-b from-onyx/40 via-transparent to-onyx" />
+      {/* Theme-aware vignette + soft central spotlight */}
+      <div className="absolute inset-0 pointer-events-none bg-gradient-to-b from-onyx/30 via-transparent to-onyx" />
       <div className="absolute inset-0 pointer-events-none hero-vignette" />
+
+      {/* Art-deco corner frame */}
+      <div className="hero-frame" aria-hidden="true">
+        <span className="hero-corner hero-corner--tl" />
+        <span className="hero-corner hero-corner--tr" />
+        <span className="hero-corner hero-corner--bl" />
+        <span className="hero-corner hero-corner--br" />
+      </div>
 
       {/* Foreground content */}
       <div className="relative z-10 h-full flex flex-col">
@@ -67,30 +58,60 @@ export function Hero({ locale, dict }: Props) {
         {/* Center content */}
         <div className="flex-1 flex flex-col items-center justify-center px-8">
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1.2, delay: 0.4 }}
-            className="text-center pointer-events-none"
+            initial="hidden"
+            animate="show"
+            variants={{
+              hidden: {},
+              show: { transition: { staggerChildren: 0.12, delayChildren: 0.3 } },
+            }}
+            className="text-center"
           >
-            <div className="text-xs md:text-sm tracking-[0.4em] uppercase text-gold/80 mb-4 md:mb-6">
-              {resume.title[locale]}
-            </div>
-            <h1 className="hero-title text-5xl sm:text-6xl md:text-8xl lg:text-9xl mb-4 md:mb-6">
+            {/* Eyebrow — title flanked by gold rules */}
+            <motion.div
+              variants={{
+                hidden: { opacity: 0, y: 14 },
+                show: { opacity: 1, y: 0, transition: { duration: 0.7 } },
+              }}
+              className="flex items-center justify-center gap-3 sm:gap-4 mb-5 md:mb-6"
+            >
+              <span className="hero-rule" />
+              <span className="font-mono text-[10px] md:text-xs tracking-[0.28em] md:tracking-[0.42em] uppercase text-gold/85">
+                {resume.title[locale]}
+              </span>
+              <span className="hero-rule" />
+            </motion.div>
+
+            {/* Name */}
+            <motion.h1
+              variants={{
+                hidden: { opacity: 0, y: 22 },
+                show: { opacity: 1, y: 0, transition: { duration: 0.9 } },
+              }}
+              className="hero-title hero-display text-6xl sm:text-7xl md:text-8xl lg:text-9xl mb-5 md:mb-7"
+            >
               <span className="text-gold-gradient">{resume.name[locale]}</span>
-            </h1>
-            <div className="hero-lede max-w-xl mx-auto text-sm md:text-base leading-relaxed mt-4">
+            </motion.h1>
+
+            {/* Lede */}
+            <motion.p
+              variants={{
+                hidden: { opacity: 0, y: 18 },
+                show: { opacity: 1, y: 0, transition: { duration: 0.8 } },
+              }}
+              className="hero-lede max-w-xl mx-auto text-sm md:text-base leading-relaxed"
+            >
               {isFa
                 ? "هر مهره یک بخش از من است — کلیک کن، حرکت کن، بازی را تماشا کن."
                 : "Each piece is a part of me — click, move, watch the game unfold."}
-            </div>
+            </motion.p>
           </motion.div>
 
           {/* Play-with-me CTA */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, delay: 1.1 }}
-            className="mt-6 md:mt-14 flex flex-col items-center gap-3"
+            transition={{ duration: 0.9, delay: 1.0 }}
+            className="mt-8 md:mt-14 flex flex-col items-center gap-3"
           >
             <Link
               href="/board"
