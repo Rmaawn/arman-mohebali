@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useCallback } from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { BookOpen, Presentation, ExternalLink, ArrowUpRight, CalendarDays } from "lucide-react";
 import { resume } from "@/data/resume";
@@ -15,6 +16,7 @@ interface Props {
 
 function SeminarPhoto({ src, alt, onClick }: { src: string; alt: string; onClick: () => void }) {
   const [visible, setVisible] = useState(true);
+  const [loaded, setLoaded] = useState(false);
   if (!visible) return null;
   return (
     <button
@@ -22,11 +24,24 @@ function SeminarPhoto({ src, alt, onClick }: { src: string; alt: string; onClick
       className="relative overflow-hidden rounded-sm group/photo aspect-[4/3] w-full block"
       style={{ border: "1px solid rgba(212,175,55,0.18)" }}
     >
-      <img
+      {/* Skeleton shimmer that holds the box and stays under the image until it
+          fades in — no layout shift, nothing pops. */}
+      {!loaded && <span className="absolute inset-0 seminar-skeleton" aria-hidden="true" />}
+
+      <Image
         src={src}
         alt={alt}
+        fill
+        // Grid is 2-up on phones, 4-up from sm. Tells the optimizer to ship a
+        // ~thumbnail-sized image instead of the full-res source.
+        sizes="(max-width: 640px) 45vw, (max-width: 1280px) 23vw, 300px"
+        loading="lazy"
+        quality={70}
+        onLoad={() => setLoaded(true)}
         onError={() => setVisible(false)}
-        className="w-full h-full object-cover transition-transform duration-500 group-hover/photo:scale-105"
+        className={`object-cover transition-[transform,opacity] duration-700 ease-out group-hover/photo:scale-105 ${
+          loaded ? "opacity-100" : "opacity-0"
+        }`}
       />
       <div className="absolute inset-0 bg-onyx/50 opacity-0 group-hover/photo:opacity-100 transition-opacity duration-300 flex items-center justify-center">
         <span className="text-gold/80 text-xs tracking-[0.25em] uppercase font-mono">
