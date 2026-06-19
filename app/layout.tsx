@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { ThemeProvider } from "next-themes";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
+import { SmoothScroll } from "@/components/ui/SmoothScroll";
+import { ScrollProgress } from "@/components/ui/ScrollProgress";
+import { ScrollToTop } from "@/components/ui/ScrollToTop";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
@@ -143,8 +146,11 @@ export default function RootLayout({
           enableSystem={false}
           storageKey="portfolio-theme"
         >
+          <SmoothScroll />
+          <ScrollProgress />
           {children}
           <ThemeToggle />
+          <ScrollToTop />
           <Analytics />
           <SpeedInsights />
         </ThemeProvider>

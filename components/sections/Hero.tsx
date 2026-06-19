@@ -1,7 +1,8 @@
 "use client";
 
+import { useRef } from "react";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowRight, ChevronsDown } from "lucide-react";
 import { resume } from "@/data/resume";
 import type { Locale, UIDict } from "@/data/i18n";
@@ -14,16 +15,29 @@ interface Props {
 export function Hero({ locale, dict }: Props) {
   const isFa = locale === "fa";
 
+  // Scroll-linked parallax: as the hero leaves, the chess backdrop drifts down
+  // slowly while the foreground lifts and fades, opening a sense of depth and
+  // making the very first scroll feel intentional rather than abrupt.
+  const ref = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start start", "end start"],
+  });
+  const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "28%"]);
+  const contentY = useTransform(scrollYProgress, [0, 1], ["0%", "-22%"]);
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
+  const hintOpacity = useTransform(scrollYProgress, [0, 0.25], [1, 0]);
+
   return (
-    <section id="hero" className="relative w-full h-screen overflow-hidden">
+    <section ref={ref} id="hero" className="relative w-full h-screen overflow-hidden">
       {/* ── Lightweight chess backdrop (CSS only, no WebGL) ── */}
-      <div className="hero-stage" aria-hidden="true">
+      <motion.div style={{ y: bgY }} className="hero-stage" aria-hidden="true">
         {/* Perspective chessboard receding to a glowing horizon */}
         <div className="hero-floor" />
         <div className="hero-horizon" />
         {/* Ambient gold light that breathes behind the title */}
         <div className="hero-aura" />
-      </div>
+      </motion.div>
 
       {/* Theme-aware vignette + soft central spotlight */}
       <div className="absolute inset-0 pointer-events-none bg-gradient-to-b from-onyx/30 via-transparent to-onyx" />
@@ -38,7 +52,10 @@ export function Hero({ locale, dict }: Props) {
       </div>
 
       {/* Foreground content */}
-      <div className="relative z-10 h-full flex flex-col">
+      <motion.div
+        style={{ y: contentY, opacity: contentOpacity }}
+        className="relative z-10 h-full flex flex-col"
+      >
         {/* Top bar */}
         <motion.div
           dir="ltr"
@@ -158,19 +175,21 @@ export function Hero({ locale, dict }: Props) {
           </motion.div>
         </div>
 
-        {/* Bottom hint */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 1.5 }}
-          className="pb-8 flex flex-col items-center gap-2 pointer-events-none"
-        >
-          <ChevronsDown className="w-4 h-4 text-gold/60 animate-bounce" />
-          <div className="text-[10px] tracking-[0.3em] uppercase hero-hint">
-            {dict.misc.scrollHint}
-          </div>
+        {/* Bottom hint — fades out quickly as the reader starts scrolling */}
+        <motion.div style={{ opacity: hintOpacity }}>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1, delay: 1.5 }}
+            className="pb-8 flex flex-col items-center gap-2 pointer-events-none"
+          >
+            <ChevronsDown className="w-4 h-4 text-gold/60 animate-bounce" />
+            <div className="text-[10px] tracking-[0.3em] uppercase hero-hint">
+              {dict.misc.scrollHint}
+            </div>
+          </motion.div>
         </motion.div>
-      </div>
+      </motion.div>
     </section>
   );
 }

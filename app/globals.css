@@ -133,6 +133,24 @@ html {
   -webkit-overflow-scrolling: touch;
 }
 
+/* ── Lenis smooth scroll ──
+   When the Lenis instance is active it owns the scroll position, so native
+   smooth-scroll must step aside to avoid the two fighting. Without Lenis
+   (reduced-motion users, JS disabled) the rules above keep native smoothness. */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
 body {
   background: radial-gradient(
     ellipse at top,
