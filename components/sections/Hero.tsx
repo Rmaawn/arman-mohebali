@@ -56,22 +56,6 @@ export function Hero({ locale, dict }: Props) {
         style={{ y: contentY, opacity: contentOpacity }}
         className="relative z-10 h-full flex flex-col"
       >
-        {/* Top bar */}
-        <motion.div
-          dir="ltr"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="px-8 md:px-16 pt-8 flex items-center justify-start"
-        >
-          <div className="flex items-center gap-3">
-            <span className="text-gold text-2xl">♛</span>
-            <span className="font-mono text-xs tracking-[0.3em] uppercase hero-name">
-              {isFa ? "آرمان محب‌علی" : "A. Mohebali"}
-            </span>
-          </div>
-        </motion.div>
-
         {/* Center content */}
         <div className="flex-1 flex flex-col items-center justify-center px-8">
           <motion.div
@@ -89,10 +73,10 @@ export function Hero({ locale, dict }: Props) {
                 hidden: { opacity: 0, y: 14 },
                 show: { opacity: 1, y: 0, transition: { duration: 0.7 } },
               }}
-              className="flex items-center justify-center gap-3 sm:gap-4 mb-5 md:mb-6"
+              className="flex items-center justify-center gap-3 sm:gap-4 mb-6 md:mb-7"
             >
               <span className="hero-rule" />
-              <span className="font-mono text-[10px] md:text-xs tracking-[0.28em] md:tracking-[0.42em] uppercase text-gold/85">
+              <span className="font-mono text-sm md:text-base lg:text-lg font-medium tracking-[0.22em] md:tracking-[0.34em] uppercase text-gold">
                 {resume.title[locale]}
               </span>
               <span className="hero-rule" />
