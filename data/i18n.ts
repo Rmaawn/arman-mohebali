@@ -42,6 +42,8 @@ export const ui = {
       builtWith: "Built with Next.js · React Three Fiber · Tailwind",
       copyEmail: "Copy email",
       copied: "Copied!",
+      vibeCoding: "Vibe Coding",
+      vibeCodingDesc: "Engineered via Vibe Coding & AI collaboration",
     },
   },
   fa: {
@@ -87,6 +89,8 @@ export const ui = {
       builtWith: "ساخته‌شده با Next.js · React Three Fiber · Tailwind",
       copyEmail: "کپی ایمیل",
       copied: "کپی شد!",
+      vibeCoding: "وایب کدینگ",
+      vibeCodingDesc: "توسعه‌یافته با متدولوژی وایب کدینگ و هوش مصنوعی",
     },
   },
 } as const;

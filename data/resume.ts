@@ -160,11 +160,18 @@ export const resume = {
       portfolio: ["sazoseda.ir", "olgashopping.com", "sephruya.com"],
     },
   ],
+  // ════════════════════════════════════════════════════════════════
+  // PROJECTS — پروژه‌ها (ویرایش و تنظیمات از همین‌جا)
+  //   • vibeCoding: اگر true باشد، لیبل برجسته «وایب کدینگ / Vibe Coding»
+  //     روی کارت پروژه و پنجره اطلاعات تکمیلی آن نمایش داده می‌شود.
+  //     اگر false باشد یا این خط برداشته شود، این لیبل نمایش داده نمی‌شود.
+  // ════════════════════════════════════════════════════════════════
   projects: [
     {
       brand: "Nootika",
       name: "Reminder",
       year: "2024",
+      vibeCoding: true, // ⚡ نشان وایب کدینگ (true = فعال / false = غیرفعال)
       date: {
         en: "2024 · Shipped on Bazaar",
         fa: "۱۴۰۳ · منتشر شده در کافه‌بازار",
@@ -213,6 +220,7 @@ export const resume = {
       brand: "Nootika",
       name: "Architecture & Core",
       year: "2024",
+      vibeCoding: false,
       date: {
         en: "2024 · Core Engine",
         fa: "۱۴۰۳ · معماری و هسته",
@@ -257,6 +265,7 @@ export const resume = {
       brand: "Nootika",
       name: "Offline Storage & Sync",
       year: "2024",
+      vibeCoding: false,
       date: {
         en: "2024 · Data Layer",
         fa: "۱۴۰۳ · لایه داده و ذخیره‌سازی",
@@ -301,6 +310,7 @@ export const resume = {
       brand: "Nootika",
       name: "UI & Interaction",
       year: "2024",
+      vibeCoding: false,
       date: {
         en: "2024 · Design System",
         fa: "۱۴۰۳ · دیزاین سیستم و تعاملات",

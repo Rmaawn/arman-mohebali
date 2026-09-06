@@ -58,14 +58,22 @@ export function Projects({ locale, dict }: Props) {
               </div>
 
               {/* Status pill */}
-              <div className="absolute top-4 right-4 z-20 flex items-center gap-2 px-3 py-1 bg-gold/90 text-onyx text-xs font-mono tracking-widest uppercase rounded-sm shadow-md">
+              <div className="absolute top-4 end-4 z-20 flex items-center gap-2 px-3 py-1 bg-gold/90 text-onyx text-xs font-mono tracking-widest uppercase rounded-sm shadow-md">
                 <span className="w-1.5 h-1.5 rounded-full bg-onyx animate-pulse" />
                 {dict.misc.live}
               </div>
 
+              {/* Vibe Coding badge */}
+              {p.vibeCoding && (
+                <div className="absolute top-4 start-4 z-20 flex items-center gap-1.5 px-3 py-1 bg-onyx/90 backdrop-blur-md border border-violet-400/50 text-violet-200 text-xs font-mono font-medium tracking-wider rounded-sm shadow-[0_0_15px_rgba(168,85,247,0.35)]">
+                  <Sparkles className="w-3.5 h-3.5 text-violet-400 animate-pulse" />
+                  <span>{dict.misc.vibeCoding}</span>
+                </div>
+              )}
+
               {/* Hover prompt pill */}
-              <div className="absolute bottom-3 left-4 z-20 flex items-center gap-1.5 px-3 py-1 bg-onyx/80 backdrop-blur-md border border-gold/30 text-gold text-[11px] font-mono tracking-wider rounded-sm opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-1 group-hover:translate-y-0">
-                <Sparkles className="w-3 h-3 text-gold" />
+              <div className="absolute bottom-3 start-4 z-20 flex items-center gap-1.5 px-3 py-1 bg-onyx/80 backdrop-blur-md border border-gold/30 text-gold text-[11px] font-mono tracking-wider rounded-sm opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-1 group-hover:translate-y-0">
+                <Sparkles className="w-3.5 h-3.5 text-gold" />
                 <span>{isRtl ? "مشاهده جزئیات و گالری" : "View Details & Gallery"}</span>
               </div>
             </div>
@@ -73,10 +81,18 @@ export function Projects({ locale, dict }: Props) {
             {/* Card Content */}
             <div className="p-6 md:p-8 space-y-3.5">
               <div className="flex items-center justify-between gap-2">
-                <div className="text-xs tracking-[0.25em] uppercase text-gold/70 font-mono">
-                  {p.brand} · {p.year}
+                <div className="flex items-center gap-2 flex-wrap">
+                  <span className="text-xs tracking-[0.25em] uppercase text-gold/70 font-mono">
+                    {p.brand} · {p.year}
+                  </span>
+                  {p.vibeCoding && (
+                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-sm text-[10px] font-mono font-medium tracking-wider bg-violet-500/15 border border-violet-400/35 text-violet-300">
+                      <Sparkles className="w-2.5 h-2.5 text-violet-400" />
+                      {dict.misc.vibeCoding}
+                    </span>
+                  )}
                 </div>
-                <div className="flex items-center gap-1 text-xs text-gold/60 group-hover:text-gold font-mono transition-colors">
+                <div className="flex items-center gap-1 text-xs text-gold/60 group-hover:text-gold font-mono transition-colors shrink-0">
                   <span className="hidden sm:inline text-[11px]">
                     {isRtl ? "باز کردن" : "Details"}
                   </span>

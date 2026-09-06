@@ -25,6 +25,7 @@ export interface ProjectData {
     readonly fa: string;
   };
   readonly status: string;
+  readonly vibeCoding?: boolean;
   readonly link?: string;
   readonly image?: string;
   readonly images?: readonly string[];
@@ -258,11 +259,21 @@ export function ProjectModal({ project, onClose, locale, dict }: ProjectModalPro
                   )}
 
                   {/* ── Title & Meta Info ── */}
-                  <div className="space-y-2">
-                    <div className="flex flex-wrap items-center justify-between gap-2">
-                      <h2 className="text-2xl sm:text-3xl font-display text-ivory">
-                        {project.brand} · {project.name}
-                      </h2>
+                  <div className="space-y-3">
+                    <div className="flex flex-wrap items-center justify-between gap-2.5">
+                      <div className="flex flex-wrap items-center gap-2.5">
+                        <h2 className="text-2xl sm:text-3xl font-display text-ivory">
+                          {project.brand} · {project.name}
+                        </h2>
+
+                        {/* Vibe Coding Badge */}
+                        {project.vibeCoding && (
+                          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-sm text-xs font-mono font-medium bg-gradient-to-r from-violet-950/80 via-purple-900/60 to-onyx border border-violet-400/40 text-violet-300 shadow-[0_0_14px_rgba(168,85,247,0.25)]">
+                            <Sparkles className="w-3.5 h-3.5 text-violet-400 animate-pulse" />
+                            <span>{dict.misc.vibeCoding}</span>
+                          </div>
+                        )}
+                      </div>
 
                       {/* Creation date */}
                       <div className="flex items-center gap-1.5 text-xs text-gold/80 font-mono bg-gold/[0.08] px-3 py-1 rounded-sm border border-gold/20">
@@ -272,6 +283,14 @@ export function ProjectModal({ project, onClose, locale, dict }: ProjectModalPro
                         </span>
                       </div>
                     </div>
+
+                    {/* Vibe Coding explanatory note */}
+                    {project.vibeCoding && (
+                      <div className="flex items-start sm:items-center gap-2.5 p-3 rounded-sm bg-gradient-to-r from-violet-950/40 via-purple-900/20 to-onyx border border-violet-400/30 text-xs font-mono text-violet-200/90 leading-relaxed">
+                        <Sparkles className="w-4 h-4 text-violet-400 shrink-0 mt-0.5 sm:mt-0 animate-pulse" />
+                        <span>{dict.misc.vibeCodingDesc}</span>
+                      </div>
+                    )}
 
                     {/* Main description */}
                     <p className="text-ivory/80 text-sm sm:text-base leading-relaxed">
