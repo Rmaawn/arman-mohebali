@@ -337,6 +337,63 @@ export const resume = {
         ],
       },
     },
+    {
+      brand: {
+        en: "Hami",
+        fa: "حامی",
+      },
+      name: {
+        en: "Creator Donation Platform",
+        fa: "پلتفرم دونیت و حمایت مالی",
+      },
+      year: "2026",
+      vibeCoding: false, // ⚡ توسعه دستی و ساختاریافته (بدون وایب کدینگ)
+      date: {
+        en: "2026 · Open-Source FinTech",
+        fa: "۱۴۰۵ · فین‌تک متن‌باز",
+      },
+      status: "LIVE",
+      image: "/projects/hami-1.webp",
+      images: [
+        "/projects/hami-1.webp",
+        "/projects/hami-2.webp",
+        "/projects/hami-3.webp",
+      ],
+      technologies: [
+        "NestJS 10",
+        "Next.js 14",
+        "TypeScript",
+        "PostgreSQL",
+        "Prisma ORM",
+        "Docker Compose",
+        "Zarinpal Gateway",
+        "Argon2 & OTP",
+        "Nginx",
+        "TailwindCSS",
+      ],
+      description: {
+        en: "A minimal, secure, and open-source donation platform for Persian creators — enabling direct gateway-to-creator payouts with zero intermediary wallet custody.",
+        fa: "پلتفرم متن‌باز، مینیمال و امن دونیت و حمایت مالی برای تولیدکنندگان محتوا و توسعه‌دهندگان — اتصال مستقیم درگاه به حساب سازنده بدون نگهداری وجه در کیف‌پول واسط.",
+      },
+      details: {
+        en: "Engineered with NestJS 10 modular backend and Next.js 14 SSR frontend. Implements server-side gateway verification, HMAC-SHA256 signed webhooks, double-submit CSRF protection, and declarative audit logging.",
+        fa: "طراحی‌شده با معماری ماژولار NestJS 10 و فرانت‌اند SSR با Next.js 14. پیاده‌سازی وریفای سمت سرور تراکنش‌ها، لاگ حسابرسی (Audit Log) با دکوراتور اختصاصی، وب‌هوک‌های امضاشده با HMAC-SHA256 و امنیت چندلایه‌ای Session و CSRF.",
+      },
+      highlights: {
+        en: [
+          "Zero-custody architecture: direct money flow from donor to creator bank account with zero platform wallet risk",
+          "Production-grade security: Argon2 OTP hashing, double-submit CSRF guards, and strict Helmet headers",
+          "Decoupled payment gateway abstraction supporting Zarinpal and mock stub providers for isolated testing",
+          "High-performance TypeScript monorepo with Prisma ORM, PostgreSQL transactions, and containerized Docker setup",
+        ],
+        fa: [
+          "معماری جریان مالی مستقیم (Zero-Custody): واریز بی‌واسطه از درگاه به حساب بانکی سازنده بدون نیاز به کیف‌پول پلتفرم",
+          "امنیت چندلایه‌ای پروداکشن: احراز هویت OTP هش‌شده با Argon2، توکن‌های ضدجعل CSRF و هدرهای سخت‌گیرانه Helmet",
+          "طراحی لایه پرداخت انتزاعی (Gateway Abstraction) سازگار با زرین‌پال و ارائه‌دهنده شبیه‌ساز (Stub) برای تست روان",
+          "توسعه تماماً تایپ‌اسکریپت با فریم‌ورک سازمانی NestJS، پایگاه‌داده PostgreSQL و پایپ‌لاین کانتینری Docker Compose",
+        ],
+      },
+    },
   ],
   // ════════════════════════════════════════════════════════════════
   // EDUCATION  —  ویرایش از همین‌جا
