@@ -1,11 +1,94 @@
 "use client";
 
-import { Canvas } from "@react-three/fiber";
+import { Canvas, useFrame } from "@react-three/fiber";
 import { OrbitControls, ContactShadows } from "@react-three/drei";
-import { Suspense } from "react";
+import { Suspense, useRef, useEffect } from "react";
 import { useTheme } from "next-themes";
+import type { OrbitControls as OrbitControlsImpl } from "three-stdlib";
+import * as THREE from "three";
 import { ChessBoard } from "./ChessBoard";
 import { PlayerKnight } from "./PlayerKnight";
+
+const DEFAULT_CAMERA_POS = new THREE.Vector3(0, 8, 11);
+const DEFAULT_TARGET = new THREE.Vector3(0, 0, 0);
+
+function BoardCameraController() {
+  const controlsRef = useRef<OrbitControlsImpl>(null);
+  const isDragging = useRef(false);
+  const releaseTimer = useRef<NodeJS.Timeout | null>(null);
+
+  const handleStart = () => {
+    isDragging.current = true;
+    if (releaseTimer.current) {
+      clearTimeout(releaseTimer.current);
+      releaseTimer.current = null;
+    }
+  };
+
+  const handleEnd = () => {
+    // Return smoothly to default viewing angle shortly after drag release
+    releaseTimer.current = setTimeout(() => {
+      isDragging.current = false;
+    }, 100);
+  };
+
+  useEffect(() => {
+    const handlePointerUp = () => {
+      if (isDragging.current) {
+        releaseTimer.current = setTimeout(() => {
+          isDragging.current = false;
+        }, 100);
+      }
+    };
+    window.addEventListener("pointerup", handlePointerUp);
+    window.addEventListener("touchend", handlePointerUp);
+    return () => {
+      window.removeEventListener("pointerup", handlePointerUp);
+      window.removeEventListener("touchend", handlePointerUp);
+      if (releaseTimer.current) clearTimeout(releaseTimer.current);
+    };
+  }, []);
+
+  useFrame((_, delta) => {
+    if (isDragging.current || !controlsRef.current) return;
+
+    const camera = controlsRef.current.object;
+    const target = controlsRef.current.target;
+
+    const posDist = camera.position.distanceTo(DEFAULT_CAMERA_POS);
+    const targetDist = target.distanceTo(DEFAULT_TARGET);
+
+    if (posDist > 0.003 || targetDist > 0.003) {
+      // Smooth, responsive spring back (frame-rate independent)
+      const t = 1 - Math.exp(-6.5 * delta);
+      camera.position.lerp(DEFAULT_CAMERA_POS, t);
+      target.lerp(DEFAULT_TARGET, t);
+      controlsRef.current.update();
+    } else if (posDist > 0 || targetDist > 0) {
+      camera.position.copy(DEFAULT_CAMERA_POS);
+      target.copy(DEFAULT_TARGET);
+      controlsRef.current.update();
+    }
+  });
+
+  return (
+    <OrbitControls
+      ref={controlsRef}
+      enablePan={false}
+      enableZoom={true}
+      zoomSpeed={0.4}
+      minDistance={8}
+      maxDistance={18}
+      minPolarAngle={Math.PI / 4.5}
+      maxPolarAngle={Math.PI / 2.25}
+      minAzimuthAngle={-Math.PI / 3.5}
+      maxAzimuthAngle={Math.PI / 3.5}
+      enableDamping={false}
+      onStart={handleStart}
+      onEnd={handleEnd}
+    />
+  );
+}
 
 interface SceneProps {
   hoverCell: { col: number; row: number } | null;
@@ -71,15 +154,7 @@ export function Scene({ hoverCell, activeCell, onHoverCell, onSelectCell }: Scen
           color={isDark ? "#000" : "#5a4020"}
         />
 
-        <OrbitControls
-          enablePan={false}
-          enableZoom
-          zoomSpeed={0.4}
-          minDistance={7}
-          maxDistance={20}
-          minPolarAngle={Math.PI / 5}
-          maxPolarAngle={Math.PI / 2.1}
-        />
+        <BoardCameraController />
       </Suspense>
     </Canvas>
   );
