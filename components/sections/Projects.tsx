@@ -7,7 +7,7 @@ import { ArrowUpRight, Sparkles } from "lucide-react";
 import { resume } from "@/data/resume";
 import type { Locale, UIDict } from "@/data/i18n";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { ProjectModal, type ProjectData } from "@/components/ui/ProjectModal";
+import { ProjectModal, type ProjectData, getLocalized } from "@/components/ui/ProjectModal";
 
 interface Props {
   locale: Locale;
@@ -43,7 +43,7 @@ export function Projects({ locale, dict }: Props) {
                 <div className="absolute inset-0 w-full h-full">
                   <Image
                     src={p.image}
-                    alt={p.name}
+                    alt={getLocalized(p.name, locale)}
                     fill
                     sizes="(max-width: 768px) 100vw, 600px"
                     className="object-cover opacity-60 group-hover:opacity-85 group-hover:scale-105 transition-all duration-700 ease-out"
@@ -58,21 +58,21 @@ export function Projects({ locale, dict }: Props) {
               </div>
 
               {/* Status pill */}
-              <div className="absolute top-4 end-4 z-20 flex items-center gap-2 px-3 py-1 bg-gold/90 text-onyx text-xs font-mono tracking-widest uppercase rounded-sm shadow-md">
-                <span className="w-1.5 h-1.5 rounded-full bg-onyx animate-pulse" />
+              <div className="absolute top-4 end-4 z-20 flex items-center gap-2 px-3 py-1 bg-gold text-stone-950 text-xs font-mono font-semibold tracking-widest uppercase rounded-sm shadow-md">
+                <span className="w-1.5 h-1.5 rounded-full bg-stone-950 animate-pulse" />
                 {dict.misc.live}
               </div>
 
               {/* Vibe Coding badge */}
               {p.vibeCoding && (
-                <div className="absolute top-4 start-4 z-20 flex items-center gap-1.5 px-3 py-1 bg-onyx/90 backdrop-blur-md border border-violet-400/50 text-violet-200 text-xs font-mono font-medium tracking-wider rounded-sm shadow-[0_0_15px_rgba(168,85,247,0.35)]">
-                  <Sparkles className="w-3.5 h-3.5 text-violet-400 animate-pulse" />
+                <div className="absolute top-4 start-4 z-20 flex items-center gap-1.5 px-3 py-1 bg-onyx/90 backdrop-blur-md border border-violet-500/40 dark:border-violet-400/50 text-violet-700 dark:text-violet-200 text-xs font-mono font-medium tracking-wider rounded-sm shadow-md">
+                  <Sparkles className="w-3.5 h-3.5 text-violet-600 dark:text-violet-400 animate-pulse" />
                   <span>{dict.misc.vibeCoding}</span>
                 </div>
               )}
 
               {/* Hover prompt pill */}
-              <div className="absolute bottom-3 start-4 z-20 flex items-center gap-1.5 px-3 py-1 bg-onyx/80 backdrop-blur-md border border-gold/30 text-gold text-[11px] font-mono tracking-wider rounded-sm opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-1 group-hover:translate-y-0">
+              <div className="absolute bottom-3 start-4 z-20 flex items-center gap-1.5 px-3 py-1 bg-onyx/90 backdrop-blur-md border border-gold/30 text-gold-700 dark:text-gold text-[11px] font-mono tracking-wider rounded-sm opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-1 group-hover:translate-y-0 shadow-sm">
                 <Sparkles className="w-3.5 h-3.5 text-gold" />
                 <span>{isRtl ? "مشاهده جزئیات و گالری" : "View Details & Gallery"}</span>
               </div>
@@ -82,12 +82,12 @@ export function Projects({ locale, dict }: Props) {
             <div className="p-6 md:p-8 space-y-3.5">
               <div className="flex items-center justify-between gap-2">
                 <div className="flex items-center gap-2 flex-wrap">
-                  <span className="text-xs tracking-[0.25em] uppercase text-gold/70 font-mono">
-                    {p.brand} · {p.year}
+                  <span className="text-xs tracking-[0.25em] uppercase text-gold-700 dark:text-gold/70 font-mono font-medium">
+                    {getLocalized(p.brand, locale)} · {p.year}
                   </span>
                   {p.vibeCoding && (
-                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-sm text-[10px] font-mono font-medium tracking-wider bg-violet-500/15 border border-violet-400/35 text-violet-300">
-                      <Sparkles className="w-2.5 h-2.5 text-violet-400" />
+                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-sm text-[10px] font-mono font-medium tracking-wider bg-violet-500/15 border border-violet-500/35 dark:border-violet-400/35 text-violet-700 dark:text-violet-300">
+                      <Sparkles className="w-2.5 h-2.5 text-violet-600 dark:text-violet-400" />
                       {dict.misc.vibeCoding}
                     </span>
                   )}
@@ -101,8 +101,8 @@ export function Projects({ locale, dict }: Props) {
               </div>
 
               <div className="flex items-start justify-between gap-3">
-                <h3 className="text-2xl md:text-3xl font-display text-ivory group-hover:text-gold-50 transition-colors">
-                  {p.name}
+                <h3 className={`text-2xl md:text-3xl text-ivory group-hover:text-gold-50 transition-colors ${isRtl ? "font-fa font-bold" : "font-display"}`}>
+                  {getLocalized(p.name, locale)}
                 </h3>
               </div>
 

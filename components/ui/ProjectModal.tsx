@@ -17,8 +17,8 @@ import {
 import type { Locale, UIDict } from "@/data/i18n";
 
 export interface ProjectData {
-  readonly brand: string;
-  readonly name: string;
+  readonly brand: string | { readonly en: string; readonly fa: string };
+  readonly name: string | { readonly en: string; readonly fa: string };
   readonly year: string;
   readonly date?: {
     readonly en: string;
@@ -42,6 +42,15 @@ export interface ProjectData {
     readonly en: readonly string[];
     readonly fa: readonly string[];
   };
+}
+
+export function getLocalized(
+  val: string | { readonly en: string; readonly fa: string } | undefined,
+  locale: Locale
+): string {
+  if (!val) return "";
+  if (typeof val === "string") return val;
+  return val[locale] || val.en || "";
 }
 
 interface ProjectModalProps {
@@ -126,7 +135,7 @@ export function ProjectModal({ project, onClose, locale, dict }: ProjectModalPro
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.22 }}
-              className="fixed inset-0 z-[120] flex items-center justify-center p-3 sm:p-5 md:p-8 bg-onyx/85 backdrop-blur-md cursor-zoom-out"
+              className="fixed inset-0 z-[120] flex items-center justify-center p-3 sm:p-5 md:p-8 bg-black/60 dark:bg-black/80 backdrop-blur-md cursor-zoom-out"
               onClick={onClose}
               dir={isRtl ? "rtl" : "ltr"}
             >
@@ -138,24 +147,21 @@ export function ProjectModal({ project, onClose, locale, dict }: ProjectModalPro
                 transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
                 onClick={(e) => e.stopPropagation()}
                 data-lenis-prevent
-                className="relative w-full max-w-3xl max-h-[92vh] md:max-h-[88vh] flex flex-col glass premium-card rounded-md overflow-hidden cursor-default shadow-2xl border border-gold/25"
-                style={{
-                  background: "radial-gradient(ellipse at top, rgba(26,26,28,0.98), rgba(12,12,14,0.98))",
-                }}
+                className="relative w-full max-w-3xl max-h-[92vh] md:max-h-[88vh] flex flex-col bg-[#fbf8f1] dark:bg-[#111113] text-ivory rounded-md overflow-hidden cursor-default shadow-2xl border border-gold/30 dark:border-gold/25"
               >
                 {/* ── Top Bar ── */}
-                <div className="flex items-center justify-between px-5 sm:px-7 py-4 border-b border-gold/15 bg-onyx/40 backdrop-blur-sm shrink-0">
+                <div className="flex items-center justify-between px-5 sm:px-7 py-4 border-b border-gold/15 bg-onyx-100/70 dark:bg-onyx-900/60 backdrop-blur-sm shrink-0">
                   <div className="flex items-center gap-2.5 sm:gap-3 flex-wrap">
-                    <span className="text-xl text-gold/80 font-serif select-none">♖</span>
-                    <span className="text-xs font-mono uppercase tracking-widest text-gold/70">
-                      {project.brand}
+                    <span className="text-xl text-gold font-serif select-none">♖</span>
+                    <span className="text-xs font-mono uppercase tracking-widest text-gold-700 dark:text-gold/80 font-semibold">
+                      {getLocalized(project.brand, locale)}
                     </span>
-                    <span className="text-ivory/20">/</span>
-                    <span className="text-xs font-mono uppercase tracking-widest text-ivory/60">
-                      {project.name}
+                    <span className="text-ivory/30">/</span>
+                    <span className="text-xs font-mono uppercase tracking-widest text-ivory/75 font-medium">
+                      {getLocalized(project.name, locale)}
                     </span>
                     {project.status && (
-                      <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-gold/15 border border-gold/30 text-gold text-[11px] font-mono tracking-wider">
+                      <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-gold/15 border border-gold/30 text-gold-700 dark:text-gold text-[11px] font-mono tracking-wider font-medium">
                         <span className="w-1.5 h-1.5 rounded-full bg-gold animate-pulse" />
                         {dict.misc.live}
                       </span>
@@ -177,11 +183,11 @@ export function ProjectModal({ project, onClose, locale, dict }: ProjectModalPro
                   {/* Gallery View */}
                   {images.length > 0 && (
                     <div className="space-y-2.5">
-                      <div className="relative aspect-[16/9] w-full rounded-sm overflow-hidden bg-onyx-100 border border-gold/20 flex items-center justify-center select-none group">
+                      <div className="relative aspect-[16/9] w-full rounded-sm overflow-hidden bg-onyx-100/80 dark:bg-onyx-100 border border-gold/20 flex items-center justify-center select-none group">
                         {!imageError[activeImageIndex] ? (
                           <Image
                             src={images[activeImageIndex]}
-                            alt={`${project.name} preview ${activeImageIndex + 1}`}
+                            alt={`${getLocalized(project.name, locale)} preview ${activeImageIndex + 1}`}
                             fill
                             sizes="(max-width: 768px) 95vw, 750px"
                             priority
@@ -194,7 +200,7 @@ export function ProjectModal({ project, onClose, locale, dict }: ProjectModalPro
                           <div className="flex flex-col items-center justify-center p-6 text-center space-y-2">
                             <span className="text-6xl text-gold/40">♖</span>
                             <span className="text-sm font-display text-ivory/80">
-                              {project.name}
+                              {getLocalized(project.name, locale)}
                             </span>
                           </div>
                         )}
@@ -208,7 +214,7 @@ export function ProjectModal({ project, onClose, locale, dict }: ProjectModalPro
                                 prevImage();
                               }}
                               aria-label="Previous image"
-                              className="absolute left-2.5 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full flex items-center justify-center text-ivory/80 hover:text-gold bg-onyx/75 backdrop-blur-sm border border-gold/25 transition-all opacity-85 group-hover:opacity-100"
+                              className="absolute left-2.5 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full flex items-center justify-center text-ivory/80 hover:text-gold bg-onyx-100/90 dark:bg-onyx/75 backdrop-blur-sm border border-gold/25 transition-all opacity-85 group-hover:opacity-100 shadow-md"
                             >
                               <ChevronLeft className="w-5 h-5" />
                             </button>
@@ -218,13 +224,13 @@ export function ProjectModal({ project, onClose, locale, dict }: ProjectModalPro
                                 nextImage();
                               }}
                               aria-label="Next image"
-                              className="absolute right-2.5 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full flex items-center justify-center text-ivory/80 hover:text-gold bg-onyx/75 backdrop-blur-sm border border-gold/25 transition-all opacity-85 group-hover:opacity-100"
+                              className="absolute right-2.5 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full flex items-center justify-center text-ivory/80 hover:text-gold bg-onyx-100/90 dark:bg-onyx/75 backdrop-blur-sm border border-gold/25 transition-all opacity-85 group-hover:opacity-100 shadow-md"
                             >
                               <ChevronRight className="w-5 h-5" />
                             </button>
 
                             {/* Counter pill */}
-                            <div className="absolute bottom-2.5 right-3 px-2.5 py-1 rounded-sm bg-onyx/85 backdrop-blur-sm border border-gold/20 text-[11px] font-mono text-ivory/80 tracking-wider">
+                            <div className="absolute bottom-2.5 right-3 px-2.5 py-1 rounded-sm bg-onyx-100/90 dark:bg-onyx/85 backdrop-blur-sm border border-gold/20 text-[11px] font-mono text-ivory/85 tracking-wider">
                               {activeImageIndex + 1} / {images.length}
                             </div>
                           </>
@@ -241,7 +247,7 @@ export function ProjectModal({ project, onClose, locale, dict }: ProjectModalPro
                               className={`relative w-16 h-11 rounded-sm overflow-hidden border transition-all shrink-0 ${
                                 activeImageIndex === idx
                                   ? "border-gold ring-1 ring-gold/40 scale-105"
-                                  : "border-gold/20 opacity-60 hover:opacity-100"
+                                  : "border-gold/20 opacity-60 hover:opacity-100 bg-onyx-100"
                               }`}
                             >
                               <Image
@@ -262,22 +268,22 @@ export function ProjectModal({ project, onClose, locale, dict }: ProjectModalPro
                   <div className="space-y-3">
                     <div className="flex flex-wrap items-center justify-between gap-2.5">
                       <div className="flex flex-wrap items-center gap-2.5">
-                        <h2 className="text-2xl sm:text-3xl font-display text-ivory">
-                          {project.brand} · {project.name}
+                        <h2 className={`text-2xl sm:text-3xl text-ivory ${isRtl ? "font-fa font-bold" : "font-display"}`}>
+                          {getLocalized(project.brand, locale)} · {getLocalized(project.name, locale)}
                         </h2>
 
                         {/* Vibe Coding Badge */}
                         {project.vibeCoding && (
-                          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-sm text-xs font-mono font-medium bg-gradient-to-r from-violet-950/80 via-purple-900/60 to-onyx border border-violet-400/40 text-violet-300 shadow-[0_0_14px_rgba(168,85,247,0.25)]">
-                            <Sparkles className="w-3.5 h-3.5 text-violet-400 animate-pulse" />
+                          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-sm text-xs font-mono font-medium bg-violet-100 dark:bg-gradient-to-r dark:from-violet-950/80 dark:via-purple-900/60 dark:to-onyx border border-violet-400/40 text-violet-800 dark:text-violet-300 shadow-sm">
+                            <Sparkles className="w-3.5 h-3.5 text-violet-600 dark:text-violet-400 animate-pulse" />
                             <span>{dict.misc.vibeCoding}</span>
                           </div>
                         )}
                       </div>
 
                       {/* Creation date */}
-                      <div className="flex items-center gap-1.5 text-xs text-gold/80 font-mono bg-gold/[0.08] px-3 py-1 rounded-sm border border-gold/20">
-                        <Calendar className="w-3.5 h-3.5 text-gold/70" />
+                      <div className="flex items-center gap-1.5 text-xs text-gold-700 dark:text-gold/80 font-mono bg-gold/[0.12] dark:bg-gold/[0.08] px-3 py-1 rounded-sm border border-gold/25">
+                        <Calendar className="w-3.5 h-3.5 text-gold-700 dark:text-gold/70" />
                         <span>
                           {project.date ? project.date[locale] : `${project.year}`}
                         </span>
@@ -286,8 +292,8 @@ export function ProjectModal({ project, onClose, locale, dict }: ProjectModalPro
 
                     {/* Vibe Coding explanatory note */}
                     {project.vibeCoding && (
-                      <div className="flex items-start sm:items-center gap-2.5 p-3 rounded-sm bg-gradient-to-r from-violet-950/40 via-purple-900/20 to-onyx border border-violet-400/30 text-xs font-mono text-violet-200/90 leading-relaxed">
-                        <Sparkles className="w-4 h-4 text-violet-400 shrink-0 mt-0.5 sm:mt-0 animate-pulse" />
+                      <div className="flex items-start sm:items-center gap-2.5 p-3 rounded-sm bg-violet-500/[0.08] dark:bg-gradient-to-r dark:from-violet-950/40 dark:via-purple-900/20 dark:to-onyx border border-violet-400/30 text-xs font-mono text-violet-900 dark:text-violet-200/90 leading-relaxed">
+                        <Sparkles className="w-4 h-4 text-violet-600 dark:text-violet-400 shrink-0 mt-0.5 sm:mt-0 animate-pulse" />
                         <span>{dict.misc.vibeCodingDesc}</span>
                       </div>
                     )}
@@ -297,7 +303,7 @@ export function ProjectModal({ project, onClose, locale, dict }: ProjectModalPro
                       {project.description[locale]}
                     </p>
                     {project.details && (
-                      <p className="text-ivory/55 text-xs sm:text-sm leading-relaxed">
+                      <p className="text-ivory/65 dark:text-ivory/55 text-xs sm:text-sm leading-relaxed">
                         {project.details[locale]}
                       </p>
                     )}
@@ -306,8 +312,8 @@ export function ProjectModal({ project, onClose, locale, dict }: ProjectModalPro
                   {/* ── Technologies Used ── */}
                   {project.technologies && project.technologies.length > 0 && (
                     <div className="space-y-2.5 pt-1">
-                      <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-gold/85">
-                        <Layers className="w-3.5 h-3.5 text-gold" />
+                      <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-gold-700 dark:text-gold/85 font-semibold">
+                        <Layers className="w-3.5 h-3.5 text-gold-700 dark:text-gold" />
                         <span>
                           {locale === "fa" ? "تکنولوژی‌ها و ابزارهای به‌کاررفته" : "Technologies & Stack"}
                         </span>
@@ -316,7 +322,7 @@ export function ProjectModal({ project, onClose, locale, dict }: ProjectModalPro
                         {project.technologies.map((tech, idx) => (
                           <span
                             key={idx}
-                            className="px-2.5 py-1 text-xs font-mono rounded-sm bg-gold/[0.07] border border-gold/25 text-ivory/90 hover:border-gold/50 transition-colors"
+                            className="px-2.5 py-1 text-xs font-mono rounded-sm bg-gold/[0.08] dark:bg-gold/[0.07] border border-gold/25 text-ivory/90 hover:border-gold/50 transition-colors"
                           >
                             {tech}
                           </span>
@@ -328,8 +334,8 @@ export function ProjectModal({ project, onClose, locale, dict }: ProjectModalPro
                   {/* ── Key Highlights ── */}
                   {project.highlights && project.highlights[locale] && (
                     <div className="space-y-2.5 pt-1">
-                      <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-gold/85">
-                        <Sparkles className="w-3.5 h-3.5 text-gold" />
+                      <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-gold-700 dark:text-gold/85 font-semibold">
+                        <Sparkles className="w-3.5 h-3.5 text-gold-700 dark:text-gold" />
                         <span>
                           {locale === "fa" ? "ویژگی‌های کلیدی و برجسته" : "Key Highlights"}
                         </span>
@@ -338,7 +344,7 @@ export function ProjectModal({ project, onClose, locale, dict }: ProjectModalPro
                         {project.highlights[locale].map((point, idx) => (
                           <div
                             key={idx}
-                            className="flex items-start gap-2.5 p-2.5 rounded-sm bg-onyx-50/40 border border-gold/15 text-xs text-ivory/75 leading-relaxed"
+                            className="flex items-start gap-2.5 p-2.5 rounded-sm bg-onyx-100/70 dark:bg-onyx-50/40 border border-gold/15 text-xs text-ivory/80 leading-relaxed shadow-sm"
                           >
                             <CheckCircle2 className="w-3.5 h-3.5 text-gold shrink-0 mt-0.5" />
                             <span>{point}</span>
@@ -350,10 +356,10 @@ export function ProjectModal({ project, onClose, locale, dict }: ProjectModalPro
                 </div>
 
                 {/* ── Footer Actions ── */}
-                <div className="flex items-center justify-between gap-3 px-5 sm:px-7 py-4 border-t border-gold/15 bg-onyx/40 backdrop-blur-sm shrink-0">
+                <div className="flex items-center justify-between gap-3 px-5 sm:px-7 py-4 border-t border-gold/15 bg-onyx-100/70 dark:bg-onyx-900/60 backdrop-blur-sm shrink-0">
                   <button
                     onClick={onClose}
-                    className="px-4 py-2 text-xs sm:text-sm font-mono tracking-wider rounded-sm text-ivory/70 hover:text-gold border border-gold/25 hover:border-gold/50 transition-colors"
+                    className="px-4 py-2 text-xs sm:text-sm font-mono tracking-wider rounded-sm text-ivory/75 hover:text-gold border border-gold/25 hover:border-gold/50 transition-colors"
                   >
                     {locale === "fa" ? "بستن" : "Close"}
                   </button>
@@ -363,7 +369,7 @@ export function ProjectModal({ project, onClose, locale, dict }: ProjectModalPro
                       href={project.link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 px-5 py-2 text-xs sm:text-sm font-medium rounded-sm bg-gold text-onyx hover:bg-gold-50 transition-all shadow-md active:scale-95 select-none"
+                      className="inline-flex items-center gap-2 px-5 py-2 text-xs sm:text-sm font-semibold rounded-sm bg-gold text-stone-950 hover:bg-gold-50 transition-all shadow-md active:scale-95 select-none"
                     >
                       <span>
                         {locale === "fa" ? "ورود به لینک پروژه" : "Visit Project Link"}

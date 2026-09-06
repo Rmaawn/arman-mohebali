@@ -168,8 +168,14 @@ export const resume = {
   // ════════════════════════════════════════════════════════════════
   projects: [
     {
-      brand: "Nootika",
-      name: "Reminder",
+      brand: {
+        en: "Nootika",
+        fa: "نوتیکا",
+      },
+      name: {
+        en: "Reminder",
+        fa: "یادآور هوشمند",
+      },
       year: "2024",
       vibeCoding: true, // ⚡ نشان وایب کدینگ (true = فعال / false = غیرفعال)
       date: {
@@ -217,8 +223,14 @@ export const resume = {
       },
     },
     {
-      brand: "Hatee",
-      name: "Social Platform",
+      brand: {
+        en: "Hatee",
+        fa: "هاتی",
+      },
+      name: {
+        en: "Social Platform",
+        fa: "پلتفرم اجتماعی",
+      },
       year: "2026",
       vibeCoding: true, // ⚡ نشان وایب کدینگ (true = فعال / false = غیرفعال)
       date: {
@@ -269,8 +281,14 @@ export const resume = {
       },
     },
     {
-      brand: "News Discovery",
-      name: "Automation Engine",
+      brand: {
+        en: "News Discovery",
+        fa: "نیوز دیسکاوری",
+      },
+      name: {
+        en: "Automation Engine",
+        fa: "موتور اتوماسیون خبری",
+      },
       year: "2024",
       vibeCoding: false, // ⚡ توسعه دستی (بدون وایب کدینگ)
       date: {
