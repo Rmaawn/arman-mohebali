@@ -17,67 +17,19 @@ export function BoardHud({ locale, activeCell, hoverCell, onSelectColumn }: Prop
 
   return (
     <>
-      {/* ── Top brand bar ─────────────────────────────────────── */}
-      <div className="fixed top-0 left-0 right-0 z-30 pointer-events-none px-4 md:px-10 pt-4 md:pt-6 flex items-center justify-between">
-        <div className="pointer-events-auto flex items-center gap-2 md:gap-3">
-          <span className="text-xl md:text-2xl text-gold">♛</span>
-          <div className="leading-tight hidden sm:block">
-            <div className="font-mono text-[9px] md:text-[10px] tracking-[0.3em] uppercase text-ivory/50">
-              {isFa ? "نمونه‌کار شطرنجی" : "Chess Portfolio"}
-            </div>
-            <div className="font-display text-base md:text-lg text-ivory/90">
-              {isFa ? "آرمان محب‌علی" : "Arman Mohebali"}
-            </div>
-          </div>
-        </div>
-
-        <div className="pointer-events-none hidden md:block text-right">
-          <div className="font-mono text-[10px] tracking-[0.3em] uppercase text-ivory/40">
-            {isFa ? "خانه" : "Cell"}
-          </div>
-          <div className="font-display text-2xl text-gold tabular-nums">
-            {FILE_LABELS[currentCol]}{RANK_LABELS[currentRow]}
-          </div>
-        </div>
+      {/* ── Top center active cell indicator (Desktop) ─────────── */}
+      <div className="fixed top-6 left-1/2 -translate-x-1/2 z-30 pointer-events-none hidden md:flex items-center gap-2 glass px-3.5 py-1.5 rounded-full border border-gold/25 shadow-lg">
+        <span className="w-2 h-2 rounded-full bg-gold animate-pulse" />
+        <span className="font-mono text-xs font-bold text-gold tabular-nums">
+          {FILE_LABELS[currentCol]}{RANK_LABELS[currentRow]}
+        </span>
+        <span className="text-gold/40">·</span>
+        <span className="text-xs font-mono tracking-wider text-ivory/80">
+          {COLUMNS[currentCol].icon} {COLUMNS[currentCol].label[locale]}
+        </span>
       </div>
 
-      {/* ── Column labels ─────────────────────────────────────── */}
-      {/* On mobile: icons + file letters only  |  Desktop: full labels on hover */}
-      <div className="fixed top-[52px] md:top-24 left-0 right-0 z-20 pointer-events-none flex justify-center">
-        <div className="pointer-events-auto grid grid-cols-8 gap-0 max-w-[min(96vw,900px)] w-full px-2 md:px-4">
-          {COLUMNS.map((c, i) => {
-            const active = currentCol === i;
-            return (
-              <button
-                key={c.file}
-                onClick={() => onSelectColumn(i)}
-                className={`group flex flex-col items-center gap-0.5 md:gap-1 px-0.5 md:px-1 py-1.5 md:py-2 transition-all ${
-                  active ? "text-gold" : "text-ivory/45 hover:text-ivory/80"
-                }`}
-              >
-                <span className="text-base md:text-lg leading-none">{c.icon}</span>
-                <span
-                  className={`font-mono text-[8px] md:text-[9px] tracking-[0.2em] uppercase leading-tight transition-all ${
-                    active ? "opacity-100" : "opacity-60"
-                  }`}
-                >
-                  {FILE_LABELS[i]}
-                </span>
-                {/* Section name — hidden on mobile, hover-revealed on desktop */}
-                <span
-                  className={`hidden md:block text-[10px] leading-tight text-center max-w-[90px] ${
-                    isFa ? "font-fa" : ""
-                  } ${active ? "opacity-100" : "opacity-0 group-hover:opacity-90"} transition-opacity`}
-                >
-                  {c.label[locale]}
-                </span>
-              </button>
-            );
-          })}
-        </div>
-      </div>
-
-      {/* ── Rank labels — left/right side (desktop only) ──────── */}
+      {/* ── Rank labels — side (desktop only) ─────────────────── */}
       <div
         className={`fixed top-1/2 -translate-y-1/2 z-20 pointer-events-none hidden md:flex flex-col gap-3 ${
           isFa ? "right-4" : "left-4"
@@ -89,7 +41,7 @@ export function BoardHud({ locale, activeCell, hoverCell, onSelectColumn }: Prop
             <span
               key={r}
               className={`font-mono text-xs tracking-widest tabular-nums transition-all ${
-                active ? "text-gold scale-125" : "text-ivory/30"
+                active ? "text-gold scale-125 font-bold" : "text-ivory/30"
               }`}
             >
               {r}
@@ -98,12 +50,43 @@ export function BoardHud({ locale, activeCell, hoverCell, onSelectColumn }: Prop
         })}
       </div>
 
-      {/* ── Bottom hint (desktop only) ────────────────────────── */}
-      <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-30 pointer-events-none hidden md:block">
-        <div className="font-mono text-[10px] tracking-[0.3em] uppercase text-ivory/40 text-center">
-          {isFa
-            ? "روی هر خانهٔ درخشان کلیک کن · با ماوس بچرخان"
-            : "Click any glowing square · drag to rotate"}
+      {/* ── 8-Column Guide Dock (Bottom of screen) ─────────────── */}
+      <div className="fixed bottom-3 md:bottom-5 left-1/2 -translate-x-1/2 z-40 w-full max-w-[min(98vw,960px)] px-2 pointer-events-none">
+        {/* Minimal desktop instruction hint right above dock */}
+        <div className="hidden md:flex items-center justify-center gap-2 mb-1.5 text-center">
+          <span className="font-mono text-[10px] tracking-[0.25em] uppercase text-ivory/45">
+            {isFa
+              ? "راهنمای ستون‌های شطرنج (A تا H) — جهت مشاهده هر بخش روی ستون مربوطه کلیک کنید"
+              : "Chess Columns (A to H) — Click any column to inspect section"}
+          </span>
+        </div>
+
+        <div className="pointer-events-auto glass-strong rounded-2xl md:rounded-full border border-gold/30 p-1.5 md:p-2 shadow-[0_16px_50px_rgba(0,0,0,0.65)] flex items-center justify-between overflow-x-auto no-scrollbar gap-1">
+          {COLUMNS.map((c, i) => {
+            const active = currentCol === i;
+            return (
+              <button
+                key={c.file}
+                onClick={() => onSelectColumn(i)}
+                className={`group flex items-center justify-center gap-1.5 md:gap-2 px-2.5 md:px-3.5 py-1.5 md:py-2 rounded-xl md:rounded-full transition-all flex-1 min-w-[74px] sm:min-w-0 ${
+                  active
+                    ? "bg-gold/20 text-gold border border-gold/50 shadow-[0_0_14px_rgba(212,175,55,0.2)] font-semibold"
+                    : "text-ivory/70 hover:text-ivory hover:bg-gold/10 border border-transparent"
+                }`}
+                title={`${FILE_LABELS[i]} · ${c.label[locale]}`}
+              >
+                <span className="font-mono text-[11px] font-bold text-gold/90">{FILE_LABELS[i]}</span>
+                <span className="text-sm md:text-base leading-none">{c.icon}</span>
+                <span
+                  className={`text-[11px] md:text-xs tracking-tight whitespace-nowrap ${
+                    isFa ? "font-fa" : ""
+                  }`}
+                >
+                  {c.label[locale]}
+                </span>
+              </button>
+            );
+          })}
         </div>
       </div>
     </>

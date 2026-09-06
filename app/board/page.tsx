@@ -127,12 +127,12 @@ export default function BoardPage() {
       {/* ── Back button ───────────────────────────────────── */}
       <Link
         href="/"
-        className={`fixed top-5 z-50 group inline-flex items-center gap-2 glass px-3 py-2 rounded-full text-xs font-mono tracking-[0.25em] uppercase text-ivory/60 hover:text-gold transition-colors ${
-          locale === "fa" ? "right-28" : "left-5"
+        className={`fixed top-6 z-50 group inline-flex items-center gap-2 glass px-3.5 py-2 rounded-full text-xs font-mono tracking-[0.2em] uppercase text-ivory/70 hover:text-gold hover:border-gold/50 transition-all ${
+          locale === "fa" ? "right-28 sm:right-32" : "left-28 sm:left-32"
         }`}
       >
         <ArrowLeft className={`w-3.5 h-3.5 ${locale === "fa" ? "flip-rtl" : ""}`} />
-        <span className="hidden sm:inline">{locale === "fa" ? "رزومه" : "Resume"}</span>
+        <span>{locale === "fa" ? "بازگشت به رزومه" : "Resume"}</span>
       </Link>
 
       <LanguageSwitcher locale={locale} onChange={setLocale} />
@@ -179,15 +179,15 @@ function MobileCellPanel({
         transition={{ duration: 0.25, ease: [0.4, 0, 0.2, 1] }}
         className="p-5"
       >
-        {/* Column tag */}
-        <div className="flex items-center justify-between mb-3">
+        {/* Column & Cell Header */}
+        <div className="flex items-center justify-between mb-3.5 pb-2.5 border-b border-gold/15">
           <div className="flex items-center gap-2">
             <span className="text-xl text-gold">{column.icon}</span>
-            <div className="font-mono text-[9px] tracking-[0.3em] uppercase text-gold/70">
+            <div className="font-mono text-[10px] tracking-[0.2em] uppercase text-gold/85 font-semibold">
               {FILE_LABELS[activeCell.col]} · {column.label[locale]}
             </div>
           </div>
-          <div className="font-mono text-xs tracking-widest tabular-nums text-ivory/40">
+          <div className="font-mono text-xs font-bold tracking-widest tabular-nums text-gold bg-gold/15 border border-gold/35 px-2 py-0.5 rounded">
             {FILE_LABELS[activeCell.col]}{RANK_LABELS[activeCell.row]}
           </div>
         </div>
@@ -195,28 +195,27 @@ function MobileCellPanel({
         {cell ? (
           <>
             {cell.eyebrow && (
-              <div className="font-mono text-[10px] tracking-[0.3em] uppercase text-ivory/45 mb-2">
+              <div className="font-mono text-[10px] tracking-[0.25em] uppercase text-gold/75 mb-1.5 font-medium">
                 {cell.eyebrow[locale]}
               </div>
             )}
             <h2
-              className={`text-2xl leading-tight mb-2 ${isFa ? "section-heading" : "hero-title"}`}
-              style={{ color: "var(--ivory)" }}
+              className={`text-2xl leading-tight mb-2 font-bold text-ivory ${isFa ? "font-fa" : "font-display"}`}
             >
               <span className="text-gold-gradient">{cell.title[locale]}</span>
             </h2>
             {cell.subtitle && (
-              <div className="text-sm text-ivory/70 mb-3">{cell.subtitle[locale]}</div>
+              <div className="text-sm text-gold/90 font-medium mb-2.5">{cell.subtitle[locale]}</div>
             )}
             {cell.body && (
-              <p className="text-sm leading-relaxed text-ivory/65 mb-4">{cell.body[locale]}</p>
+              <p className="text-sm leading-relaxed text-ivory/80 mb-4">{cell.body[locale]}</p>
             )}
             {cell.tags && cell.tags.length > 0 && (
-              <div className="flex flex-wrap gap-2 mb-4">
+              <div className="flex flex-wrap gap-1.5 mb-4">
                 {cell.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="px-2 py-1 text-[11px] font-mono tracking-wider border border-gold/30 text-gold/90 rounded-sm"
+                    className="px-2 py-0.5 text-[11px] font-mono tracking-wider border border-gold/30 bg-gold/10 text-gold rounded"
                   >
                     {tag}
                   </span>
@@ -224,7 +223,7 @@ function MobileCellPanel({
               </div>
             )}
             {cell.meta && (
-              <div className="font-mono text-xs tracking-widest uppercase text-ivory/45 mb-3">
+              <div className="font-mono text-xs tracking-widest uppercase text-ivory/50 mb-3">
                 {cell.meta[locale]}
               </div>
             )}
@@ -233,7 +232,7 @@ function MobileCellPanel({
                 href={cell.link.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-gold mt-2 text-sm inline-flex items-center gap-2"
+                className="btn-gold mt-2 text-xs font-mono tracking-wider inline-flex items-center gap-2 py-2 px-3.5"
               >
                 {cell.link.label[locale]}
                 <ExternalLink className="w-3.5 h-3.5" />
@@ -241,28 +240,33 @@ function MobileCellPanel({
             )}
           </>
         ) : (
-          <div className="py-4 text-center">
-            <div className="text-4xl text-ivory/15 mb-2">·</div>
-            <div className="font-mono text-[10px] tracking-[0.3em] uppercase text-ivory/40">
+          <div className="py-6 text-center flex flex-col items-center justify-center">
+            <span className="text-2xl text-gold/30 mb-2">♙</span>
+            <div className="text-sm font-medium text-ivory/80 mb-1">
               {isFa ? "خانهٔ خالی" : "Empty square"}
+            </div>
+            <div className="font-mono text-[10px] tracking-wider text-ivory/40">
+              {isFa
+                ? "یکی از ستون‌های راهنمای شطرنج را انتخاب کنید."
+                : "Select any column from the guide."}
             </div>
           </div>
         )}
 
         {/* Nav arrows */}
-        <div className="mt-5 pt-4 border-t border-ivory/10 flex items-center justify-between">
+        <div className="mt-5 pt-3.5 border-t border-gold/15 flex items-center justify-between">
           <button
             onClick={onPrev}
-            className="font-mono text-[11px] tracking-[0.25em] uppercase text-ivory/50 hover:text-gold transition-colors py-2 px-1"
+            className="font-mono text-[11px] tracking-[0.2em] uppercase text-ivory/60 hover:text-gold transition-colors py-1.5 px-2 rounded hover:bg-gold/10"
           >
             ← {isFa ? "قبلی" : "Prev"}
           </button>
-          <span className="font-mono text-[10px] tracking-[0.3em] uppercase text-ivory/30">
-            ♞ {isFa ? "اسب طلایی" : "Knight"}
+          <span className="font-mono text-[10px] tracking-[0.25em] uppercase text-gold/50">
+            ♞ {isFa ? "مهره فعال" : "Knight"}
           </span>
           <button
             onClick={onNext}
-            className="font-mono text-[11px] tracking-[0.25em] uppercase text-ivory/50 hover:text-gold transition-colors py-2 px-1"
+            className="font-mono text-[11px] tracking-[0.2em] uppercase text-ivory/60 hover:text-gold transition-colors py-1.5 px-2 rounded hover:bg-gold/10"
           >
             {isFa ? "بعدی" : "Next"} →
           </button>
