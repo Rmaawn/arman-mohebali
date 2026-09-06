@@ -394,6 +394,65 @@ export const resume = {
         ],
       },
     },
+    {
+      brand: {
+        en: "Tasko",
+        fa: "تاسکو",
+      },
+      name: {
+        en: "AI Project Workspace",
+        fa: "پلتفرم مدیریت پروژه هوشمند",
+      },
+      year: "2026",
+      vibeCoding: true, // ⚡ نشان وایب کدینگ (true = فعال / false = غیرفعال)
+      date: {
+        en: "2026 · Full-Stack AI Workspace",
+        fa: "۱۴۰۵ · فضای کار هوشمند و چابک",
+      },
+      status: "LIVE",
+      image: "/projects/tasko-1.webp",
+      images: [
+        "/projects/tasko-1.webp",
+        "/projects/tasko-2.webp",
+        "/projects/tasko-3.webp",
+      ],
+      technologies: [
+        "Next.js 14",
+        "FastAPI",
+        "TypeScript",
+        "Python 3.11+",
+        "PostgreSQL 15",
+        "Redis",
+        "Celery",
+        "WebSockets",
+        "SQLAlchemy 2.0",
+        "dnd-kit",
+        "TailwindCSS",
+        "Docker Compose",
+      ],
+      description: {
+        en: "An AI-native, keyboard-first calm project management platform inspired by Linear — featuring drag-and-drop Kanban, fractional ranking, real-time WebSocket syncing, and pluggable LLM services.",
+        fa: "پلتفرم مینیمال، کیبورد‌محور و آرام برای مدیریت پروژه‌های مدرن الهام‌گرفته از Linear — مجهز به بورد تعاملی کانبان با درگ و دراپ، رنکینگ کسری (Fractional Ranking)، همگام‌سازی بلادرنگ با وب‌سوکت و سرویس‌های یکپارچه هوش مصنوعی.",
+      },
+      details: {
+        en: "Architected as an independently deployable micro-modular backend (FastAPI, Redis, Celery workers) paired with a reactive Next.js 14 App Router client. Features ⌘K command palette, offline mock fallback mode, and Linear-style float rank scheduling without sibling rewriting.",
+        fa: "معماری چندسرویسی و ماژولار با FastAPI، کارگرهای پس‌زمینه Celery، کش Redis و رابط فرانت‌اند Next.js 14. پیاده‌سازی پالت دستورات سراسری (⌘K)، حالت فوکوس، به‌روزرسانی زنده داده‌ها با SWR و وب‌سوکت، و الگوریتم رتبه‌بندی کسری بدون نیاز به بازنویسی موقعیت سایر تسک‌ها.",
+      },
+      highlights: {
+        en: [
+          "Linear-style fractional ranking algorithm for O(1) drag-and-drop task reordering without modifying sibling positions",
+          "Real-time reactive collaboration powered by WebSockets, Redis pub/sub broker, and SWR cache invalidation",
+          "Comprehensive keyboard-first navigation engine (⌘K command palette, chord shortcuts, modal traps)",
+          "Production-ready multi-container architecture orchestrated via Docker Compose across 5 isolated services",
+        ],
+        fa: [
+          "الگوریتم رتبه‌بندی کسری (Fractional Ranking) برای جابه‌جایی آنی تسک‌های کانبان با پیچیدگی O(1) بدون تغییر رتبه همسایه‌ها",
+          "همکاری بلادرنگ چندکاربره با وب‌سوکت، سیستم انتشار/اشتراک Redis و کشینگ خودکار SWR",
+          "موتور ناوبری کیبورد‌محور با میانبرهای ترکیبی (Chord Keys)، پالت دستورات ⌘K و حالت بدون حواس‌پرتی (Focus Mode)",
+          "معماری کانتینری آماده پروداکشن با ارکستراسیون ۵ سرویس مجزا (Frontend، API، Celery Worker، PostgreSQL و Redis)",
+        ],
+      },
+    },
   ],
   // ════════════════════════════════════════════════════════════════
   // EDUCATION  —  ویرایش از همین‌جا
