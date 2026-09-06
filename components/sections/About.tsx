@@ -115,7 +115,8 @@ function ProfilePhoto({ locale }: { locale: Locale }) {
           {!imgError ? (
             <Image
               src="/armanmohebali.webp"
-              alt="آرمان محبعلی — Arman Mohebali, Software Solutions Developer"
+              alt="عکس آرمان محبعلی — مهندس نرم‌افزار و اتوماسیون | Arman Mohebali"
+              title="آرمان محبعلی | Arman Mohebali"
               fill
               sizes="(max-width: 768px) 220px, 240px"
               className="object-cover object-top"

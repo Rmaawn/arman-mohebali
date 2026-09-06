@@ -19,7 +19,12 @@ export const metadata: Metadata = {
     "آرمان محبعلی",
     "آرمان محب‌علی",
     "Arman Mohebali",
-    " arman mohebali",
+    "arman mohebali",
+    "Arman Moheb Ali",
+    "armanmohebali",
+    "سایت آرمان محبعلی",
+    "پورتفولیو آرمان محبعلی",
+    "Arman Mohebali portfolio",
     "توسعه‌دهنده نرم‌افزار",
     "مهندس نرم‌افزار",
     "اتوماسیون",
@@ -39,16 +44,17 @@ export const metadata: Metadata = {
     description:
       "وب‌سایت رسمی آرمان محبعلی — پورتفولیو شخصی مهندس نرم‌افزار با تمرکز بر اتوماسیون، Python، Flutter و WordPress.",
     url: SITE_URL,
-    siteName: "Arman Mohebali",
+    siteName: "آرمان محبعلی | Arman Mohebali",
     locale: "fa_IR",
     alternateLocale: "en_US",
     type: "website",
     images: [
       {
-        url: "/armanmohebali.webp",
+        url: `${SITE_URL}/armanmohebali.webp`,
         width: 1200,
         height: 1600,
-        alt: "آرمان محبعلی — Arman Mohebali",
+        type: "image/webp",
+        alt: "عکس آرمان محبعلی — Arman Mohebali",
       },
     ],
   },
@@ -57,7 +63,7 @@ export const metadata: Metadata = {
     title: "آرمان محبعلی | Arman Mohebali — Software Solutions Developer",
     description:
       "وب‌سایت رسمی آرمان محبعلی — مهندس و توسعه‌دهنده نرم‌افزار.",
-    images: ["/armanmohebali.webp"],
+    images: [`${SITE_URL}/armanmohebali.webp`],
   },
   robots: {
     index: true,
@@ -70,20 +76,34 @@ export const metadata: Metadata = {
       "max-video-preview": -1,
     },
   },
-  // پس از ساخت سایت در Google Search Console، توکن تأیید را اینجا بگذار:
+  // پس از دریافت کد تایید از Google Search Console، توکن تأیید را اینجا قرار دهید:
   // verification: { google: "PASTE_YOUR_GSC_TOKEN" },
+};
+
+const profileImageObject = {
+  "@type": "ImageObject",
+  "@id": `${SITE_URL}/#profile-photo`,
+  url: `${SITE_URL}/armanmohebali.webp`,
+  contentUrl: `${SITE_URL}/armanmohebali.webp`,
+  caption: "آرمان محبعلی — مهندس نرم‌افزار و توسعه‌دهنده | Arman Mohebali",
+  description: "عکس پرسنلی آرمان محبعلی مهندس نرم‌افزار و توسعه‌دهنده سیستم‌های اتوماسیون",
+  representativeOfPage: true,
 };
 
 const personJsonLd = {
   "@context": "https://schema.org",
   "@type": "Person",
+  "@id": `${SITE_URL}/#person`,
   name: "Arman Mohebali",
-  alternateName: ["آرمان محبعلی", "آرمان محب‌علی", "Arman Mohebali"],
+  givenName: "Arman",
+  familyName: "Mohebali",
+  alternateName: ["آرمان محبعلی", "آرمان محب‌علی", "Arman Mohebali", "armanmohebali"],
+  disambiguatingDescription: "توسعه‌دهنده نرم‌افزار و مهندس اتوماسیون اهل کرج، ایران | Software Solutions Developer",
   url: SITE_URL,
-  image: `${SITE_URL}/armanmohebali.webp`,
+  image: profileImageObject,
   jobTitle: "Software Solutions Developer",
   description:
-    "Software Engineer building reliable automation systems with Python, Flutter and WordPress.",
+    "Software Engineer building reliable automation systems with Python, Flutter and WordPress. مهندس نرم‌افزار و توسعه‌دهنده سیستم‌های اتوماسیون.",
   knowsAbout: [
     "Software Engineering",
     "Automation",
@@ -114,10 +134,29 @@ const personJsonLd = {
 const websiteJsonLd = {
   "@context": "https://schema.org",
   "@type": "WebSite",
-  name: "Arman Mohebali",
-  alternateName: "آرمان محبعلی",
+  "@id": `${SITE_URL}/#website`,
+  name: "آرمان محبعلی | Arman Mohebali",
+  alternateName: ["Arman Mohebali", "آرمان محبعلی", "armanmohebali.ir"],
   url: SITE_URL,
   inLanguage: ["fa-IR", "en-US"],
+  author: {
+    "@id": `${SITE_URL}/#person`,
+  },
+};
+
+const profilePageJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "ProfilePage",
+  "@id": `${SITE_URL}/#profilepage`,
+  url: SITE_URL,
+  name: "آرمان محبعلی | Arman Mohebali — Software Solutions Developer",
+  mainEntity: {
+    "@id": `${SITE_URL}/#person`,
+  },
+  isPartOf: {
+    "@id": `${SITE_URL}/#website`,
+  },
+  primaryImageOfPage: profileImageObject,
 };
 
 export default function RootLayout({
@@ -137,6 +176,10 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(profilePageJsonLd) }}
         />
       </head>
       <body className="bg-onyx text-ivory antialiased overflow-x-hidden">
