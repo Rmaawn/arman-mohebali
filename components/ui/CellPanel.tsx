@@ -19,6 +19,7 @@ export function CellPanel({ locale, activeCell, onPrev, onNext, onSelectColumn }
   const column = COLUMNS[activeCell.col];
   const cell = column.cells[activeCell.row];
   const isFa = locale === "fa";
+  const isQueen = activeCell.row === 0;
 
   // Re-open automatically when active cell changes
   useEffect(() => {
@@ -33,7 +34,7 @@ export function CellPanel({ locale, activeCell, onPrev, onNext, onSelectColumn }
           isFa ? "right-6" : "left-6"
         } z-40 group inline-flex items-center gap-2.5 px-4 py-2.5 rounded-xl bg-[#0c0c0e]/95 border border-gold/40 text-gold shadow-[0_10px_30px_rgba(0,0,0,0.8),0_0_15px_rgba(212,175,55,0.2)] hover:border-gold hover:scale-105 transition-all`}
       >
-        <span className="text-base">♞</span>
+        <span className="text-base">{isQueen ? "👑" : "♙"}</span>
         <span className="font-mono text-xs font-bold tracking-wider uppercase text-ivory">
           {isFa ? "مشاهده توضیحات خانه" : "Inspect Square"} [{FILE_LABELS[activeCell.col]}{RANK_LABELS[activeCell.row]}]
         </span>
@@ -59,6 +60,19 @@ export function CellPanel({ locale, activeCell, onPrev, onNext, onSelectColumn }
         >
           {/* Scrollable Content Container */}
           <div className="overflow-y-auto pr-1 -mr-1 custom-scrollbar flex-1 pb-4">
+            {/* Promotion Notification Banner */}
+            {isQueen && (
+              <div className="mb-3.5 px-3.5 py-2 rounded-xl bg-gradient-to-r from-amber-500/20 via-gold/30 to-amber-500/20 border border-gold/60 flex items-center justify-between text-xs font-mono font-bold text-gold shadow-md">
+                <span className="flex items-center gap-2">
+                  <span className="text-base animate-bounce">👑</span>
+                  <span>{isFa ? "ارتقای سرباز به وزیر!" : "Pawn Promoted to Queen!"}</span>
+                </span>
+                <span className="text-[10px] tracking-widest uppercase bg-gold/20 px-2 py-0.5 rounded border border-gold/40 text-ivory">
+                  RANK 8
+                </span>
+              </div>
+            )}
+
             {/* Pop-up Top Bar */}
             <div className="flex items-center justify-between pb-3.5 mb-4 border-b border-gold/25">
               {/* Column Info */}

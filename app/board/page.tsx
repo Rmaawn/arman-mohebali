@@ -25,7 +25,8 @@ const Scene = dynamic(() => import("@/components/3d/Scene").then((m) => m.Scene)
 
 export default function BoardPage() {
   const [locale, setLocale] = useState<Locale>("en");
-  const [activeCell, setActiveCell] = useState<{ col: number; row: number }>({ col: 0, row: 0 });
+  // Start at bottom-left square (File A, Rank 1 -> col 0, row 7)
+  const [activeCell, setActiveCell] = useState<{ col: number; row: number }>({ col: 0, row: 7 });
   const [hoverCell, setHoverCell] = useState<{ col: number; row: number } | null>(null);
   const [hoverCol, setHoverCol] = useState<number | null>(null);
 
@@ -48,15 +49,15 @@ export default function BoardPage() {
 
   const handleSelectColumn = useCallback((col: number) => {
     const idx = COLUMNS[col].cells.findIndex((c) => c !== null);
-    setActiveCell({ col, row: idx >= 0 ? idx : 0 });
+    setActiveCell({ col, row: idx >= 0 ? idx : 7 });
   }, []);
 
   const goPrev = useCallback(() => {
     setActiveCell((prev) => {
       let { col, row } = prev;
       for (let step = 0; step < 64; step++) {
-        row -= 1;
-        if (row < 0) { row = 7; col = (col - 1 + 8) % 8; }
+        row += 1;
+        if (row > 7) { row = 0; col = (col - 1 + 8) % 8; }
         if (COLUMNS[col].cells[row] !== null) return { col, row };
       }
       return prev;
@@ -67,8 +68,8 @@ export default function BoardPage() {
     setActiveCell((prev) => {
       let { col, row } = prev;
       for (let step = 0; step < 64; step++) {
-        row += 1;
-        if (row > 7) { row = 0; col = (col + 1) % 8; }
+        row -= 1;
+        if (row < 0) { row = 7; col = (col + 1) % 8; }
         if (COLUMNS[col].cells[row] !== null) return { col, row };
       }
       return prev;

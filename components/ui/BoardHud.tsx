@@ -34,7 +34,13 @@ export function BoardHud({
           <div className="flex items-center gap-1.5 text-gold/90 font-medium">
             <span className="w-1.5 h-1.5 rounded-full bg-gold animate-pulse" />
             <span className="tracking-wider uppercase font-semibold">
-              {isFa ? "راهنمای ستون‌های ۸‌گانه شطرنج" : "CHESSBOARD FILES (A → H)"}
+              {activeCell.row === 0
+                ? isFa
+                  ? "👑 ارتقای سرباز به وزیر"
+                  : "👑 PROMOTED TO QUEEN"
+                : isFa
+                ? "راهنمای ستون‌های ۸‌گانه شطرنج"
+                : "CHESSBOARD FILES (A → H)"}
             </span>
           </div>
           <div className="text-ivory/50 tracking-wider hidden sm:block">
