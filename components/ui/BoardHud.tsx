@@ -50,37 +50,62 @@ export function BoardHud({ locale, activeCell, hoverCell, onSelectColumn }: Prop
         })}
       </div>
 
-      {/* ── 8-Column Guide Dock (Bottom of screen) ─────────────── */}
-      <div className="fixed bottom-3 md:bottom-5 left-1/2 -translate-x-1/2 z-40 w-full max-w-[min(98vw,960px)] px-2 pointer-events-none">
-        {/* Minimal desktop instruction hint right above dock */}
-        <div className="hidden md:flex items-center justify-center gap-2 mb-1.5 text-center">
-          <span className="font-mono text-[10px] tracking-[0.25em] uppercase text-ivory/45">
+      {/* ── 8-Column Guide (Closer to board with distinct separated cards) ─── */}
+      <div className="fixed bottom-7 md:bottom-12 lg:bottom-14 left-1/2 -translate-x-1/2 z-40 w-full max-w-[min(98vw,900px)] px-2 sm:px-4 pointer-events-none">
+        {/* Minimal instruction label */}
+        <div className="hidden md:flex items-center justify-center gap-2 mb-2 text-center">
+          <span className="font-mono text-[10px] tracking-[0.25em] uppercase text-ivory/50">
             {isFa
-              ? "راهنمای ستون‌های شطرنج (A تا H) — جهت مشاهده هر بخش روی ستون مربوطه کلیک کنید"
-              : "Chess Columns (A to H) — Click any column to inspect section"}
+              ? "راهنمای ستون‌های شطرنج (A تا H) — هر کارت به ستون متناظر خود در بالا اشاره دارد"
+              : "Chess Columns Guide (A to H) — Each card points directly to its board column above"}
           </span>
         </div>
 
-        <div className="pointer-events-auto glass-strong rounded-2xl md:rounded-full border border-gold/30 p-1.5 md:p-2 shadow-[0_16px_50px_rgba(0,0,0,0.65)] flex items-center justify-between overflow-x-auto no-scrollbar gap-1">
+        <div
+          dir="ltr"
+          className="pointer-events-auto grid grid-cols-8 gap-1.5 sm:gap-2 md:gap-3 w-full"
+        >
           {COLUMNS.map((c, i) => {
             const active = currentCol === i;
             return (
               <button
                 key={c.file}
                 onClick={() => onSelectColumn(i)}
-                className={`group flex items-center justify-center gap-1.5 md:gap-2 px-2.5 md:px-3.5 py-1.5 md:py-2 rounded-xl md:rounded-full transition-all flex-1 min-w-[74px] sm:min-w-0 ${
+                className={`group relative flex flex-col items-center justify-between p-2 md:p-2.5 rounded-xl border transition-all duration-200 text-center ${
                   active
-                    ? "bg-gold/20 text-gold border border-gold/50 shadow-[0_0_14px_rgba(212,175,55,0.2)] font-semibold"
-                    : "text-ivory/70 hover:text-ivory hover:bg-gold/10 border border-transparent"
+                    ? "bg-gold/20 border-gold shadow-[0_0_18px_rgba(212,175,55,0.35)] -translate-y-1.5 ring-1 ring-gold/50"
+                    : "glass border-gold/25 hover:border-gold/60 text-ivory/75 hover:text-ivory hover:bg-gold/10 hover:-translate-y-1"
                 }`}
-                title={`${FILE_LABELS[i]} · ${c.label[locale]}`}
               >
-                <span className="font-mono text-[11px] font-bold text-gold/90">{FILE_LABELS[i]}</span>
-                <span className="text-sm md:text-base leading-none">{c.icon}</span>
-                <span
-                  className={`text-[11px] md:text-xs tracking-tight whitespace-nowrap ${
-                    isFa ? "font-fa" : ""
+                {/* Upward pointer pointing directly to this column on the board above */}
+                <div
+                  className={`absolute -top-2 left-1/2 -translate-x-1/2 text-[9px] leading-none transition-colors ${
+                    active ? "text-gold" : "text-gold/40 group-hover:text-gold/80"
                   }`}
+                >
+                  ▲
+                </div>
+
+                {/* Column letter badge */}
+                <span
+                  className={`font-mono text-[10px] md:text-xs font-bold uppercase tracking-wider px-1.5 py-0.5 rounded ${
+                    active
+                      ? "bg-gold text-onyx shadow-sm"
+                      : "bg-gold/15 text-gold group-hover:bg-gold/25"
+                  }`}
+                >
+                  {FILE_LABELS[i]}
+                </span>
+
+                {/* Section icon */}
+                <span className="text-base md:text-lg my-1 leading-none">{c.icon}</span>
+
+                {/* Full section label */}
+                <span
+                  className={`text-[10px] sm:text-[11px] md:text-xs font-medium leading-tight line-clamp-2 transition-colors ${
+                    isFa ? "font-fa" : ""
+                  } ${active ? "text-gold font-bold" : "text-ivory/80 group-hover:text-ivory"}`}
+                  dir={isFa ? "rtl" : "ltr"}
                 >
                   {c.label[locale]}
                 </span>

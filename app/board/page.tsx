@@ -121,6 +121,7 @@ export default function BoardPage() {
           activeCell={activeCell}
           onPrev={goPrev}
           onNext={goNext}
+          onSelectColumn={handleSelectColumn}
         />
       </div>
 
@@ -146,7 +147,13 @@ export default function BoardPage() {
 
       {/* Desktop CellPanel only */}
       <div className="hidden md:block">
-        <CellPanel locale={locale} activeCell={activeCell} onPrev={goPrev} onNext={goNext} />
+        <CellPanel
+          locale={locale}
+          activeCell={activeCell}
+          onPrev={goPrev}
+          onNext={goNext}
+          onSelectColumn={handleSelectColumn}
+        />
       </div>
     </main>
   );
@@ -159,11 +166,13 @@ function MobileCellPanel({
   activeCell,
   onPrev,
   onNext,
+  onSelectColumn,
 }: {
   locale: Locale;
   activeCell: { col: number; row: number };
   onPrev: () => void;
   onNext: () => void;
+  onSelectColumn?: (col: number) => void;
 }) {
   const isFa = locale === "fa";
   const column = COLUMNS[activeCell.col];
@@ -243,13 +252,26 @@ function MobileCellPanel({
           <div className="py-6 text-center flex flex-col items-center justify-center">
             <span className="text-2xl text-gold/30 mb-2">♙</span>
             <div className="text-sm font-medium text-ivory/80 mb-1">
-              {isFa ? "خانهٔ خالی" : "Empty square"}
+              {isFa ? "خانهٔ آزاد در این ردیف" : "Open Board Square"}
             </div>
-            <div className="font-mono text-[10px] tracking-wider text-ivory/40">
+            <div className="font-mono text-[10px] tracking-wider text-ivory/40 mb-3">
               {isFa
-                ? "یکی از ستون‌های راهنمای شطرنج را انتخاب کنید."
-                : "Select any column from the guide."}
+                ? "یکی از بخش‌های اصلی رزومه را از گزینه‌های زیر انتخاب کنید:"
+                : "Select any primary section from below:"}
             </div>
+            {onSelectColumn && (
+              <div className="flex flex-wrap items-center justify-center gap-1.5">
+                {[4, 3, 2, 5].map((colIdx) => (
+                  <button
+                    key={colIdx}
+                    onClick={() => onSelectColumn(colIdx)}
+                    className="px-2.5 py-1 text-[11px] font-mono border border-gold/30 bg-gold/10 text-gold rounded hover:bg-gold/20 transition-colors"
+                  >
+                    {COLUMNS[colIdx].icon} {COLUMNS[colIdx].label[locale]}
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
         )}
 
