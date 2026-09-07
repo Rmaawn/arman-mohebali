@@ -93,11 +93,12 @@ function BoardCameraController() {
 interface SceneProps {
   hoverCell: { col: number; row: number } | null;
   activeCell: { col: number; row: number };
+  hoverCol?: number | null;
   onHoverCell: (cell: { col: number; row: number } | null) => void;
   onSelectCell: (col: number, row: number) => void;
 }
 
-export function Scene({ hoverCell, activeCell, onHoverCell, onSelectCell }: SceneProps) {
+export function Scene({ hoverCell, activeCell, hoverCol, onHoverCell, onSelectCell }: SceneProps) {
   const { resolvedTheme } = useTheme();
   const isDark = resolvedTheme !== "light";
 
@@ -138,6 +139,7 @@ export function Scene({ hoverCell, activeCell, onHoverCell, onSelectCell }: Scen
         <ChessBoard
           hoverCell={hoverCell}
           activeCell={activeCell}
+          hoverCol={hoverCol}
           onHoverCell={onHoverCell}
           onSelectCell={onSelectCell}
           isDark={isDark}

@@ -7,12 +7,13 @@ import { COLUMNS } from "@/data/cells";
 interface Props {
   hoverCell: { col: number; row: number } | null;
   activeCell: { col: number; row: number };
+  hoverCol?: number | null;
   onHoverCell: (cell: { col: number; row: number } | null) => void;
   onSelectCell: (col: number, row: number) => void;
   isDark?: boolean;
 }
 
-export function ChessBoard({ hoverCell, activeCell, onHoverCell, onSelectCell, isDark = true }: Props) {
+export function ChessBoard({ hoverCell, activeCell, hoverCol, onHoverCell, onSelectCell, isDark = true }: Props) {
   const lightMat = useMemo(
     () =>
       new THREE.MeshStandardMaterial({
@@ -78,6 +79,17 @@ export function ChessBoard({ hoverCell, activeCell, onHoverCell, onSelectCell, i
     [isDark]
   );
 
+  const colHighlightMat = useMemo(
+    () =>
+      new THREE.MeshBasicMaterial({
+        color: isDark ? "#d4af37" : "#c9a030",
+        transparent: true,
+        opacity: isDark ? 0.12 : 0.16,
+        side: THREE.DoubleSide,
+      }),
+    [isDark]
+  );
+
   const floorMat = useMemo(
     () =>
       new THREE.MeshStandardMaterial({
@@ -114,6 +126,7 @@ export function ChessBoard({ hoverCell, activeCell, onHoverCell, onSelectCell, i
       {squares.map((sq) => {
         const isHover  = hoverCell?.col  === sq.col && hoverCell?.row  === sq.row;
         const isActive = activeCell.col  === sq.col && activeCell.row  === sq.row;
+        const isColHover = hoverCol !== null && hoverCol !== undefined && hoverCol === sq.col;
         return (
           <group key={sq.key} position={sq.pos}>
             <mesh
@@ -125,6 +138,13 @@ export function ChessBoard({ hoverCell, activeCell, onHoverCell, onSelectCell, i
             >
               <boxGeometry args={[0.98, 0.1, 0.98]} />
             </mesh>
+
+            {/* Column Guide Highlight on Hover */}
+            {isColHover && !isActive && !isHover && (
+              <mesh position={[0, 0.055, 0]} rotation={[-Math.PI / 2, 0, 0]} material={colHighlightMat}>
+                <planeGeometry args={[0.96, 0.96]} />
+              </mesh>
+            )}
 
             {isHover && (
               <mesh position={[0, 0.06, 0]} rotation={[-Math.PI / 2, 0, 0]} material={hoverDiscMat}>
@@ -156,6 +176,22 @@ export function ChessBoard({ hoverCell, activeCell, onHoverCell, onSelectCell, i
           <boxGeometry args={f.size} />
         </mesh>
       ))}
+
+      {/* 8 Column Indicators on Front Frame directly matching Files A-H */}
+      {Array.from({ length: 8 }).map((_, c) => {
+        const isColActive = activeCell.col === c;
+        const isColHov = hoverCol === c;
+        const x = c - 3.5;
+        return (
+          <mesh
+            key={`col-pip-${c}`}
+            position={[x, 0.15, 4.2]}
+            material={isColActive ? activeDiscMat : isColHov ? hoverDiscMat : frameMat}
+          >
+            <boxGeometry args={[0.36, 0.04, 0.14]} />
+          </mesh>
+        );
+      })}
 
       {[[-4.2,-4.2],[4.2,-4.2],[-4.2,4.2],[4.2,4.2]].map(([x,z],i) => (
         <mesh key={i} position={[x, 0.12, z]} material={frameMat} castShadow>
