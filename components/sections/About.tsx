@@ -185,7 +185,14 @@ function Row({ label, value, mono = false }: { label: string; value: string; mon
   return (
     <div className="flex flex-col gap-1 pb-4 border-b border-ivory/10 last:border-0">
       <span className="text-xs tracking-widest uppercase text-ivory/40">{label}</span>
-      <span className={`text-ivory/90 break-all text-xs md:text-sm ${mono ? "font-mono" : ""}`}>{value}</span>
+      <span
+        className={`text-ivory/90 text-[11px] sm:text-xs xl:text-sm tracking-tight ${
+          mono ? "font-mono" : ""
+        }`}
+        style={{ wordBreak: "break-word" }}
+      >
+        {value}
+      </span>
     </div>
   );
 }
