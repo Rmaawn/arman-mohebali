@@ -38,7 +38,7 @@ function CertCard({
       className="group glass premium-card rounded-sm overflow-hidden cursor-pointer flex flex-col justify-between border border-gold/15 hover:border-gold/50 gold-glow-hover transition-all duration-300 transform hover:-translate-y-1"
     >
       {/* Thumbnail Top Banner */}
-      <div className="relative h-44 w-full bg-onyx-50/50 overflow-hidden border-b border-gold/15">
+      <div className="relative h-40 sm:h-44 w-full bg-onyx-50/50 overflow-hidden border-b border-gold/15">
         <div className="absolute inset-0 chess-bg opacity-20" />
 
         {cert.image && !imgError ? (
@@ -50,8 +50,8 @@ function CertCard({
           />
         ) : (
           <div className="w-full h-full flex flex-col items-center justify-center text-gold/30 p-4 text-center">
-            <span className="text-5xl mb-1 text-gold/45">♗</span>
-            <span className="font-mono text-xs font-bold tracking-widest uppercase text-gold/60">
+            <span className="text-4xl sm:text-5xl mb-1 text-gold/45">♗</span>
+            <span className="font-mono text-[10px] sm:text-xs font-bold tracking-widest uppercase text-gold/60">
               {issuerLabel}
             </span>
           </div>
@@ -60,9 +60,9 @@ function CertCard({
         <div className="absolute inset-0 bg-gradient-to-t from-onyx via-transparent to-black/30" />
 
         {/* Issuer Badge */}
-        <div className="absolute top-3 start-3 z-10 px-2.5 py-1 rounded-sm bg-onyx/90 backdrop-blur-md border border-gold/30 text-gold text-xs font-mono font-bold tracking-wider flex items-center gap-1.5 shadow-sm">
-          <Award className="w-3.5 h-3.5 text-gold" />
-          <span>{issuerLabel}</span>
+        <div className="absolute top-3 start-3 z-10 px-2.5 py-1 rounded-sm bg-onyx/90 backdrop-blur-md border border-gold/30 text-gold text-[11px] sm:text-xs font-mono font-bold tracking-wider flex items-center gap-1.5 shadow-sm max-w-[85%] truncate">
+          <Award className="w-3.5 h-3.5 text-gold shrink-0" />
+          <span className="truncate">{issuerLabel}</span>
         </div>
 
         {/* Hover Expand Overlay Button */}
@@ -75,28 +75,28 @@ function CertCard({
       </div>
 
       {/* Content Section */}
-      <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
+      <div className="p-5 sm:p-6 flex-1 flex flex-col justify-between space-y-3.5">
         <div>
           <h4
-            className={`text-xl text-ivory group-hover:text-gold transition-colors leading-snug ${
+            className={`text-lg sm:text-xl text-ivory group-hover:text-gold transition-colors leading-snug ${
               isFa ? "font-fa font-bold" : "font-display font-medium"
             }`}
           >
             {cert.title[locale]}
           </h4>
           {"description" in cert && cert.description && (
-            <p className="text-ivory/70 text-sm leading-relaxed mt-2.5 line-clamp-3">
+            <p className="text-ivory/70 text-xs sm:text-sm leading-relaxed mt-2 line-clamp-3">
               {cert.description[locale]}
             </p>
           )}
         </div>
 
         {/* Footer Action Hint */}
-        <div className="pt-3 border-t border-gold/15 flex items-center justify-between text-xs font-mono text-gold/60 group-hover:text-gold transition-colors">
+        <div className="pt-3 border-t border-gold/15 flex items-center justify-between text-[11px] sm:text-xs font-mono text-gold/60 group-hover:text-gold transition-colors">
           <span className="tracking-wider">
-            {isFa ? "مشاهده تصویر رزولوشن بالا" : "High-resolution preview"}
+            {isFa ? "مشاهده تصویر کیفیت بالا" : "High-resolution preview"}
           </span>
-          <ArrowUpRight className="w-4 h-4 transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+          <ArrowUpRight className="w-3.5 h-3.5 transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
         </div>
       </div>
     </motion.div>

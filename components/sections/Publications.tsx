@@ -21,30 +21,26 @@ function SeminarPhoto({ src, alt, onClick }: { src: string; alt: string; onClick
   return (
     <button
       onClick={onClick}
-      className="relative overflow-hidden rounded-sm group/photo aspect-[4/3] w-full block"
+      className="relative overflow-hidden rounded-sm group/photo aspect-[4/3] w-full block cursor-pointer"
       style={{ border: "1px solid rgba(212,175,55,0.18)" }}
     >
-      {/* Skeleton shimmer that holds the box and stays under the image until it
-          fades in — no layout shift, nothing pops. */}
       {!loaded && <span className="absolute inset-0 seminar-skeleton" aria-hidden="true" />}
 
       <Image
         src={src}
         alt={alt}
         fill
-        // Grid is 2-up on phones, 4-up from sm. Tells the optimizer to ship a
-        // ~thumbnail-sized image instead of the full-res source.
         sizes="(max-width: 640px) 45vw, (max-width: 1280px) 23vw, 300px"
         loading="lazy"
-        quality={70}
+        quality={75}
         onLoad={() => setLoaded(true)}
         onError={() => setVisible(false)}
         className={`object-cover transition-[transform,opacity] duration-700 ease-out group-hover/photo:scale-105 ${
           loaded ? "opacity-100" : "opacity-0"
         }`}
       />
-      <div className="absolute inset-0 bg-onyx/50 opacity-0 group-hover/photo:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-        <span className="text-gold/80 text-xs tracking-[0.25em] uppercase font-mono">
+      <div className="absolute inset-0 bg-onyx/50 opacity-0 group-hover/photo:opacity-100 transition-opacity duration-300 flex items-center justify-center p-1 text-center">
+        <span className="text-gold/80 text-[10px] sm:text-xs tracking-[0.2em] uppercase font-mono">
           {alt}
         </span>
       </div>
@@ -53,14 +49,13 @@ function SeminarPhoto({ src, alt, onClick }: { src: string; alt: string; onClick
 }
 
 export function Publications({ locale, dict }: Props) {
-  // lightbox: کدام سمینار (s) و کدام عکس (i) باز است.
   const [lightbox, setLightbox] = useState<{ s: number; i: number } | null>(null);
   const close = useCallback(() => setLightbox(null), []);
   const { seminars } = resume;
   const activeImages = lightbox !== null ? seminars[lightbox.s].images : [];
 
   return (
-    <section id="publications" className="relative py-20 md:py-32 px-6 md:px-16 max-w-7xl mx-auto">
+    <section id="publications" className="relative py-20 md:py-32 px-6 md:px-16 max-w-7xl mx-auto space-y-8">
       <SectionHeading icon="♙" label={dict.nav.publications} title={dict.sections.publicationsTitle} />
 
       {/* ── Seminar blocks ── */}
@@ -71,82 +66,57 @@ export function Publications({ locale, dict }: Props) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.55 }}
-          className="glass premium-card rounded-sm p-7 md:p-9 mb-6 gold-glow-hover"
+          className="glass premium-card rounded-sm p-5 sm:p-7 md:p-9 mb-6 gold-glow-hover border border-gold/15"
         >
-          {/* Header: (label + date box) on the start  ·  university-news button on the top-right */}
-          <div className="flex items-start justify-between gap-3 mb-5">
-            <div className="flex flex-wrap items-center gap-3">
-              <div className="flex items-center gap-3">
-                <Presentation className="w-5 h-5 text-gold/70" />
-                <span className="text-xs tracking-[0.3em] uppercase text-gold/70 font-mono">
-                  {locale === "fa" ? "سمینار" : "Seminar"}
-                </span>
-              </div>
-
-              {/* Separate date box, beside the label */}
-              {seminar.date?.[locale] && (
-                <div
-                  className="flex items-center gap-2.5 rounded-sm px-3.5 py-2 bg-gold/[0.06]"
-                  style={{ border: "1px solid rgba(212,175,55,0.22)" }}
-                >
-                  <CalendarDays className="w-4 h-4 text-gold/70 shrink-0" />
-                  <div className="leading-tight">
-                    <div className="text-[10px] tracking-[0.25em] uppercase text-gold/50 font-mono">
-                      {locale === "fa" ? "تاریخ" : "Date"}
-                    </div>
-                    <div className="text-sm text-ivory/90 font-mono whitespace-nowrap">
-                      {seminar.date[locale]}
-                    </div>
-                  </div>
-                </div>
-              )}
+          {/* Header: Label + Date box */}
+          <div className="flex flex-wrap items-center gap-3 mb-5">
+            <div className="flex items-center gap-2.5">
+              <Presentation className="w-5 h-5 text-gold/70" />
+              <span className="text-xs tracking-[0.3em] uppercase text-gold/70 font-mono">
+                {locale === "fa" ? "سمینار" : "Seminar"}
+              </span>
             </div>
 
-            {/* University-news button, top-right */}
-            {seminar.link ? (
-              <a
-                href={seminar.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="shrink-0 inline-flex items-center gap-2 text-xs tracking-[0.15em] uppercase font-mono text-gold/80 hover:text-gold border border-gold/30 hover:border-gold/60 rounded-full px-4 py-2 transition-colors"
+            {/* Date box */}
+            {seminar.date?.[locale] && (
+              <div
+                className="flex items-center gap-2 rounded-sm px-3 py-1.5 bg-gold/[0.06] border border-gold/20"
               >
-                <ExternalLink className="w-3.5 h-3.5" />
-                {locale === "fa" ? "خبر در سایت دانشگاه" : "Read on university site"}
-              </a>
-            ) : (
-              <span
-                className="shrink-0 inline-flex items-center gap-2 text-xs tracking-[0.15em] uppercase font-mono text-gold/40 border border-gold/15 rounded-full px-4 py-2 cursor-default select-none"
-                title={locale === "fa" ? "لینک خبر هنوز ثبت نشده" : "Link not set yet"}
-              >
-                <ExternalLink className="w-3.5 h-3.5" />
-                {locale === "fa" ? "خبر در سایت دانشگاه" : "Read on university site"}
-              </span>
+                <CalendarDays className="w-3.5 h-3.5 text-gold/70 shrink-0" />
+                <div className="leading-tight">
+                  <div className="text-[9px] sm:text-[10px] tracking-[0.2em] uppercase text-gold/50 font-mono">
+                    {locale === "fa" ? "تاریخ" : "Date"}
+                  </div>
+                  <div className="text-xs sm:text-sm text-ivory/90 font-mono whitespace-nowrap">
+                    {seminar.date[locale]}
+                  </div>
+                </div>
+              </div>
             )}
           </div>
 
           {/* Title + subtitle */}
-          <h3 className="section-heading text-2xl md:text-3xl text-ivory mb-2">
+          <h3 className="text-xl sm:text-2xl md:text-3xl text-ivory mb-2 font-bold leading-snug">
             {seminar.title[locale]}
           </h3>
           {seminar.subtitle?.[locale] && (
-            <p className="text-gold/70 text-sm font-mono leading-relaxed mb-4">
+            <p className="text-gold/70 text-xs sm:text-sm font-mono leading-relaxed mb-4">
               {seminar.subtitle[locale]}
             </p>
           )}
 
           {/* Description */}
-          <p className="text-ivory/60 text-sm leading-relaxed max-w-2xl mb-5">
+          <p className="text-ivory/60 text-xs sm:text-sm leading-relaxed max-w-3xl mb-5">
             {seminar.description[locale]}
           </p>
 
           {/* Topics */}
           {seminar.topics && seminar.topics.length > 0 && (
-            <div className="flex flex-wrap gap-2 mb-7">
+            <div className="flex flex-wrap gap-2 mb-6 sm:mb-7">
               {seminar.topics.map((t, ti) => (
                 <span
                   key={ti}
-                  className="text-xs text-ivory/70 rounded-full px-3 py-1.5 bg-ivory/[0.04]"
-                  style={{ border: "1px solid rgba(212,175,55,0.18)" }}
+                  className="text-[11px] sm:text-xs text-ivory/70 rounded-full px-2.5 sm:px-3 py-1 bg-ivory/[0.04] border border-gold/20"
                 >
                   {t[locale]}
                 </span>
@@ -155,7 +125,7 @@ export function Publications({ locale, dict }: Props) {
           )}
 
           {/* Photo grid */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3">
             {seminar.images.map((src, i) => (
               <motion.div
                 key={i}
@@ -172,6 +142,36 @@ export function Publications({ locale, dict }: Props) {
               </motion.div>
             ))}
           </div>
+
+          {/* Bottom Action Footer for University Link */}
+          <div className="mt-6 pt-5 border-t border-gold/15 flex items-center justify-between flex-wrap gap-3">
+            <span className="text-xs font-mono text-ivory/50">
+              {locale === "fa"
+                ? "خبر رسمی و پوشش رسانه‌ای سمینار"
+                : "Official coverage & media report"}
+            </span>
+
+            {seminar.link ? (
+              <a
+                href={seminar.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 text-xs tracking-[0.15em] uppercase font-mono text-gold/90 hover:text-gold border border-gold/30 hover:border-gold/60 rounded-full px-5 py-2 bg-gold/5 hover:bg-gold/15 transition-all shadow-sm group/btn"
+              >
+                <ExternalLink className="w-3.5 h-3.5" />
+                <span>{locale === "fa" ? "خبر در سایت دانشگاه" : "Read on university site"}</span>
+                <ArrowUpRight className="w-3.5 h-3.5 text-gold/60 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
+              </a>
+            ) : (
+              <span
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 text-xs tracking-[0.15em] uppercase font-mono text-gold/40 border border-gold/15 rounded-full px-5 py-2 cursor-default select-none"
+                title={locale === "fa" ? "لینک خبر هنوز ثبت نشده" : "Link not set yet"}
+              >
+                <ExternalLink className="w-3.5 h-3.5" />
+                <span>{locale === "fa" ? "خبر در سایت دانشگاه" : "Read on university site"}</span>
+              </span>
+            )}
+          </div>
         </motion.div>
       ))}
 
@@ -185,7 +185,7 @@ export function Publications({ locale, dict }: Props) {
       </div>
 
       {/* ── Publications grid ── */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
         {resume.publications.map((pub, i) => (
           <motion.a
             key={i}
@@ -196,9 +196,9 @@ export function Publications({ locale, dict }: Props) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.45, delay: i * 0.09 }}
-            className="glass premium-card rounded-sm p-6 gold-glow-hover group relative block cursor-pointer"
+            className="glass premium-card rounded-sm p-5 sm:p-6 gold-glow-hover group relative block cursor-pointer border border-gold/15"
           >
-            <div className="absolute top-4 right-4 text-3xl text-gold/20 group-hover:text-gold/40 transition-colors">
+            <div className="absolute top-4 end-4 text-3xl text-gold/20 group-hover:text-gold/40 transition-colors">
               ♙
             </div>
 
@@ -209,7 +209,7 @@ export function Publications({ locale, dict }: Props) {
               </span>
             </div>
 
-            <h3 className="text-lg font-display text-ivory leading-snug">
+            <h3 className="text-base sm:text-lg font-bold text-ivory leading-snug">
               {pub.title[locale]}
             </h3>
 
@@ -223,7 +223,7 @@ export function Publications({ locale, dict }: Props) {
         ))}
       </div>
 
-      {/* ── Lightbox ── */}
+      {/* Lightbox */}
       <Lightbox
         images={activeImages}
         captions={activeImages.map((_, i) =>
