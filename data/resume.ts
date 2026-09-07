@@ -453,6 +453,61 @@ export const resume = {
         ],
       },
     },
+    {
+      brand: {
+        en: "Instagram Analyzer",
+        fa: "اینستاگرام آنالیزر",
+      },
+      name: {
+        en: "AI Instagram Growth Intelligence",
+        fa: "پلتفرم هوشمند تحلیل و استراتژی رشد اینستاگرام",
+      },
+      year: "2026",
+      vibeCoding: true, // ⚡ نشان وایب کدینگ (true = فعال / false = غیرفعال)
+      date: {
+        en: "2026 · AI Growth Intelligence Platform",
+        fa: "۱۴۰۵ · دستیار و تحلیل‌گر هوشمند اینستاگرام",
+      },
+      status: "LIVE",
+      image: "/projects/instagram-analyzer-1.webp",
+      images: [
+        "/projects/instagram-analyzer-1.webp",
+      ],
+      technologies: [
+        "FastAPI",
+        "Python 3.11+",
+        "Next.js 14",
+        "OpenAI API",
+        "SQLite / SQLAlchemy",
+        "Instaloader",
+        "Docker Compose",
+        "TailwindCSS",
+        "Framer Motion",
+        "Recharts",
+      ],
+      description: {
+        en: "A premium, AI-native platform that analyzes public Instagram profiles and generates strategic growth reports — evaluating branding, content, engagement, and visual identity with executive consultant-grade AI recommendations.",
+        fa: "پلتفرم پیشرفته و هوشمند برای تحلیل پیج‌های عمومی اینستاگرام و ارائه گزارش استراتژیک رشد — ارزیابی دقیق برندینگ، محتوا، تعامل و هویت بصری همراه با راهکارهای هوش مصنوعی.",
+      },
+      details: {
+        en: "Engineered with a modular, pluggable analyzer pipeline (Profile, Content, Engagement, Visual Identity), async FastAPI background task processing, LLM provider abstraction layer, and Next.js 14 tri-lingual UI (Persian, Arabic, English) with full RTL support.",
+        fa: "مهندسی‌شده با پایپ‌لاین ماژولار و مستقل آنالیزورها (برندینگ، محتوا، تعامل و هویت بصری)، پردازش غیرهمزمان در پس‌زمینه با FastAPI، لایه انتزاعی مدل‌های زبانی و فرانت‌اند ۳ زبانه (فارسی، عربی، انگلیسی) با پشتیبانی کامل از RTL.",
+      },
+      highlights: {
+        en: [
+          "Modular & pluggable analyzer pipeline (Profile, Content, Engagement, Visual) with context-driven signal exchange",
+          "Async background task pipeline executing multi-stage data collection, mathematical scoring, and AI narrative synthesis",
+          "Tri-lingual UI (Persian, Arabic, English) with instant language switching and optimized RTL layout rendering",
+          "Containerized deployment using Docker Compose with pre-configured Liara PyPI/npm mirrors for high network reliability",
+        ],
+        fa: [
+          "معماری ماژولار و قابل توسعه آنالیزورها (پروفایل، محتوا، تعامل، هویت بصری) با تبادل سیگنال در یک context مشترک",
+          "پایپ‌لاین پردازش غیرهمزمان پس‌زمینه برای استخراج داده، محاسبه شاخص‌ها و تولید خودکار سند استراتژیک رشد با LLM",
+          "فرانت‌اند ۳ زبانه (فارسی، عربی و انگلیسی) با امکان تغییر آنی زبان و چیدمان استاندارد راست‌چین (RTL)",
+          "ارکستراسیون کانتینری با Docker Compose و پیکربندی آینه‌های ایرانی برای نصب پایدار پکیج‌ها در پروداکشن",
+        ],
+      },
+    },
   ],
   // ════════════════════════════════════════════════════════════════
   // EDUCATION  —  ویرایش از همین‌جا
