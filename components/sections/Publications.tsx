@@ -54,6 +54,8 @@ export function Publications({ locale, dict }: Props) {
   const { seminars } = resume;
   const activeImages = lightbox !== null ? seminars[lightbox.s].images : [];
 
+  const isRtl = locale === "fa";
+
   return (
     <section id="publications" className="relative py-20 md:py-32 px-6 md:px-16 max-w-7xl mx-auto space-y-8">
       <SectionHeading icon="♙" label={dict.nav.publications} title={dict.sections.publicationsTitle} />
@@ -96,7 +98,7 @@ export function Publications({ locale, dict }: Props) {
           </div>
 
           {/* Title + subtitle */}
-          <h3 className="text-xl sm:text-2xl md:text-3xl text-ivory mb-2 font-bold leading-snug">
+          <h3 className={`text-xl sm:text-2xl md:text-3xl text-ivory mb-2 leading-snug ${isRtl ? "font-fa font-bold" : "font-display font-bold"}`}>
             {seminar.title[locale]}
           </h3>
           {seminar.subtitle?.[locale] && (
@@ -209,7 +211,7 @@ export function Publications({ locale, dict }: Props) {
               </span>
             </div>
 
-            <h3 className="text-base sm:text-lg font-bold text-ivory leading-snug">
+            <h3 className={`text-base sm:text-lg text-ivory leading-snug group-hover:text-gold-50 transition-colors ${isRtl ? "font-fa font-bold" : "font-display font-bold"}`}>
               {pub.title[locale]}
             </h3>
 

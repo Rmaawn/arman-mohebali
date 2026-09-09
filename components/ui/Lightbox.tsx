@@ -11,7 +11,7 @@ interface LightboxProps {
   startIndex: number | null;
   onClose: () => void;
   /** Optional caption per image (same order as `images`). */
-  captions?: (string | undefined)[];
+  captions?: (React.ReactNode | string | undefined)[];
 }
 
 /**
@@ -112,7 +112,7 @@ export function Lightbox({ images, startIndex, onClose, captions }: LightboxProp
           <motion.img
             key={images[index]}
             src={images[index]}
-            alt={caption ?? ""}
+            alt={typeof caption === "string" ? caption : ""}
             initial={{ opacity: 0, scale: 0.98 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.25, ease: [0.4, 0, 0.2, 1] }}
@@ -141,8 +141,10 @@ export function Lightbox({ images, startIndex, onClose, captions }: LightboxProp
 
           {/* Caption */}
           {caption && (
-            <div className="absolute bottom-4 md:bottom-5 left-1/2 -translate-x-1/2 px-4 py-1.5 rounded-full text-xs tracking-wide text-ivory/80 font-mono pointer-events-none whitespace-nowrap"
-              style={{ background: "rgba(0,0,0,0.45)", backdropFilter: "blur(6px)" }}
+            <div
+              className="absolute bottom-4 md:bottom-6 left-1/2 -translate-x-1/2 max-w-[90vw] md:max-w-2xl px-5 py-3 rounded-md text-center text-xs md:text-sm text-ivory/90 pointer-events-auto shadow-2xl border border-gold/25 backdrop-blur-md bg-black/80 space-y-1 custom-scrollbar max-h-[30vh] overflow-y-auto z-30"
+              style={{ backdropFilter: "blur(12px)" }}
+              onClick={(e) => e.stopPropagation()}
             >
               {caption}
             </div>

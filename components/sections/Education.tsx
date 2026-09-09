@@ -111,7 +111,27 @@ export function Education({ locale, dict }: Props) {
   const certShots = resume.certificates.flatMap((c, i) => {
     if (!c.image) return [];
     const issuer = typeof c.issuer === "string" ? c.issuer : c.issuer[locale];
-    return [{ fullIndex: i, src: c.image, caption: `${issuer} · ${c.title[locale]}` }];
+    const title = c.title[locale];
+    const desc = "description" in c && c.description ? c.description[locale] : null;
+
+    return [
+      {
+        fullIndex: i,
+        src: c.image,
+        caption: (
+          <div className="space-y-1.5 text-center">
+            <div className="text-xs font-mono uppercase tracking-widest text-gold font-bold">
+              {issuer} · {title}
+            </div>
+            {desc && (
+              <p className="text-ivory/85 text-xs sm:text-sm leading-relaxed font-sans font-normal max-w-xl mx-auto">
+                {desc}
+              </p>
+            )}
+          </div>
+        ),
+      },
+    ];
   });
 
   const isFa = locale === "fa";
