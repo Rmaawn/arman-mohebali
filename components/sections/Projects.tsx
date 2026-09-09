@@ -9,6 +9,8 @@ import type { Locale, UIDict } from "@/data/i18n";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { ProjectModal, type ProjectData, getLocalized } from "@/components/ui/ProjectModal";
 
+import { CardContainer, CardBody, CardItem } from "@/components/ui/3d-card";
+
 interface Props {
   locale: Locale;
   dict: UIDict;
@@ -24,113 +26,144 @@ export function Projects({ locale, dict }: Props) {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {resume.projects.map((p, i) => (
-          <motion.button
+          <motion.div
             key={i}
-            type="button"
-            onClick={() => setSelectedProject(p)}
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.5, delay: i * 0.08 }}
-            className="text-start block w-full group glass premium-card rounded-sm overflow-hidden gold-glow-hover cursor-pointer outline-none focus-visible:ring-1 focus-visible:ring-gold/60"
+            className="w-full"
           >
-            {/* Visual top section with preview thumbnail & chess motif */}
-            <div className="relative h-56 flex items-center justify-center bg-onyx-100 dark:bg-onyx overflow-hidden border-b border-gold/15">
-              {/* Thumbnail image if available */}
-              {p.image ? (
-                <div className="absolute inset-0 w-full h-full bg-stone-900/40">
-                  <Image
-                    src={p.image}
-                    alt={getLocalized(p.name, locale)}
-                    fill
-                    sizes="(max-width: 768px) 100vw, 600px"
-                    unoptimized
-                    className="object-cover object-top opacity-100 group-hover:scale-105 transition-transform duration-700 ease-out"
-                  />
-                </div>
-              ) : (
-                <>
-                  <div className="absolute inset-0 chess-bg opacity-30" />
-                  {/* Rook motif overlay for placeholder */}
-                  <div className="relative z-10 text-8xl text-gold/30 group-hover:text-gold/50 group-hover:scale-110 transition-all duration-700">
-                    ♖
+            <CardContainer className="w-full" containerClassName="w-full py-2">
+              <CardBody className="w-full group/card glass premium-card rounded-sm gold-glow-hover cursor-pointer border border-gold/15">
+                <div
+                  role="button"
+                  tabIndex={0}
+                  onClick={() => setSelectedProject(p)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault();
+                      setSelectedProject(p);
+                    }
+                  }}
+                  className="text-start block w-full outline-none focus-visible:ring-1 focus-visible:ring-gold/60 cursor-pointer [transform-style:preserve-3d]"
+                >
+                  {/* Visual top section with preview thumbnail & chess motif - Floating 100px in 3D */}
+                  <div className="relative w-full [transform-style:preserve-3d]">
+                    <CardItem translateZ="100" className="w-full">
+                      <div className="relative h-56 flex items-center justify-center bg-onyx-100 dark:bg-onyx overflow-hidden border-b border-gold/15 shadow-2xl rounded-t-sm">
+                        {/* Thumbnail image if available */}
+                        {p.image ? (
+                          <div className="absolute inset-0 w-full h-full bg-stone-900/40">
+                            <Image
+                              src={p.image}
+                              alt={getLocalized(p.name, locale)}
+                              fill
+                              sizes="(max-width: 768px) 100vw, 600px"
+                              unoptimized
+                              className="object-cover object-top opacity-100 group-hover/card:scale-105 transition-transform duration-700 ease-out"
+                            />
+                          </div>
+                        ) : (
+                          <>
+                            <div className="absolute inset-0 chess-bg opacity-30" />
+                            {/* Rook motif overlay for placeholder */}
+                            <div className="relative z-10 text-8xl text-gold/30 group-hover/card:text-gold/50 group-hover/card:scale-110 transition-all duration-700">
+                              ♖
+                            </div>
+                          </>
+                        )}
+                      </div>
+                    </CardItem>
+
+                    {/* Status pill - Placed outside the overflow-hidden div so it can float! */}
+                    <CardItem translateZ="120" className="absolute top-4 end-4 z-20">
+                      <div className="flex items-center gap-2 px-3 py-1 bg-gold text-stone-950 text-xs font-mono font-semibold tracking-widest uppercase rounded-sm shadow-md">
+                        <span className="w-1.5 h-1.5 rounded-full bg-stone-950 animate-pulse" />
+                        {dict.misc.live}
+                      </div>
+                    </CardItem>
+
+                    {/* Vibe Coding badge */}
+                    {p.vibeCoding && (
+                      <CardItem translateZ="120" className="absolute top-4 start-4 z-20">
+                        <div className="flex items-center gap-1.5 px-3 py-1 bg-onyx/90 backdrop-blur-md border border-violet-500/40 dark:border-violet-400/50 text-violet-700 dark:text-violet-200 text-xs font-mono font-medium tracking-wider rounded-sm shadow-md">
+                          <Sparkles className="w-3.5 h-3.5 text-violet-600 dark:text-violet-400 animate-pulse" />
+                          <span>{dict.misc.vibeCoding}</span>
+                        </div>
+                      </CardItem>
+                    )}
+
+                    {/* Hover prompt pill */}
+                    <CardItem translateZ="130" className="absolute bottom-3 start-4 z-20">
+                      <div className="flex items-center gap-1.5 px-3 py-1 bg-onyx/90 backdrop-blur-md border border-gold/30 text-gold-700 dark:text-gold text-[11px] font-mono tracking-wider rounded-sm opacity-0 group-hover/card:opacity-100 transition-all duration-300 transform translate-y-1 group-hover/card:translate-y-0 shadow-sm">
+                        <Sparkles className="w-3.5 h-3.5 text-gold" />
+                        <span>{isRtl ? "مشاهده جزئیات و گالری" : "View Details & Gallery"}</span>
+                      </div>
+                    </CardItem>
                   </div>
-                </>
-              )}
 
-              {/* Status pill */}
-              <div className="absolute top-4 end-4 z-20 flex items-center gap-2 px-3 py-1 bg-gold text-stone-950 text-xs font-mono font-semibold tracking-widest uppercase rounded-sm shadow-md">
-                <span className="w-1.5 h-1.5 rounded-full bg-stone-950 animate-pulse" />
-                {dict.misc.live}
-              </div>
+                  {/* Card Content */}
+                  <div className="p-6 md:p-8 space-y-3.5 [transform-style:preserve-3d]">
+                    <CardItem translateZ="30" className="w-full">
+                      <div className="flex items-center justify-between gap-2">
+                        <div className="flex items-center gap-2 flex-wrap">
+                          <span className="text-xs tracking-[0.25em] uppercase text-gold-700 dark:text-gold/70 font-mono font-medium">
+                            {getLocalized(p.brand, locale)} · {p.year}
+                          </span>
+                          {p.vibeCoding && (
+                            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-sm text-[10px] font-mono font-medium tracking-wider bg-violet-500/15 border border-violet-500/35 dark:border-violet-400/35 text-violet-700 dark:text-violet-300">
+                              <Sparkles className="w-2.5 h-2.5 text-violet-600 dark:text-violet-400" />
+                              {dict.misc.vibeCoding}
+                            </span>
+                          )}
+                        </div>
+                        <div className="flex items-center gap-1 text-xs text-gold/60 group-hover/card:text-gold font-mono transition-colors shrink-0">
+                          <span className="hidden sm:inline text-[11px]">
+                            {isRtl ? "باز کردن" : "Details"}
+                          </span>
+                          <ArrowUpRight className="w-4 h-4" />
+                        </div>
+                      </div>
+                    </CardItem>
 
-              {/* Vibe Coding badge */}
-              {p.vibeCoding && (
-                <div className="absolute top-4 start-4 z-20 flex items-center gap-1.5 px-3 py-1 bg-onyx/90 backdrop-blur-md border border-violet-500/40 dark:border-violet-400/50 text-violet-700 dark:text-violet-200 text-xs font-mono font-medium tracking-wider rounded-sm shadow-md">
-                  <Sparkles className="w-3.5 h-3.5 text-violet-600 dark:text-violet-400 animate-pulse" />
-                  <span>{dict.misc.vibeCoding}</span>
+                    <CardItem translateZ="60" className="w-full">
+                      <h3 className={`text-2xl md:text-3xl text-ivory group-hover/card:text-gold-50 transition-colors ${isRtl ? "font-fa font-bold" : "font-display"}`}>
+                        {getLocalized(p.name, locale)}
+                      </h3>
+                    </CardItem>
+
+                    <CardItem translateZ="50" className="w-full">
+                      <p className="text-ivory/70 text-sm leading-relaxed line-clamp-2">
+                        {p.description[locale]}
+                      </p>
+                    </CardItem>
+
+                    {/* Tech Stack Chips Preview */}
+                    {p.technologies && p.technologies.length > 0 && (
+                      <CardItem translateZ="40" className="w-full">
+                        <div className="flex flex-wrap items-center gap-1.5 pt-1">
+                          {p.technologies.slice(0, 4).map((tech, idx) => (
+                            <span
+                              key={idx}
+                              className="text-[11px] font-mono px-2 py-0.5 rounded-sm bg-gold/[0.07] border border-gold/20 text-gold/90"
+                            >
+                              {tech}
+                            </span>
+                          ))}
+                          {p.technologies.length > 4 && (
+                            <span className="text-[10px] font-mono text-ivory/40">
+                              +{p.technologies.length - 4}
+                            </span>
+                          )}
+                        </div>
+                      </CardItem>
+                    )}
+                  </div>
                 </div>
-              )}
-
-              {/* Hover prompt pill */}
-              <div className="absolute bottom-3 start-4 z-20 flex items-center gap-1.5 px-3 py-1 bg-onyx/90 backdrop-blur-md border border-gold/30 text-gold-700 dark:text-gold text-[11px] font-mono tracking-wider rounded-sm opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-1 group-hover:translate-y-0 shadow-sm">
-                <Sparkles className="w-3.5 h-3.5 text-gold" />
-                <span>{isRtl ? "مشاهده جزئیات و گالری" : "View Details & Gallery"}</span>
-              </div>
-            </div>
-
-            {/* Card Content */}
-            <div className="p-6 md:p-8 space-y-3.5">
-              <div className="flex items-center justify-between gap-2">
-                <div className="flex items-center gap-2 flex-wrap">
-                  <span className="text-xs tracking-[0.25em] uppercase text-gold-700 dark:text-gold/70 font-mono font-medium">
-                    {getLocalized(p.brand, locale)} · {p.year}
-                  </span>
-                  {p.vibeCoding && (
-                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-sm text-[10px] font-mono font-medium tracking-wider bg-violet-500/15 border border-violet-500/35 dark:border-violet-400/35 text-violet-700 dark:text-violet-300">
-                      <Sparkles className="w-2.5 h-2.5 text-violet-600 dark:text-violet-400" />
-                      {dict.misc.vibeCoding}
-                    </span>
-                  )}
-                </div>
-                <div className="flex items-center gap-1 text-xs text-gold/60 group-hover:text-gold font-mono transition-colors shrink-0">
-                  <span className="hidden sm:inline text-[11px]">
-                    {isRtl ? "باز کردن" : "Details"}
-                  </span>
-                  <ArrowUpRight className="w-4 h-4" />
-                </div>
-              </div>
-
-              <div className="flex items-start justify-between gap-3">
-                <h3 className={`text-2xl md:text-3xl text-ivory group-hover:text-gold-50 transition-colors ${isRtl ? "font-fa font-bold" : "font-display"}`}>
-                  {getLocalized(p.name, locale)}
-                </h3>
-              </div>
-
-              <p className="text-ivory/70 text-sm leading-relaxed line-clamp-2">
-                {p.description[locale]}
-              </p>
-
-              {/* Tech Stack Chips Preview */}
-              {p.technologies && p.technologies.length > 0 && (
-                <div className="flex flex-wrap items-center gap-1.5 pt-1">
-                  {p.technologies.slice(0, 4).map((tech, idx) => (
-                    <span
-                      key={idx}
-                      className="text-[11px] font-mono px-2 py-0.5 rounded-sm bg-gold/[0.07] border border-gold/20 text-gold/90"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                  {p.technologies.length > 4 && (
-                    <span className="text-[10px] font-mono text-ivory/40">
-                      +{p.technologies.length - 4}
-                    </span>
-                  )}
-                </div>
-              )}
-            </div>
-          </motion.button>
+              </CardBody>
+            </CardContainer>
+          </motion.div>
         ))}
       </div>
 

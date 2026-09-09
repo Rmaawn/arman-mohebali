@@ -177,20 +177,18 @@ export const resume = {
         fa: "یادآور هوشمند",
       },
       year: "2024",
-      vibeCoding: true, // ⚡ نشان وایب کدینگ (true = فعال / false = غیرفعال)
+      vibeCoding: false, // ⚡ نشان وایب کدینگ (true = فعال / false = غیرفعال)
       date: {
         en: "2024 · Shipped on Bazaar",
         fa: "۱۴۰۳ · منتشر شده در کافه‌بازار",
       },
       status: "LIVE",
       link: "https://cafebazaar.ir/app/com.rmaan.nootika",
-      image: "/projects/nootika.webp",
+      image: "/projects/nootika-1.webp",
       images: [
         "/projects/nootika-1.webp",
         "/projects/nootika-2.webp",
         "/projects/nootika-3.webp",
-        "/projects/nootika-4.webp",
-        "/projects/nootika-5.webp",
       ],
       technologies: [
         "Flutter",
@@ -221,64 +219,6 @@ export const resume = {
           "معماری تمیز (Clean Architecture) همراه با الگوی BLoC برای جریان وضعیت پایدار و تست‌پذیر",
           "زمان‌بندی دقیق و بهینه آلارم‌ها و یادآورهای پس‌زمینه بدون مصرف اضافه باتری",
           "انیمیشن‌ها و تعاملات لمسی جذاب با Lottie و متریال دیزاین ۳",
-        ],
-      },
-    },
-    {
-      brand: {
-        en: "Hatee",
-        fa: "هاتی",
-      },
-      name: {
-        en: "Social Platform",
-        fa: "پلتفرم اجتماعی",
-      },
-      year: "2026",
-      vibeCoding: true, // ⚡ نشان وایب کدینگ (true = فعال / false = غیرفعال)
-      date: {
-        en: "2026 · Full-Stack Social App",
-        fa: "۱۴۰۵ · پلتفرم اجتماعی فول‌استک",
-      },
-      status: "LIVE",
-      image: "/projects/hatee-1.webp",
-      images: [
-        "/projects/hatee-1.webp",
-        "/projects/hatee-2.webp",
-        "/projects/hatee-3.webp",
-      ],
-      technologies: [
-        "FastAPI",
-        "Python",
-        "Next.js 14",
-        "PostgreSQL",
-        "SQLAlchemy 2.0",
-        "TanStack Query",
-        "Zustand",
-        "Docker",
-        "MinIO (S3)",
-        "TailwindCSS",
-        "Framer Motion",
-      ],
-      description: {
-        en: "A viral, meme-driven social platform for sharing humorous rants and daily irritations — powered by FastAPI async backend, Next.js 14 frontend, and cloud-native architecture.",
-        fa: "پلتفرم اجتماعی مدرن و ویروسی برای اشتراک‌گذاری کلافگی‌ها و شکایت‌های بامزه روزمره — طراحی‌شده با معماری ناهمگام FastAPI، فرانت‌اند Next.js 14 و زیرساخت کانتینری Docker.",
-      },
-      details: {
-        en: "Engineered with asynchronous SQLAlchemy 2.0 ORM, JWT auth lifecycle, MinIO S3-compatible media storage, cursor-based pagination feed, and client-side social share card generation.",
-        fa: "مهندسی‌شده با ORM غیرهمزمان SQLAlchemy 2.0، چرخه احراز هویت امن با توکن‌های JWT، ذخیره‌سازی ابری مدیا در MinIO، فید پست‌ها با Cursor Pagination و کارت‌های اشتراک‌گذاری اجتماعی.",
-      },
-      highlights: {
-        en: [
-          "High-throughput asynchronous REST API built with FastAPI and asyncpg for sub-second responses",
-          "Cursor-based infinite scroll pagination for high-volume social feed querying without offset lag",
-          "Complete JWT authentication lifecycle (Access & Refresh tokens) with bcrypt password hashing",
-          "Client-side viral share cards rendering with html2canvas and responsive Framer Motion micro-interactions",
-        ],
-        fa: [
-          "توسعه REST API غیرهمزمان پرسرعت با FastAPI و درایور asyncpg برای پاسخ‌دهی زیر ثانیه",
-          "فید بی‌نهایت با صفحه‌بندی مبتنی بر اشاره‌گر (Cursor Pagination) بدون افت سرعت در دیتای حجیم",
-          "سیستم احراز هویت کامل دو مرحله‌ای با توکن‌های JWT و هش رمز عبور با الگوریتم امن bcrypt",
-          "تولید خودکار کارت‌های اشتراک‌گذاری در شبکه‌های اجتماعی با html2canvas و انیمیشن‌های روان Framer Motion",
         ],
       },
     },
@@ -345,6 +285,64 @@ export const resume = {
     },
     {
       brand: {
+        en: "Hatee",
+        fa: "تنفر",
+      },
+      name: {
+        en: "Social Platform",
+        fa: "پلتفرم اجتماعی",
+      },
+      year: "2026",
+      vibeCoding: true, // ⚡ نشان وایب کدینگ (true = فعال / false = غیرفعال)
+      date: {
+        en: "2026 · Full-Stack Social App",
+        fa: "۱۴۰۵ · پلتفرم اجتماعی فول‌استک",
+      },
+      status: "LOCAL",
+      image: "/projects/hatee-1.webp",
+      images: [
+        "/projects/hatee-1.webp",
+        "/projects/hatee-2.webp",
+        "/projects/hatee-3.webp",
+      ],
+      technologies: [
+        "FastAPI",
+        "Python",
+        "Next.js 14",
+        "PostgreSQL",
+        "SQLAlchemy 2.0",
+        "TanStack Query",
+        "Zustand",
+        "Docker",
+        "MinIO (S3)",
+        "TailwindCSS",
+        "Framer Motion",
+      ],
+      description: {
+        en: "A viral, meme-driven social platform for sharing humorous rants and daily irritations — powered by FastAPI async backend, Next.js 14 frontend, and cloud-native architecture.",
+        fa: "پلتفرم اجتماعی مدرن و ویروسی برای اشتراک‌گذاری کلافگی‌ها و شکایت‌های بامزه روزمره — طراحی‌شده با معماری ناهمگام FastAPI، فرانت‌اند Next.js 14 و زیرساخت کانتینری Docker.",
+      },
+      details: {
+        en: "Engineered with asynchronous SQLAlchemy 2.0 ORM, JWT auth lifecycle, MinIO S3-compatible media storage, cursor-based pagination feed, and client-side social share card generation.",
+        fa: "مهندسی‌شده با ORM غیرهمزمان SQLAlchemy 2.0، چرخه احراز هویت امن با توکن‌های JWT، ذخیره‌سازی ابری مدیا در MinIO، فید پست‌ها با Cursor Pagination و کارت‌های اشتراک‌گذاری اجتماعی.",
+      },
+      highlights: {
+        en: [
+          "High-throughput asynchronous REST API built with FastAPI and asyncpg for sub-second responses",
+          "Cursor-based infinite scroll pagination for high-volume social feed querying without offset lag",
+          "Complete JWT authentication lifecycle (Access & Refresh tokens) with bcrypt password hashing",
+          "Client-side viral share cards rendering with html2canvas and responsive Framer Motion micro-interactions",
+        ],
+        fa: [
+          "توسعه REST API غیرهمزمان پرسرعت با FastAPI و درایور asyncpg برای پاسخ‌دهی زیر ثانیه",
+          "فید بی‌نهایت با صفحه‌بندی مبتنی بر اشاره‌گر (Cursor Pagination) بدون افت سرعت در دیتای حجیم",
+          "سیستم احراز هویت کامل دو مرحله‌ای با توکن‌های JWT و هش رمز عبور با الگوریتم امن bcrypt",
+          "تولید خودکار کارت‌های اشتراک‌گذاری در شبکه‌های اجتماعی با html2canvas و انیمیشن‌های روان Framer Motion",
+        ],
+      },
+    },
+    {
+      brand: {
         en: "Hami",
         fa: "حامی",
       },
@@ -353,12 +351,12 @@ export const resume = {
         fa: "پلتفرم دونیت و حمایت مالی",
       },
       year: "2026",
-      vibeCoding: false, // ⚡ توسعه دستی و ساختاریافته (بدون وایب کدینگ)
+      vibeCoding: true, // ⚡ توسعه دستی و ساختاریافته (بدون وایب کدینگ)
       date: {
         en: "2026 · Open-Source FinTech",
         fa: "۱۴۰۵ · فین‌تک متن‌باز",
       },
-      status: "LIVE",
+      status: "LOCAL",
       image: "/projects/hami-1.webp",
       images: [
         "/projects/hami-1.webp",
@@ -404,7 +402,7 @@ export const resume = {
     {
       brand: {
         en: "Tasko",
-        fa: "تاسکو",
+        fa: "تسکو",
       },
       name: {
         en: "AI Project Workspace",
@@ -416,7 +414,7 @@ export const resume = {
         en: "2026 · Full-Stack AI Workspace",
         fa: "۱۴۰۵ · فضای کار هوشمند و چابک",
       },
-      status: "Local",
+      status: "LOCAL",
       image: "/projects/tasko-1.webp",
       images: [
         "/projects/tasko-1.webp",
@@ -476,7 +474,7 @@ export const resume = {
         en: "2026 · AI Growth Intelligence Platform",
         fa: "۱۴۰۵ · دستیار و تحلیل‌گر هوشمند اینستاگرام",
       },
-      status: "LIVE",
+      status: "LOCAL",
       image: "/projects/instagram-analyzer-1.webp",
       images: [
         "/projects/instagram-analyzer-1.webp",
@@ -531,7 +529,7 @@ export const resume = {
   education: [
     {
       period: "2024 — 2028",
-      grade: "17.5 / 20",
+      grade: "18 / 20",
       degree: {
         en: "Associate Degree in Software Engineering",
         fa: "کاردانی مهندسی نرم‌افزار",
