@@ -48,8 +48,15 @@ export default function BoardPage() {
   }, []);
 
   const handleSelectColumn = useCallback((col: number) => {
-    const idx = COLUMNS[col].cells.findIndex((c) => c !== null);
-    setActiveCell({ col, row: idx >= 0 ? idx : 7 });
+    const cells = COLUMNS[col].cells;
+    let targetRow = 7;
+    for (let r = 7; r >= 0; r--) {
+      if (cells[r] !== null) {
+        targetRow = r;
+        break;
+      }
+    }
+    setActiveCell({ col, row: targetRow });
   }, []);
 
   const goPrev = useCallback(() => {
