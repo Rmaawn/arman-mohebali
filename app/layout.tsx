@@ -36,6 +36,15 @@ export const metadata: Metadata = {
   authors: [{ name: "Arman Mohebali", url: SITE_URL }],
   creator: "Arman Mohebali",
   publisher: "Arman Mohebali",
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/icon.png", type: "image/png", sizes: "32x32" },
+    ],
+    apple: [
+      { url: "/apple-icon.png", sizes: "180x180", type: "image/png" },
+    ],
+  },
   alternates: {
     canonical: "/",
   },
