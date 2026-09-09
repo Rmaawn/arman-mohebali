@@ -13,8 +13,10 @@ import {
   Layers,
   CheckCircle2,
   Sparkles,
+  Maximize2,
 } from "lucide-react";
 import type { Locale, UIDict } from "@/data/i18n";
+import { Lightbox } from "@/components/ui/Lightbox";
 
 export interface ProjectData {
   readonly brand: string | { readonly en: string; readonly fa: string };
@@ -62,6 +64,7 @@ interface ProjectModalProps {
 
 export function ProjectModal({ project, onClose, locale, dict }: ProjectModalProps) {
   const [activeImageIndex, setActiveImageIndex] = useState(0);
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   const [mounted, setMounted] = useState(false);
   const [imageError, setImageError] = useState<Record<number, boolean>>({});
 
@@ -76,6 +79,7 @@ export function ProjectModal({ project, onClose, locale, dict }: ProjectModalPro
   useEffect(() => {
     if (project) {
       setActiveImageIndex(0);
+      setLightboxIndex(null);
       setImageError({});
     }
   }, [project]);
@@ -96,19 +100,27 @@ export function ProjectModal({ project, onClose, locale, dict }: ProjectModalPro
     setActiveImageIndex((prev) => (prev - 1 + images.length) % images.length);
   }, [images.length]);
 
+  // Preload all project images into browser cache for instant 0ms switching
+  useEffect(() => {
+    if (isOpen && images.length > 0) {
+      images.forEach((src) => {
+        const img = new window.Image();
+        img.src = src;
+      });
+    }
+  }, [isOpen, images]);
+
   // Keyboard navigation & body scroll lock
   useEffect(() => {
-    if (!isOpen) return;
+    if (!isOpen || lightboxIndex !== null) return;
 
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
         onClose();
       } else if (e.key === "ArrowRight") {
-        if (isRtl) prevImage();
-        else nextImage();
+        nextImage();
       } else if (e.key === "ArrowLeft") {
-        if (isRtl) nextImage();
-        else prevImage();
+        prevImage();
       }
     };
 
@@ -120,7 +132,7 @@ export function ProjectModal({ project, onClose, locale, dict }: ProjectModalPro
       window.removeEventListener("keydown", handleKeyDown);
       document.body.style.overflow = prevOverflow;
     };
-  }, [isOpen, onClose, nextImage, prevImage, isRtl]);
+  }, [isOpen, lightboxIndex, onClose, nextImage, prevImage]);
 
   if (!mounted) return null;
 
@@ -182,20 +194,37 @@ export function ProjectModal({ project, onClose, locale, dict }: ProjectModalPro
                 <div className="overflow-y-auto p-5 sm:p-7 space-y-6 flex-1 custom-scrollbar">
                   {/* Gallery View */}
                   {images.length > 0 && (
-                    <div className="space-y-2.5">
-                      <div className="relative aspect-[16/9] w-full rounded-sm overflow-hidden bg-onyx-100/80 dark:bg-onyx-100 border border-gold/20 flex items-center justify-center select-none group">
+                    <div className="space-y-3" dir="ltr">
+                      <div
+                        onClick={() => setLightboxIndex(activeImageIndex)}
+                        className="relative w-full h-[280px] sm:h-[380px] md:h-[440px] rounded-sm overflow-hidden bg-stone-950/80 dark:bg-black/90 border border-gold/25 flex items-center justify-center select-none group cursor-pointer shadow-inner"
+                      >
                         {!imageError[activeImageIndex] ? (
-                          <Image
-                            src={images[activeImageIndex]}
-                            alt={`${getLocalized(project.name, locale)} preview ${activeImageIndex + 1}`}
-                            fill
-                            sizes="(max-width: 768px) 95vw, 750px"
-                            priority
-                            className="object-cover"
-                            onError={() =>
-                              setImageError((prev) => ({ ...prev, [activeImageIndex]: true }))
-                            }
-                          />
+                          <>
+                            {/* Blurred background thumbnail to fill letterbox gracefully */}
+                            <Image
+                              key={`bg-${images[activeImageIndex]}`}
+                              src={images[activeImageIndex]}
+                              alt=""
+                              fill
+                              unoptimized
+                              className="object-cover opacity-15 blur-md scale-110 pointer-events-none"
+                            />
+                            {/* Main uncropped image */}
+                            <Image
+                              key={`main-${images[activeImageIndex]}`}
+                              src={images[activeImageIndex]}
+                              alt={`${getLocalized(project.name, locale)} preview ${activeImageIndex + 1}`}
+                              fill
+                              sizes="(max-width: 768px) 95vw, 850px"
+                              priority
+                              unoptimized
+                              className="object-contain p-2 transition-transform duration-300 group-hover:scale-[1.01]"
+                              onError={() =>
+                                setImageError((prev) => ({ ...prev, [activeImageIndex]: true }))
+                              }
+                            />
+                          </>
                         ) : (
                           <div className="flex flex-col items-center justify-center p-6 text-center space-y-2">
                             <span className="text-6xl text-gold/40">♖</span>
@@ -205,32 +234,40 @@ export function ProjectModal({ project, onClose, locale, dict }: ProjectModalPro
                           </div>
                         )}
 
+                        {/* Zoom hint on hover */}
+                        <div className="absolute top-3 right-3 z-20 flex items-center gap-1.5 px-3 py-1.5 rounded-sm bg-black/80 backdrop-blur-md border border-gold/30 text-gold text-xs font-mono opacity-0 group-hover:opacity-100 transition-opacity duration-200 shadow-md">
+                          <Maximize2 className="w-3.5 h-3.5" />
+                          <span>{isRtl ? "بزرگ‌نمایی تصویر" : "Click to expand"}</span>
+                        </div>
+
                         {/* Prev / Next controls */}
                         {images.length > 1 && (
                           <>
                             <button
+                              type="button"
                               onClick={(e) => {
                                 e.stopPropagation();
                                 prevImage();
                               }}
                               aria-label="Previous image"
-                              className="absolute left-2.5 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full flex items-center justify-center text-ivory/80 hover:text-gold bg-onyx-100/90 dark:bg-onyx/75 backdrop-blur-sm border border-gold/25 transition-all opacity-85 group-hover:opacity-100 shadow-md"
+                              className="absolute left-3 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full flex items-center justify-center text-ivory hover:text-gold bg-black/75 backdrop-blur-md border border-gold/30 transition-all opacity-90 group-hover:opacity-100 shadow-lg active:scale-95"
                             >
-                              <ChevronLeft className="w-5 h-5" />
+                              <ChevronLeft className="w-6 h-6" />
                             </button>
                             <button
+                              type="button"
                               onClick={(e) => {
                                 e.stopPropagation();
                                 nextImage();
                               }}
                               aria-label="Next image"
-                              className="absolute right-2.5 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full flex items-center justify-center text-ivory/80 hover:text-gold bg-onyx-100/90 dark:bg-onyx/75 backdrop-blur-sm border border-gold/25 transition-all opacity-85 group-hover:opacity-100 shadow-md"
+                              className="absolute right-3 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full flex items-center justify-center text-ivory hover:text-gold bg-black/75 backdrop-blur-md border border-gold/30 transition-all opacity-90 group-hover:opacity-100 shadow-lg active:scale-95"
                             >
-                              <ChevronRight className="w-5 h-5" />
+                              <ChevronRight className="w-6 h-6" />
                             </button>
 
                             {/* Counter pill */}
-                            <div className="absolute bottom-2.5 right-3 px-2.5 py-1 rounded-sm bg-onyx-100/90 dark:bg-onyx/85 backdrop-blur-sm border border-gold/20 text-[11px] font-mono text-ivory/85 tracking-wider">
+                            <div className="absolute bottom-3 left-3 z-20 px-2.5 py-1 rounded-sm bg-black/80 backdrop-blur-md border border-gold/20 text-[11px] font-mono text-ivory/90 tracking-wider">
                               {activeImageIndex + 1} / {images.length}
                             </div>
                           </>
@@ -239,23 +276,28 @@ export function ProjectModal({ project, onClose, locale, dict }: ProjectModalPro
 
                       {/* Thumbnail strip */}
                       {images.length > 1 && (
-                        <div className="flex items-center gap-2 overflow-x-auto pb-1 pt-0.5">
+                        <div className="flex items-center gap-2.5 overflow-x-auto pb-1 pt-0.5 custom-scrollbar">
                           {images.map((img, idx) => (
                             <button
                               key={idx}
-                              onClick={() => setActiveImageIndex(idx)}
-                              className={`relative w-16 h-11 rounded-sm overflow-hidden border transition-all shrink-0 ${
+                              type="button"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                setActiveImageIndex(idx);
+                              }}
+                              className={`relative w-20 h-14 sm:w-24 sm:h-16 rounded-sm overflow-hidden border transition-all shrink-0 bg-stone-950/80 cursor-pointer ${
                                 activeImageIndex === idx
-                                  ? "border-gold ring-1 ring-gold/40 scale-105"
-                                  : "border-gold/20 opacity-60 hover:opacity-100 bg-onyx-100"
+                                  ? "border-gold ring-2 ring-gold/50 opacity-100 scale-105 shadow-md"
+                                  : "border-gold/20 opacity-60 hover:opacity-100"
                               }`}
                             >
                               <Image
                                 src={img}
                                 alt={`Thumb ${idx + 1}`}
                                 fill
-                                sizes="64px"
-                                className="object-cover"
+                                sizes="96px"
+                                unoptimized
+                                className="object-contain p-0.5"
                               />
                             </button>
                           ))}
@@ -378,6 +420,13 @@ export function ProjectModal({ project, onClose, locale, dict }: ProjectModalPro
                     </a>
                   )}
                 </div>
+                {/* Lightbox for full-bleed fullscreen view */}
+                <Lightbox
+                  images={images}
+                  startIndex={lightboxIndex}
+                  onClose={() => setLightboxIndex(null)}
+                  captions={images.map((_, idx) => `${getLocalized(project.name, locale)} (${idx + 1} / ${images.length})`)}
+                />
               </motion.div>
             </motion.div>
           )}

@@ -79,7 +79,7 @@ export function Lightbox({ images, startIndex, onClose, captions }: LightboxProp
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.2 }}
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-onyx/95 backdrop-blur-sm cursor-zoom-out"
+          className="fixed inset-0 z-[250] flex items-center justify-center bg-black/90 backdrop-blur-md cursor-zoom-out"
           style={{ touchAction: "manipulation" }}
           onClick={onClose}
         >

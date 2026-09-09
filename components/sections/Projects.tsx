@@ -35,27 +35,28 @@ export function Projects({ locale, dict }: Props) {
             className="text-start block w-full group glass premium-card rounded-sm overflow-hidden gold-glow-hover cursor-pointer outline-none focus-visible:ring-1 focus-visible:ring-gold/60"
           >
             {/* Visual top section with preview thumbnail & chess motif */}
-            <div className="relative h-52 flex items-center justify-center bg-gradient-to-br from-onyx-50 to-onyx overflow-hidden border-b border-gold/15">
-              <div className="absolute inset-0 chess-bg opacity-30" />
-
+            <div className="relative h-56 flex items-center justify-center bg-onyx-100 dark:bg-onyx overflow-hidden border-b border-gold/15">
               {/* Thumbnail image if available */}
               {p.image ? (
-                <div className="absolute inset-0 w-full h-full">
+                <div className="absolute inset-0 w-full h-full bg-stone-900/40">
                   <Image
                     src={p.image}
                     alt={getLocalized(p.name, locale)}
                     fill
                     sizes="(max-width: 768px) 100vw, 600px"
-                    className="object-cover opacity-60 group-hover:opacity-85 group-hover:scale-105 transition-all duration-700 ease-out"
+                    unoptimized
+                    className="object-cover object-top opacity-100 group-hover:scale-105 transition-transform duration-700 ease-out"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-onyx via-onyx/40 to-transparent" />
                 </div>
-              ) : null}
-
-              {/* Rook motif overlay */}
-              <div className="relative z-10 text-8xl text-gold/30 group-hover:text-gold/50 group-hover:scale-110 transition-all duration-700">
-                ♖
-              </div>
+              ) : (
+                <>
+                  <div className="absolute inset-0 chess-bg opacity-30" />
+                  {/* Rook motif overlay for placeholder */}
+                  <div className="relative z-10 text-8xl text-gold/30 group-hover:text-gold/50 group-hover:scale-110 transition-all duration-700">
+                    ♖
+                  </div>
+                </>
+              )}
 
               {/* Status pill */}
               <div className="absolute top-4 end-4 z-20 flex items-center gap-2 px-3 py-1 bg-gold text-stone-950 text-xs font-mono font-semibold tracking-widest uppercase rounded-sm shadow-md">

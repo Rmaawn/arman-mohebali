@@ -189,6 +189,8 @@ export const resume = {
         "/projects/nootika-1.webp",
         "/projects/nootika-2.webp",
         "/projects/nootika-3.webp",
+        "/projects/nootika-4.webp",
+        "/projects/nootika-5.webp",
       ],
       technologies: [
         "Flutter",
@@ -301,6 +303,10 @@ export const resume = {
         "/projects/news-engine-1.webp",
         "/projects/news-engine-2.webp",
         "/projects/news-engine-3.webp",
+        "/projects/news-engine-4.webp",
+        "/projects/news-engine-5.webp",
+        "/projects/news-engine-6.webp",
+        "/projects/news-engine-7.webp",
       ],
       technologies: [
         "Python 3.10+",
@@ -316,7 +322,7 @@ export const resume = {
       ],
       description: {
         en: "An autonomous 4-phase news pipeline executing 24/7 every 10 minutes — crawled, scraped, AI-rewritten, and published 10,000+ news articles across 8 channels on 4 platforms over 4 months.",
-        fa: "موتور هوشمند و کاملاً خودکار پایش و انتشار خبر با چرخه ۱۰ دقیقه‌ای (۶ خبر در ساعت) — انتشار بیش از ده‌ها هزار خبر طی ۴ ماه بر روی ۸ کانال در ۴ پلتفرم بدون دخالت انسانی.",
+        fa: "موتور هوشمند و کاملاً خودکار پایش و انتشار خبر با چرخه ۱۰ دقیقه‌ای (۶ خبر در ساعت) — انتشار بیش از ده‌ها هزار خبر طی ۴ ماه بر روی ۶ کانال در پلتفرم های بله، ایتا و روبیکا، بدون دخالت انسانی.",
       },
       details: {
         en: "Engineered with a robust 4-stage pipeline (Discovery → Extraction → AI Rewriter → Multi-Platform Dispatcher) alongside an independent Health Engine, circuit breakers, and hash-based content deduplication.",
@@ -325,7 +331,7 @@ export const resume = {
       highlights: {
         en: [
           "Autonomous 24/7 scheduler dispatching 6 news/hr (every 10 minutes) with 10,000+ articles published across 4 months",
-          "Multi-platform broadcasting to 8 channels simultaneously across Bale, Rubika, Eitaa, and Web platforms",
+          "Multi-platform broadcasting to 6 channels simultaneously across Bale, Rubika, Eitaa, and Web platforms",
           "Context-aware AI rewriting using LLM JSON formatting, headline optimization, and intelligent text summarization",
           "Production resilience with smart exponential retry, SHA deduplication, and circuit breaker cooldowns for failing sources",
         ],
@@ -358,6 +364,7 @@ export const resume = {
         "/projects/hami-1.webp",
         "/projects/hami-2.webp",
         "/projects/hami-3.webp",
+        "/projects/hami-4.webp",
       ],
       technologies: [
         "NestJS 10",
@@ -409,12 +416,13 @@ export const resume = {
         en: "2026 · Full-Stack AI Workspace",
         fa: "۱۴۰۵ · فضای کار هوشمند و چابک",
       },
-      status: "LIVE",
+      status: "Local",
       image: "/projects/tasko-1.webp",
       images: [
         "/projects/tasko-1.webp",
         "/projects/tasko-2.webp",
         "/projects/tasko-3.webp",
+        "/projects/tasko-4.webp",
       ],
       technologies: [
         "Next.js 14",
@@ -472,6 +480,10 @@ export const resume = {
       image: "/projects/instagram-analyzer-1.webp",
       images: [
         "/projects/instagram-analyzer-1.webp",
+        "/projects/instagram-analyzer-2.webp",
+        "/projects/instagram-analyzer-3.webp",
+        "/projects/instagram-analyzer-4.webp",
+        "/projects/instagram-analyzer-5.webp",
       ],
       technologies: [
         "FastAPI",
