@@ -238,6 +238,7 @@ export const resume = {
         fa: "۱۴۰۳ · موتور اتوماسیون خبری",
       },
       status: "LIVE",
+      link: "https://github.com/Rmaawn/News-Discovery-Engine/",
       image: "/projects/news-engine-1.webp",
       images: [
         "/projects/news-engine-1.webp",
@@ -475,6 +476,7 @@ export const resume = {
         fa: "۱۴۰۵ · دستیار و تحلیل‌گر هوشمند اینستاگرام",
       },
       status: "LOCAL",
+      link: "https://github.com/Rmaawn/instagram-analyzer/",
       image: "/projects/instagram-analyzer-1.webp",
       images: [
         "/projects/instagram-analyzer-1.webp",

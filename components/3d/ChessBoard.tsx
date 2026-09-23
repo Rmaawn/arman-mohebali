@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { useMemo, useRef } from "react";
 import * as THREE from "three";
 import { COLUMNS } from "@/data/cells";
 
@@ -14,6 +14,15 @@ interface Props {
 }
 
 export function ChessBoard({ hoverCell, activeCell, hoverCol, onHoverCell, onSelectCell, isDark = true }: Props) {
+  const pointerDownRef = useRef<{ x: number; y: number; time: number } | null>(null);
+  const lastSelectRef = useRef(0);
+
+  const handleSelectSquare = (col: number, row: number) => {
+    const now = Date.now();
+    if (now - lastSelectRef.current < 200) return;
+    lastSelectRef.current = now;
+    onSelectCell(col, row);
+  };
   const lightMat = useMemo(
     () =>
       new THREE.MeshStandardMaterial({
@@ -132,9 +141,35 @@ export function ChessBoard({ hoverCell, activeCell, hoverCol, onHoverCell, onSel
             <mesh
               material={sq.light ? lightMat : darkMat}
               receiveShadow
-              onPointerOver={(e) => { e.stopPropagation(); onHoverCell({ col: sq.col, row: sq.row }); document.body.style.cursor = "pointer"; }}
-              onPointerOut={() => { onHoverCell(null); document.body.style.cursor = "default"; }}
-              onClick={(e) => { e.stopPropagation(); if (sq.filled) onSelectCell(sq.col, sq.row); }}
+              onPointerOver={(e) => {
+                e.stopPropagation();
+                onHoverCell({ col: sq.col, row: sq.row });
+                document.body.style.cursor = "pointer";
+              }}
+              onPointerOut={() => {
+                onHoverCell(null);
+                document.body.style.cursor = "default";
+              }}
+              onPointerDown={(e) => {
+                pointerDownRef.current = { x: e.clientX, y: e.clientY, time: Date.now() };
+              }}
+              onPointerUp={(e) => {
+                if (pointerDownRef.current) {
+                  const dx = e.clientX - pointerDownRef.current.x;
+                  const dy = e.clientY - pointerDownRef.current.y;
+                  const dist = Math.hypot(dx, dy);
+                  const duration = Date.now() - pointerDownRef.current.time;
+                  pointerDownRef.current = null;
+                  if (dist < 20 && duration < 500 && sq.filled) {
+                    e.stopPropagation();
+                    handleSelectSquare(sq.col, sq.row);
+                  }
+                }
+              }}
+              onClick={(e) => {
+                e.stopPropagation();
+                if (sq.filled) handleSelectSquare(sq.col, sq.row);
+              }}
             >
               <boxGeometry args={[0.98, 0.1, 0.98]} />
             </mesh>

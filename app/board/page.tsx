@@ -96,7 +96,7 @@ export default function BoardPage() {
   }, [goNext]);
 
   return (
-    <main className="fixed inset-0 overflow-hidden bg-onyx select-none">
+    <main className="fixed inset-0 w-full h-[100dvh] overflow-hidden bg-onyx select-none">
       {/* ── 3D Chess Scene: Full Screen Canvas (Hero Focus) ── */}
       <div className="absolute inset-0">
         <Scene
@@ -117,17 +117,27 @@ export default function BoardPage() {
       </div>
 
       {/* ── Top Bar Controls ──────────────────────────────── */}
-      <Link
-        href="/"
-        className={`fixed top-6 z-50 group inline-flex items-center gap-2 glass px-3.5 py-2 rounded-full text-xs font-mono tracking-[0.2em] uppercase text-ivory/70 hover:text-gold hover:border-gold/50 transition-all ${
-          locale === "fa" ? "right-28 sm:right-32" : "left-28 sm:left-32"
-        }`}
-      >
-        <ArrowLeft className={`w-3.5 h-3.5 ${locale === "fa" ? "flip-rtl" : ""}`} />
-        <span>{locale === "fa" ? "بازگشت به رزومه" : "Resume"}</span>
-      </Link>
+      <header className="fixed top-3 sm:top-5 inset-x-0 z-50 px-3 sm:px-6 pointer-events-none">
+        <div className="max-w-7xl mx-auto flex items-center justify-between">
+          <Link
+            href="/"
+            className="pointer-events-auto group inline-flex items-center gap-1.5 sm:gap-2 glass px-3 sm:px-3.5 py-1.5 sm:py-2 rounded-full text-xs font-mono tracking-wider uppercase text-ivory/80 hover:text-gold hover:border-gold/50 transition-all shadow-lg active:scale-95"
+            title={locale === "fa" ? "بازگشت به صفحه اصلی رزومه" : "Return to Resume Home"}
+          >
+            <ArrowLeft className={`w-3.5 h-3.5 ${locale === "fa" ? "rotate-180" : ""}`} />
+            <span className="font-semibold">{locale === "fa" ? "بازگشت" : "Resume"}</span>
+            <span className="hidden sm:inline font-normal text-ivory/60">{locale === "fa" ? "به رزومه" : ""}</span>
+          </Link>
 
-      <LanguageSwitcher locale={locale} onChange={setLocale} />
+          <div className="pointer-events-auto">
+            <LanguageSwitcher
+              locale={locale}
+              onChange={setLocale}
+              className="relative top-0 right-0 z-auto flex items-center gap-1 sm:gap-2 glass px-2 sm:px-3 py-1.5 sm:py-2 rounded-full shadow-lg"
+            />
+          </div>
+        </div>
+      </header>
 
       {/* ── 8-Column Guide at Bottom (A to H with Upward Pointers & Real-time 3D Highlight) ── */}
       <BoardHud

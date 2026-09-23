@@ -1,21 +1,45 @@
 "use client";
 
-import { Canvas, useFrame } from "@react-three/fiber";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { OrbitControls, ContactShadows } from "@react-three/drei";
-import { Suspense, useRef, useEffect } from "react";
+import { Suspense, useRef, useEffect, useMemo } from "react";
 import { useTheme } from "next-themes";
 import type { OrbitControls as OrbitControlsImpl } from "three-stdlib";
 import * as THREE from "three";
 import { ChessBoard } from "./ChessBoard";
 import { PlayerKnight } from "./PlayerKnight";
 
-const DEFAULT_CAMERA_POS = new THREE.Vector3(0, 8, 11);
-const DEFAULT_TARGET = new THREE.Vector3(0, 0, 0);
-
 function BoardCameraController() {
   const controlsRef = useRef<OrbitControlsImpl>(null);
   const isDragging = useRef(false);
   const releaseTimer = useRef<NodeJS.Timeout | null>(null);
+
+  const { size } = useThree();
+  const aspect = size.width / Math.max(1, size.height);
+  const isMobile = size.width < 768 || aspect < 1;
+
+  // Responsive camera scaling:
+  // Desktop 16:9 (aspect ~1.77) -> factor = 1 (default pos 0, 8, 11)
+  // Mobile portrait (aspect ~0.45-0.56) -> factor ~1.9-2.2 (full 8.8 board width fits with margins)
+  const zoomFactor = useMemo(() => {
+    if (aspect >= 1.25) return 1;
+    return Math.max(1, Math.min(2.35, 1.05 / Math.max(0.42, aspect)));
+  }, [aspect]);
+
+  const targetCamPos = useMemo(() => {
+    if (isMobile) {
+      return new THREE.Vector3(0, 8.2 * zoomFactor, 10.8 * zoomFactor);
+    }
+    return new THREE.Vector3(0, 8, 11);
+  }, [isMobile, zoomFactor]);
+
+  const targetLookAt = useMemo(() => {
+    if (isMobile) {
+      // Offset target along Z to frame the board comfortably in the upper-middle screen area
+      return new THREE.Vector3(0, 0, 0.45);
+    }
+    return new THREE.Vector3(0, 0, 0);
+  }, [isMobile]);
 
   const handleStart = () => {
     isDragging.current = true;
@@ -49,24 +73,33 @@ function BoardCameraController() {
     };
   }, []);
 
+  // Update camera and controls when viewport/orientation changes
+  useEffect(() => {
+    if (controlsRef.current && !isDragging.current) {
+      controlsRef.current.object.position.copy(targetCamPos);
+      controlsRef.current.target.copy(targetLookAt);
+      controlsRef.current.update();
+    }
+  }, [targetCamPos, targetLookAt]);
+
   useFrame((_, delta) => {
     if (isDragging.current || !controlsRef.current) return;
 
     const camera = controlsRef.current.object;
     const target = controlsRef.current.target;
 
-    const posDist = camera.position.distanceTo(DEFAULT_CAMERA_POS);
-    const targetDist = target.distanceTo(DEFAULT_TARGET);
+    const posDist = camera.position.distanceTo(targetCamPos);
+    const targetDist = target.distanceTo(targetLookAt);
 
     if (posDist > 0.003 || targetDist > 0.003) {
       // Smooth, responsive spring back (frame-rate independent)
       const t = 1 - Math.exp(-6.5 * delta);
-      camera.position.lerp(DEFAULT_CAMERA_POS, t);
-      target.lerp(DEFAULT_TARGET, t);
+      camera.position.lerp(targetCamPos, t);
+      target.lerp(targetLookAt, t);
       controlsRef.current.update();
     } else if (posDist > 0 || targetDist > 0) {
-      camera.position.copy(DEFAULT_CAMERA_POS);
-      target.copy(DEFAULT_TARGET);
+      camera.position.copy(targetCamPos);
+      target.copy(targetLookAt);
       controlsRef.current.update();
     }
   });
@@ -77,8 +110,8 @@ function BoardCameraController() {
       enablePan={false}
       enableZoom={true}
       zoomSpeed={0.4}
-      minDistance={8}
-      maxDistance={18}
+      minDistance={isMobile ? 12 : 8}
+      maxDistance={isMobile ? 36 : 18}
       minPolarAngle={Math.PI / 4.5}
       maxPolarAngle={Math.PI / 2.25}
       minAzimuthAngle={-Math.PI / 3.5}
