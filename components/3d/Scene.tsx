@@ -35,8 +35,9 @@ function BoardCameraController() {
 
   const targetLookAt = useMemo(() => {
     if (isMobile) {
-      // Offset target along Z to frame the board comfortably in the upper-middle screen area
-      return new THREE.Vector3(0, 0, 0.45);
+      // By pointing slightly higher on Y, the board is framed in the middle-lower region,
+      // perfectly placed below the top Cell Info Card and above the Bottom HUD
+      return new THREE.Vector3(0, 1.4, -0.4);
     }
     return new THREE.Vector3(0, 0, 0);
   }, [isMobile]);

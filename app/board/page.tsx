@@ -7,6 +7,7 @@ import { ArrowLeft } from "lucide-react";
 import { COLUMNS } from "@/data/cells";
 import type { Locale } from "@/data/cells";
 import { LanguageSwitcher } from "@/components/ui/LanguageSwitcher";
+import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { BoardHud } from "@/components/ui/BoardHud";
 import { CellPanel } from "@/components/ui/CellPanel";
 
@@ -129,7 +130,11 @@ export default function BoardPage() {
             <span className="hidden sm:inline font-normal text-ivory/60">{locale === "fa" ? "به رزومه" : ""}</span>
           </Link>
 
-          <div className="pointer-events-auto">
+          <div className="pointer-events-auto flex items-center gap-1.5 sm:gap-2">
+            <ThemeToggle
+              compactOnMobile={true}
+              className="relative top-0 left-0 z-auto flex items-center gap-1 sm:gap-1.5 glass px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-full border border-gold/30 text-gold/80 hover:text-gold hover:border-gold/60 transition-all shadow-lg text-xs active:scale-95"
+            />
             <LanguageSwitcher
               locale={locale}
               onChange={setLocale}
